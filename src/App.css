@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Baumans&family=Koulen&family=Montserrat:wght@300&family=PT+Sans&display=swap');
+
+html,body{
+  margin: 0;
+  padding: 0;
+}
+
+p,h1,h2,h3,h4,h5,h6{
+  margin: 0;
+  font-family: 'Baumans', cursive;
+}
+
+label{
+  font-family: 'Koulen', cursive;
+}
+
+
+.App-content{
+  width: 1080px;
+  margin: 0 auto;
+}
+

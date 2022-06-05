@@ -1,0 +1,13 @@
+.input_class{
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  outline: none;
+  padding: 9px 15px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: 'PT Sans', sans-serif;
+  border-radius: 2px;
+  
+}
+.input_class::placeholder{
+  font-family: 'PT Sans', sans-serif;
+}

@@ -1,0 +1,45 @@
+
+form{
+  min-height: inherit;
+}
+
+.wrapper{
+  width: 70%;
+  margin: 0 auto;
+  min-height: inherit;
+  margin-top: 30px;
+}
+
+.user_input{
+  margin-top: 15px;
+}
+
+.submit_btn{
+  width: 100%;
+  margin-top: 35px;
+  text-align: center;
+}
+
+.submit_btn button{
+  padding: 7px 0;
+  width: 100%;
+  font-size: 15px;
+  border: none;
+  background-color: rgba(201, 83, 83, 0.808);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.877);
+  outline: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.submit_btn button:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor:not-allowed;
+}
+
+/* font-family: 'PT Sans', sans-serif; */
