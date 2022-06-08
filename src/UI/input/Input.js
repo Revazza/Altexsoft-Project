@@ -16,6 +16,7 @@ const Input = forwardRef((props,ref) => {
       onChange={props.onChange}
       onBlur={props.onBlur}
       className={classes}
+      id={props.id}
     />
   )
 })

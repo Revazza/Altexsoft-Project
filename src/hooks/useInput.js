@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 
 function useInput(validateFunction) {
 
   const [value,setValue] = useState('');
   const [isTouched,setIsTouched] = useState(false);
 
-  const isValid = validateFunction(value);
-  const hasErrors = !isValid && isTouched;
+  const input = validateFunction(value);
+  const hasErrors = !input.isValid && isTouched;
+  let errorMsg = '';
+  if(hasErrors)
+    errorMsg = input.errorMsg;
 
   const valueChangeHandler = (event) =>{
     setValue(event.target.value);
@@ -19,8 +22,9 @@ function useInput(validateFunction) {
 
   return {
     value,
-    isValid,
+    errorMsg,
     hasErrors,
+    input,
     valueChangeHandler,
     valueLoseFocusHandler,
   }

@@ -1,0 +1,12 @@
+.search_bar{
+  height: inherit;
+  width: 43%;
+}
+.search_input{
+  height: 40px;
+  height: inherit;
+  border: 1px solid darkslateblue;
+  /* border-right: none; */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}

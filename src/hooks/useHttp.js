@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function useHttp() {
-  const [error, setError] = useState();
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const sendRequest = async (url, configure) => {
     setIsLoading(true);

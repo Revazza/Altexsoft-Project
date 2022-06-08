@@ -3,6 +3,7 @@
 html,body{
   margin: 0;
   padding: 0;
+  
 }
 
 p,h1,h2,h3,h4,h5,h6{
@@ -14,9 +15,14 @@ label{
   font-family: 'Koulen', cursive;
 }
 
-
 .App-content{
   width: 1080px;
   margin: 0 auto;
 }
+
+.Auth_wrapper,.Home_wrapper{
+  width: 100%;
+  position: relative;
+}
+
 

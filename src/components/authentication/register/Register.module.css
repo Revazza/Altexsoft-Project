@@ -1,0 +1,101 @@
+
+
+.form_wrapper{
+  width: 690px;
+  margin: 150px auto 0 auto;
+  height: 700px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  overflow: hidden;
+
+}
+.form_wrapper p{
+  font-family: 'PT Sans', sans-serif;
+}
+.form_section{
+  box-sizing: border-box;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+#secondSection{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.form_section h1{
+  text-align: center;
+}
+
+
+.input_wrapper{
+  width: 70%;
+  margin: 18px auto 0 auto;
+}
+.input_wrapper label{
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+
+.information{
+  min-height: 35px;
+  border: 1px solid rgb(99, 98, 98);
+  padding: 3px 7px;
+  box-sizing: border-box;
+  font-size: 14px;
+  width: 100%;
+  font-style: italic;
+  color:grey;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 3px;
+}
+
+.info{
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.822);
+}
+
+.register_btn{
+  width: 70%;
+  height: 30px;
+  margin: 15px auto 0 auto;
+  box-sizing: border-box;
+}
+.register_btn p {
+  margin-bottom: 5px;
+  color: #F15412;
+}
+.submit_btn{
+  width: 100%;
+  height: inherit;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  font-size: 15px;
+  border: 1px solid grey;
+  border-radius: 2px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 300ms;
+}
+.submit_btn:hover{
+  background-color: #F24C4C;
+  color: rgba(255, 255, 255, 0.87);
+}
+.submit_btn:disabled:hover{
+  background-color: transparent;
+}
+
+.change_section_btn{
+  margin-top: 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #34B3F1;
+  padding:0;
+}
+
+#fileWrapper{
+  display: flex;
+  flex-direction: column;
+}
