@@ -1,0 +1,25 @@
+
+.section_wrapper{
+  margin-top: 40px;
+  width: 100%;
+  min-height: 300px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 5px;
+}
+.section_wrapper h2{
+  margin-left: 15px;
+}
+
+.wrapper{
+  margin-top: 18px;
+  width: 100%;
+  min-height: 330px;
+  display: grid;
+  grid-template-columns: repeat(4,24%);
+  justify-content: space-around;
+  grid-gap: 15px;
+}
+
+

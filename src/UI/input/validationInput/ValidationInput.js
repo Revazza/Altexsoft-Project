@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import classes from "./RegisterInput.module.css";
+import classes from "./ValidationInput.module.css";
 import useInput from "../../../hooks/useInput";
 import Input from "../../../UI/input/Input";
 
-function RegisterInput(props) {
+function ValidationInput(props) {
   const { value, input, hasErrors, valueChangeHandler, valueLoseFocusHandler } =
     useInput((value) => {
       return props.validationFunc(value, props.inputName);
@@ -32,4 +32,4 @@ function RegisterInput(props) {
   );
 }
 
-export default RegisterInput;
+export default ValidationInput;

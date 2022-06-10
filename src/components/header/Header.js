@@ -14,7 +14,7 @@ function Header() {
       <div className={classes.content_wrapper}>
         <div className={classes.logo}>
           <h1>
-            Travel<span style={{ color: "#F24C4C" }}>M</span>ore
+            Travel<span style={{ color: "#18A0FB" }}>M</span>ore
           </h1>
         </div>
         <nav className={classes.nav_wrapper}>

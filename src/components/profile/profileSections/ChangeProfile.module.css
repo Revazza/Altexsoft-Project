@@ -1,0 +1,21 @@
+.wrapper {
+  width: 60%;
+  min-height: 360px;
+  max-height: 400px;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 23px 27px;
+}
+
+.form_wrapper {
+  width: 90%;
+  min-height: 312px;
+}
+
+.reset_form{
+  height: 240px !important;
+}
+.reset_form input{
+  margin-top: 20px;
+}
+

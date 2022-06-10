@@ -7,7 +7,6 @@ function Authentication() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isUser, setIsUser] = useState(null);
   const [currentSection, setCurrentSection] = useState("login");
-  const [users, setUsers] = useState();
   const {sendRequest} = useHttp();
   useEffect(() => {}, []);
 

@@ -1,0 +1,61 @@
+
+.wrapper{
+  width: 15%;
+  height: inherit;
+  cursor: pointer;
+}
+
+.date_btn{
+  width: 100%;
+  height: inherit;
+  font-family: 'Baumans', cursive;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.date_btn p{
+  font-size: 13px;
+}
+
+.date_btn img{
+  position: relative;
+  top: 2px;
+  left: 10px;
+  width: 11%;
+  transform:rotate(90deg);
+}
+
+.start-end_date{
+  width: fit-content;
+  display: flex;
+  position: relative;
+  top: 7px;
+  right: 50%;
+  box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+  padding: 5px 20px 15px 20px;
+
+}
+.start-end_date label{
+  font-family: 'Baumans', cursive;
+  font-weight: bolder;
+
+}
+.start-end_date input{
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.end_date{
+  margin-left: 6px;
+}
+::-webkit-datetime-edit-text
+{
+  color: black;
+  font-weight: bolder;
+}
+::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field{
+  color: gray;
+}
+::-webkit-calendar-picker-indicator{
+  background-image: url('../../../../../public/assets/calendar.png');
+}

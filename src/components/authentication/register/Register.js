@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import classes from "./Register.module.css";
-import RegisterInput from "./RegisterInput";
+import ValidationInput from "../../../UI/input/validationInput/ValidationInput";
 import {
   validateNameOrLastname,
   validatePassword,
   validateUsername,
   validateEmail,
 } from "../../../helperFunctions/HelperFunctions";
+import Button from "../../../UI/Button";
 
 function Register(props) {
   const [username, setUsername] = useState("");
@@ -66,10 +67,10 @@ function Register(props) {
     <form className={classes.form_wrapper} onSubmit={handleSubmission}>
       <div className={classes.form_section}>
         <h1>
-          Travel<span style={{ color: "#F24C4C" }}>M</span>ore
+          Travel<span style={{ color: "rgb(24, 160, 251)" }}>M</span>ore
         </h1>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="text"
             placeholder="First Name"
             validationFunc={validateNameOrLastname}
@@ -79,7 +80,7 @@ function Register(props) {
           />
         </div>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="text"
             placeholder="Last Name"
             validationFunc={validateNameOrLastname}
@@ -89,7 +90,7 @@ function Register(props) {
           />
         </div>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="text"
             placeholder="Username"
             validationFunc={validateUsername}
@@ -99,7 +100,7 @@ function Register(props) {
           />
         </div>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="email"
             placeholder="Email"
             validationFunc={validateEmail}
@@ -109,7 +110,7 @@ function Register(props) {
           />
         </div>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="password"
             placeholder="Password"
             validationFunc={validatePassword}
@@ -119,7 +120,7 @@ function Register(props) {
           />
         </div>
         <div className={classes.input_wrapper}>
-          <RegisterInput
+          <ValidationInput
             type="password"
             placeholder="Repeat Password"
             validationFunc={validateRePass}
@@ -134,13 +135,12 @@ function Register(props) {
         </div>
         <div className={classes.register_btn}>
           {props.isRegistered && <p>Account is already registered</p>}
-          <button
+          <Button
             type="submit"
             disabled={!formIsValid}
             className={classes.submit_btn}
-          >
-            Register
-          </button>
+            title='Register'
+          />
           <button
             type="button"
             className={classes.change_section_btn}

@@ -5,6 +5,7 @@ import Authentication from "./pages/Authentication";
 import { useDispatch } from "react-redux";
 import Home from "./pages/Home";
 import Header from "./components/header/Header";
+import Profile from "./pages/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ function App() {
               <h1>I am result</h1>
             </Route>
             <Route path='/profile'>
-              <h1>I am profile</h1>
+              <Profile />
             </Route>
           </Route>
         </Switch>

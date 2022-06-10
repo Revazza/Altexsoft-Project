@@ -65,26 +65,6 @@
   margin-bottom: 5px;
   color: #F15412;
 }
-.submit_btn{
-  width: 100%;
-  height: inherit;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bolder;
-  letter-spacing: 1px;
-  font-size: 15px;
-  border: 1px solid grey;
-  border-radius: 2px;
-  background-color: transparent;
-  cursor: pointer;
-  transition: 300ms;
-}
-.submit_btn:hover{
-  background-color: #F24C4C;
-  color: rgba(255, 255, 255, 0.87);
-}
-.submit_btn:disabled:hover{
-  background-color: transparent;
-}
 
 .change_section_btn{
   margin-top: 15px;
