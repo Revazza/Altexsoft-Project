@@ -1,5 +1,5 @@
 import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { authSliceActions } from "./store/authSlice";
 import Authentication from "./pages/Authentication";
 import { useDispatch } from "react-redux";
@@ -24,19 +24,20 @@ function App() {
       <Header />
       <div className="App-content">
         <Switch>
-          <Route exact path="/auth">
+          <Route path="/auth">
             <Authentication />
           </Route>
-          <Route path='/'>
-            <Route path='/home'>
-              <Home />
-            </Route>
-            <Route path='/result'>
-              <h1>I am result</h1>
-            </Route>
-            <Route path='/profile'>
-              <Profile />
-            </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/result">
+            <h1>I am result</h1>
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="*">
+            <Redirect to='/' />
           </Route>
         </Switch>
       </div>

@@ -3,23 +3,26 @@ import styles from "./DropDownList.module.css";
 
 function DropDownList(props) {
   const [showList, setShowList] = useState(false);
+  const [listName,setListName] = useState(props.name);
   const handleDropDownClick = () => {
     setShowList((prevState) => !prevState);
   };
 
-  const handleListItemClick = (itemName) =>{
+
+
+  const handleListItemClick = (itemValue) =>{
     const key = props.name.toLowerCase();
     props.onChangeValue({
-      ...props.parentState,
-      [key]:itemName,
+      [key]:itemValue,
     })
+    setListName(itemValue)
     setShowList(false);
   }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.list_btn} onClick={handleDropDownClick}>
-        <p>{props.name}</p>
+        <p>{listName}</p>
         <img
           src="./assets/list_arrow.png"
           alt="arrow"

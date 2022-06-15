@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./SearchBar.module.css";
 import Input from "../../../../UI/input/Input";
+import { Link } from "react-router-dom";
 
 const dummy_hotels = [
   {
@@ -36,27 +37,36 @@ function SearchBar(props) {
   const inputChangeHandler = (event) => {
     setSearchInput(event.target.value);
     props.onChangeValue({
-      ...props.searchState,
-      search:event.target.value
-    })
+      search: event.target.value,
+    });
   };
-
- 
 
   return (
     <div className={classes.search_bar}>
       <Input
         type="text"
         placeholder="Search hotels"
+        value={searchInput}
         className={classes.search_input}
         onChange={inputChangeHandler}
       />
       <div className={classes.suggestions}>
-        {(searchInput.length !== 0) && (
+        {searchInput.length !== 0 && (
           <ul>
-            {suggestedHotels.length === 0 && <p className={classes.nothing_found}>Nothing found</p>}
+            {suggestedHotels.length === 0 && (
+              <p className={classes.nothing_found}>Nothing found</p>
+            )}
             {suggestedHotels.map((hotel) => {
-              return <li key={hotel.id} id={hotel.id}>{hotel.title}</li>;
+              const linkTo = `/result/${hotel.title}`;
+              return (
+                <li
+                  key={hotel.id}
+                  id={hotel.id}
+                  onClick={() => setSearchInput('')}
+                >
+                  <Link to={linkTo}>{hotel.title}</Link>
+                </li>
+              );
             })}
           </ul>
         )}

@@ -22,7 +22,7 @@
   z-index: 3;
   background-color: white;
   max-height: 200px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }

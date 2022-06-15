@@ -3,7 +3,8 @@ import DropDownList from "../../../UI/dropdownList/DropDownList";
 import DateInput from "./date/DateInput";
 import classes from "./Search.module.css";
 import SearchBar from "./searchBar/SearchBar";
-import Button from '../../../UI/Button';
+import Button from "../../../UI/Button";
+import { useHistory } from "react-router-dom";
 
 const dummy_countries = [
   {
@@ -44,33 +45,33 @@ const dummy_bed = [
 
 function Search() {
   const [searchAttributes, setSearchAttributes] = useState(null);
-
+  const history = useHistory();
   const handleSubmission = (event) => {
     event.preventDefault();
+    if (searchAttributes !== null) {
+      history.push(`/result/${searchAttributes.search}`, {
+        state: searchAttributes,
+      });
+    }
   };
+
   const handleSearchValuesChange = (inputObj) => {
-    setSearchAttributes(inputObj);
-    console.log(inputObj);
+    setSearchAttributes((prevState) => {
+      return { ...prevState, ...inputObj };
+    });
   };
 
   return (
     <form className={classes.wrapper}>
       <div className={classes.attributes}>
-        <SearchBar
-          onChangeValue={handleSearchValuesChange}
-          searchState={searchAttributes}
-        />
-        <DateInput
-          onChangeValue={handleSearchValuesChange}
-          searchState={searchAttributes}
-        />
+        <SearchBar onChangeValue={handleSearchValuesChange} />
+        <DateInput onChangeValue={handleSearchValuesChange} />
         <div className={classes.bed_filter}>
           <DropDownList
             name="Bed"
             alignCenter={true}
             items={dummy_bed}
             onChangeValue={handleSearchValuesChange}
-            parentState={searchAttributes}
           />
         </div>
         <div className={classes.city_filter}>
@@ -78,11 +79,10 @@ function Search() {
             name="City"
             items={dummy_countries}
             onChangeValue={handleSearchValuesChange}
-            parentState={searchAttributes}
           />
         </div>
         <div className={classes.search_btn}>
-          <Button type='text' title='Search' />
+          <Button type="text" title="Search" onClick={handleSubmission} />
         </div>
       </div>
     </form>

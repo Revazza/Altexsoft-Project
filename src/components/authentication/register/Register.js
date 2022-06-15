@@ -8,9 +8,10 @@ import {
   validateEmail,
 } from "../../../helperFunctions/HelperFunctions";
 import Button from "../../../UI/Button";
+import { Link } from "react-router-dom";
 
 function Register(props) {
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ function Register(props) {
     let value = obj[keyName];
     if (keyName === "firstName") setFirstName(value);
     else if (keyName === "lastName") setLastName(value);
-    else if (keyName === "username") setUsername(value);
+    else if (keyName === "userName") setUsername(value);
     else if (keyName === "email") setEmail(value);
     else if (keyName === "password") setPassword(value);
     else setRePassword(value);
@@ -34,7 +35,7 @@ function Register(props) {
     let newUser = {
       firstName,
       lastName,
-      username,
+      userName,
       email,
       password,
       image,
@@ -55,13 +56,13 @@ function Register(props) {
   };
 
   const formIsValid =
-    username.length !== 0 &&
+  userName.length !== 0 &&
     lastName.length !== 0 &&
     password.length !== 0 &&
     firstName.length !== 0 &&
     rePassword.length !== 0 &&
-    email.length !== 0 &&
-    image !== null;
+    email.length !== 0;
+    // image !== null;
 
   return (
     <form className={classes.form_wrapper} onSubmit={handleSubmission}>
@@ -94,7 +95,7 @@ function Register(props) {
             type="text"
             placeholder="Username"
             validationFunc={validateUsername}
-            inputName="username"
+            inputName="userName"
             onChangeValue={handleInputValueChange}
             isRequired={true}
           />
@@ -141,13 +142,7 @@ function Register(props) {
             className={classes.submit_btn}
             title='Register'
           />
-          <button
-            type="button"
-            className={classes.change_section_btn}
-            onClick={() => props.onSectionChange("login")}
-          >
-            Already Have Account?
-          </button>
+          <Link to='/auth/login' className={classes.link_to} >Already have account?</Link>
         </div>
       </div>
     </form>

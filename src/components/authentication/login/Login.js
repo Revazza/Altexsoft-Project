@@ -3,6 +3,7 @@ import Input from "../../../UI/input/Input";
 import id from "./Login.module.css";
 import registerClasses from "../register/Register.module.css";
 import Button from "../../../UI/Button";
+import { Link } from "react-router-dom";
 
 function Login(props) {
   const usernameRef = useRef();
@@ -40,12 +41,7 @@ function Login(props) {
           title='Login'
         />
 
-        <button
-          className={registerClasses.change_section_btn}
-          onClick={() => props.onSectionChange("register")}
-        >
-          Create new account
-        </button>
+        <Link to='/auth/register' className={registerClasses.link_to} >Create New Account</Link>
       </div>
     </form>
   );

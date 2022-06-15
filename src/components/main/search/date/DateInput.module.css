@@ -12,9 +12,10 @@
   display:flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .date_btn p{
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .date_btn img{

@@ -109,12 +109,7 @@ function PopularHotels() {
           return (
             <Item
               key={hotel.id}
-              id={hotel.id}
-              title={hotel.title}
-              distanceToCenter={hotel.distanceToCenter}
-              description={hotel.description}
-              bed={hotel.bed}
-              isAvailable={hotel.isAvailable}
+              hotel={hotel}
             />
           );
         })}
