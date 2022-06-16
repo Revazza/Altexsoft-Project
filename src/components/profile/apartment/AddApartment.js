@@ -1,19 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./AddApartment.module.css";
 
 import Input from "../../../UI/input/Input";
 
 import Button from "../../../UI/Button";
 
-function AddApartment() {
+function AddApartment(props) {
   const cityRef = useRef();
   const addressRef = useRef();
   const distanceRef = useRef();
   const bedRef = useRef();
   const [imgSrc, setImgSrc] = useState(undefined);
+
   const handleFileChange = (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
-    console.log(src);
     setImgSrc(src);
   };
 
@@ -37,23 +37,23 @@ function AddApartment() {
           <div id={classes.checkbox_container}>
             <div className={classes.checkbox_wrapper}>
               <input type="checkbox" name="wifi" />
-              <label for="wifi">Wi-Fi</label>
+              <label htmlFor="wifi">Wi-Fi</label>
             </div>
             <div className={classes.checkbox_wrapper}>
               <input type="checkbox" name="pool" />
-              <label for="pool">Pool</label>
+              <label htmlFor="pool">Pool</label>
             </div>
             <div className={classes.checkbox_wrapper}>
               <input type="checkbox" name="gym" />
-              <label for="gym">Gym</label>
+              <label htmlFor="gym">Gym</label>
             </div>
             <div className={classes.checkbox_wrapper}>
               <input type="checkbox" name="parking" />
-              <label for="parking">Parking</label>
+              <label htmlFor="parking">Parking</label>
             </div>
             <div className={classes.checkbox_wrapper}>
               <input type="checkbox" name="garage" />
-              <label for="garage">Garage</label>
+              <label htmlFor="garage">Garage</label>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ function AddApartment() {
       <div className={classes.photo_wrapper}>
         <img
           src={imgSrc ? imgSrc : "./assets/Rectangle.png"}
-          alt="Uploaded Image"
+          alt="Your Image"
         />
       </div>
       <div className={classes.submit_btn}>

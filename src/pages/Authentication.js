@@ -13,7 +13,6 @@ function Authentication() {
   const handleNewUser = (newUser) => {
     console.log(newUser);
     delete newUser.image;
-    console.log(newUser);
     sendRequest("https://localhost:7043/api/User", {
       method: "POST",
       headers: {
@@ -21,6 +20,7 @@ function Authentication() {
       },
       body: JSON.stringify({ ...newUser }),
     });
+
   };
   const handleLogin = (user) => {
     console.log(user);

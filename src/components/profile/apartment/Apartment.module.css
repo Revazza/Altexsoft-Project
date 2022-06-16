@@ -4,7 +4,6 @@
   margin-top: 60px;
   width: 100%;
   min-height: 50px;
-  border: 1px solid brown;
 }
 
 .wrap_section{
@@ -15,16 +14,27 @@
   border: 1px solid grey;
   border-radius: 3px;
 }
+
 .show_apartment{
   height: 50px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+
 }
+.show_apartment * {
+  cursor: pointer;
+
+}
+
+
 .title label{
   font-size: 20px;
 }
 .arrow img{
   transform:rotate(90deg);
 }
+
+

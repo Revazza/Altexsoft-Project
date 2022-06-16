@@ -27,14 +27,11 @@ function App() {
           <Route path="/auth">
             <Authentication />
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/result">
-            <h1>I am result</h1>
-          </Route>
           <Route path="/profile">
             <Profile />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
           <Route exact path="*">
             <Redirect to='/' />
