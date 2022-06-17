@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Main.module.css";
 import PopularHotels from "./popularHotels/PopularHotels";
 import Search from "./search/Search";

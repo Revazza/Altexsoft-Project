@@ -4,6 +4,9 @@ import Apartment from "./apartment/Apartment";
 import classes from "./ProfileLayout.module.css";
 import ChangeProfile from "./profileSections/ChangeProfile";
 import ProfileInformation from "./profileSections/ProfileInformation";
+import GoogleMapReact from "google-map-react";
+import ApartmentLayout from "./apartment/ApartmentLayout";
+import AddApartment from "./apartment/AddApartment";
 
 function ProfileLayout() {
   return (
@@ -14,10 +17,21 @@ function ProfileLayout() {
         <ChangeProfile />
       </section>
       <section className={classes.add_apartment}>
-        <Apartment />
+        <Apartment>
+          <AddApartment />
+        </Apartment>
+      </section>
+      <section className={classes.apartment_layout}>
+        <Apartment>
+          <ApartmentLayout/>
+        </Apartment>
       </section>
     </div>
   );
 }
+
+const MapPin = () => {
+  return <img src="./assets/pin.png" alt="pin" />;
+};
 
 export default ProfileLayout;

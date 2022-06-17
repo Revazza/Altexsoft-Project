@@ -6,6 +6,7 @@ import {
   validatePassword,
   validateUsername,
   validateEmail,
+  getBase64
 } from "../../../helperFunctions/HelperFunctions";
 import Button from "../../../UI/Button";
 import { Link } from "react-router-dom";
@@ -53,6 +54,7 @@ function Register(props) {
     console.log(event.target.files[0]);
     let img = event.target.files[0];
     setImage(URL.createObjectURL(img));
+    console.log(getBase64(img))
   };
 
   const formIsValid =

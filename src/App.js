@@ -6,18 +6,22 @@ import { useDispatch } from "react-redux";
 import Home from "./pages/Home";
 import Header from "./components/header/Header";
 import Profile from "./pages/Profile";
+import { useEffect } from "react";
+import { getCookie } from "./helperFunctions/HelperFunctions";
+import Guests from "./pages/Guests";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = localStorage.getItem("token");
 
-  if (token === null) {
-    // history.replace('/auth')
-  } else {
-    // dispatch(authSliceActions.login(token));
-    // history.replace('/home')
-  }
+  useEffect(() => {
+    if (getCookie("token")) {
+      dispatch(authSliceActions.login(getCookie("token")));
+      history.push("/");
+    } else {
+      history.push("/auth/login");
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -30,11 +34,14 @@ function App() {
           <Route path="/profile">
             <Profile />
           </Route>
+          <Route path='/my-guests'>
+            <Guests />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
           <Route exact path="*">
-            <Redirect to='/' />
+            <Redirect to="/" />
           </Route>
         </Switch>
       </div>

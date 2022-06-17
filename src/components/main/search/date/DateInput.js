@@ -9,10 +9,10 @@ function DateInput(props) {
 
   const inputName =
     startDate.length !== 0 || endDate.length !== 0 ? (
-      <React.Fragment>
+      <div className={classes.inputted_date_wrapper}>
         <p>{startDate}</p>
         <p>{endDate}</p>
-      </React.Fragment>
+      </div>
     ) : (
       <p>Date</p>
     );

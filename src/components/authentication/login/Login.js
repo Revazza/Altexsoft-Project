@@ -12,7 +12,7 @@ function Login(props) {
   const submitHandler = (event) => {
     event.preventDefault();
     props.onSubmit({
-      username: usernameRef.current.value,
+      userName: usernameRef.current.value,
       password: passwordRef.current.value,
     });
   };

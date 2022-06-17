@@ -74,20 +74,12 @@ const dummy_hotels = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry dummy text ever since the 1500s, when an unknown printer ",
     isAvailable: false,
-  },
-  {
-    id: 8,
-    title: "Neptune Hotel",
-    bed: 5,
-    distanceToCenter: 720,
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting has been the industry's standard dummy text ever since the 1500s",
-    isAvailable: true,
-  },
+  }
+
 ];
 
 function PopularHotels() {
-  const [hotels, setHotel] = useState(dummy_hotels);
+  const [hotels, setHotels] = useState(dummy_hotels);
 
   useEffect(() => {
     let unavailableHotels = [];
@@ -98,7 +90,7 @@ function PopularHotels() {
     });
 
     const sortedHotels = [...availableHotels, ...unavailableHotels];
-    setHotel(sortedHotels);
+    setHotels(sortedHotels);
   }, []);
 
   return (

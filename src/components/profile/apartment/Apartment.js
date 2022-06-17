@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import AddApartment from "./AddApartment";
 import classes from "./Apartment.module.css";
 
-function Apartment() {
-  const [showApartment, setShowApartment] = useState(true);
+function Apartment(props) {
+  const [showApartment, setShowApartment] = useState(false);
 
   const toggleAppartment = () => {
     setShowApartment((prevState) => !prevState);
@@ -25,7 +25,7 @@ function Apartment() {
           </div>
         </div>
         {showApartment && <hr></hr>}
-        {showApartment && <AddApartment />}
+        {showApartment && props.children}
       </div>
     </div>
   );

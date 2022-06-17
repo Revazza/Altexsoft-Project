@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Result.module.css";
-import { useLocation, useParams } from "react-router-dom";
 import Item from "../popularHotels/Item";
 import Pagination from "../../../UI/pagination/Pagination";
 
@@ -28,8 +27,6 @@ const arr = [
 ];
 
 function Result() {
-  const param = useParams();
-  const location = useLocation();
 
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 8;
@@ -40,7 +37,6 @@ function Result() {
   const setPage = (newPage) => {
     setCurrentPage(newPage);
   };
-  useEffect(() => {}, []);
 
   return (
     <section className={classes.result_section}>

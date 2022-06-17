@@ -15,14 +15,17 @@
   align-items: center;
 }
 .list_btn p{
-  font-size: 13px;
+  font-size: 11px;
+}
+.list li{
+  font-size: 10px;
 }
 
 .list_btn img{
   position: relative;
   top: 2px;
   left: 10px;
-  width: 11%;
+  width: 10px;
   transform:rotate(90deg);
 }
 .list{
