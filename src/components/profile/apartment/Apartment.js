@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import AddApartment from "./AddApartment";
 import classes from "./Apartment.module.css";
-
+import Card from '../../../UI/Card';
 function Apartment(props) {
   const [showApartment, setShowApartment] = useState(false);
 
@@ -10,7 +9,7 @@ function Apartment(props) {
   };
 
   return (
-    <div className={classes.wrapper}>
+    <Card className={classes.wrapper}>
       <div className={classes.wrap_section}>
         <div className={classes.show_apartment} onClick={toggleAppartment}>
           <div className={classes.title}>
@@ -27,7 +26,7 @@ function Apartment(props) {
         {showApartment && <hr></hr>}
         {showApartment && props.children}
       </div>
-    </div>
+    </Card>
   );
 }
 

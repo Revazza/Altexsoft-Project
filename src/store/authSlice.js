@@ -19,13 +19,13 @@ const authSlice = createSlice({
     login(state,action)
     {
       state.isLoggedIn = true;
-      state.token = action.payload;
+      state.token = action.payload.token;
       let date = new Date();
-      date.setTime(date.getTime()+(15*1000));
+      // date.setTime(date.getTime()+(action.payload.exp*1000));
+      date.setTime(date.getTime()+(20*1000));
       document.cookie = `token=${state.token};expires=${date}; path=/`;
     }
   }
 })
 
-export const authSliceActions = authSlice.actions;
 export default authSlice;

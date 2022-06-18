@@ -4,7 +4,7 @@ import classes from "./ChangeInformation.module.css";
 
 import Button from "../../../../UI/Button";
 import ValidationInput from "../../../../UI/input/validationInput/ValidationInput";
-
+import Card from "../../../../UI/Card";
 //that was tough
 
 function ChangeInformation(props) {
@@ -65,7 +65,7 @@ function ChangeInformation(props) {
   };
 
   return (
-    <div className={classes.change_info}>
+    <Card className={classes.change_info}>
       <div className={classes.change_wrapper} onClick={handleShowForm}>
         <p>{props.title}</p>
         <img
@@ -107,7 +107,7 @@ function ChangeInformation(props) {
           </form>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
 

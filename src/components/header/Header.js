@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import classes from "./Header.module.css";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { authSliceActions } from "../../store/authSlice";
+import { authSliceActions } from "../../store/store";
 
 function Header() {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -11,16 +11,25 @@ function Header() {
   const toggleDropDown = () => {
     setShowDropDown((prevState) => !prevState);
   };
-  const handleSignOut = () =>{
+  const handleSignOut = () => {
     dispatch(authSliceActions.logout());
-  }
+  };
 
   return (
     <header className={classes.wrapper}>
       <div className={classes.content_wrapper}>
         <div className={classes.logo}>
           <h1>
-            Travel<span style={{ color: "#18A0FB" }}>M</span>ore
+            {!isLoggedIn && (
+              <React.Fragment>
+                Travel<span style={{ color: "#18A0FB" }}>M</span>ore
+              </React.Fragment>
+            )}
+            {isLoggedIn && (
+              <Link to="/">
+                Travel<span style={{ color: "#18A0FB" }}>M</span>ore
+              </Link>
+            )}
           </h1>
         </div>
         {isLoggedIn && (

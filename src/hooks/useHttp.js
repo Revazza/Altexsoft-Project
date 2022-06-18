@@ -15,7 +15,11 @@ function useHttp() {
     });
     const responseData = await response.json();
     if (!response.ok)
-     setError(responseData);
+    {
+      setError(responseData);
+      console.log('not ok')
+    }
+
     else {
       setError("");
       setData(responseData);

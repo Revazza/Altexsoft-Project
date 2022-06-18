@@ -1,6 +1,6 @@
 .search_bar{
   height: inherit;
-  width: 33%;
+  width: 34%;
   position: relative;
 }
 .search_input{
@@ -18,7 +18,6 @@
   top:33px;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
   z-index: 3;
   background-color: white;
   max-height: 200px;

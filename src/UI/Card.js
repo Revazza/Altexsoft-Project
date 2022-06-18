@@ -6,7 +6,7 @@ function Card(props) {
 
   const classes = `${styles.wrapper} ${props.className}`
 
-  return <div className={classes}>
+  return <div className={classes} onClick={props?.onClick}>
     {props.children}
   </div>;
 }

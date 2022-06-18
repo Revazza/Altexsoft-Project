@@ -1,18 +1,22 @@
 import "./App.css";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
-import { authSliceActions } from "./store/authSlice";
+import { authSliceActions } from "./store/store";
 import Authentication from "./pages/Authentication";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Home from "./pages/Home";
 import Header from "./components/header/Header";
 import Profile from "./pages/Profile";
 import { useEffect } from "react";
 import { getCookie } from "./helperFunctions/HelperFunctions";
 import Guests from "./pages/Guests";
+import Notification from "./UI/notification/Notification";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const showNotification = useSelector(
+    (state) => state.notification.showNotification
+  );
 
   useEffect(() => {
     if (getCookie("token")) {
@@ -34,7 +38,7 @@ function App() {
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path='/my-guests'>
+          <Route path="/my-guests">
             <Guests />
           </Route>
           <Route path="/">
@@ -45,6 +49,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      {showNotification && <Notification />}
     </div>
   );
 }

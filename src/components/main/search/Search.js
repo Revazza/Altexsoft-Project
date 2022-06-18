@@ -5,6 +5,7 @@ import classes from "./Search.module.css";
 import SearchBar from "./searchBar/SearchBar";
 import Button from "../../../UI/Button";
 import { useHistory } from "react-router-dom";
+import Card from '../../../UI/Card';
 
 const dummy_countries = [
   {
@@ -63,7 +64,7 @@ function Search() {
 
   return (
     <form className={classes.wrapper}>
-      <div className={classes.attributes}>
+      <Card className={classes.attributes}>
         <SearchBar onChangeValue={handleSearchValuesChange} />
         <DateInput onChangeValue={handleSearchValuesChange} />
         <div className={classes.bed_filter}>
@@ -84,7 +85,7 @@ function Search() {
         <div className={classes.search_btn}>
           <Button type="text" title="Search" onClick={handleSubmission} />
         </div>
-      </div>
+      </Card>
     </form>
   );
 }

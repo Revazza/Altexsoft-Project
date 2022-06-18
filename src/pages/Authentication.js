@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Register from "../components/authentication/register/Register";
 import Login from "../components/authentication/login/Login";
 import useHttp from "../hooks/useHttp";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Route,useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authSliceActions } from "../store/authSlice";
+import { authSliceActions, notificationActions } from "../store/store";
+import jwt from 'jwt-decode';
 
 function Authentication() {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [isUser, setIsUser] = useState(null);
+  const [isUser, setIsUser] = useState(null); 
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
   const history = useHistory();
@@ -30,14 +31,18 @@ function Authentication() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          'Accept': "application/json",
         },
         body: JSON.stringify({ ...user }),
       }
     );
-    console.log(response);
+    const token = jwt(response.data);
+    console.log(token);
     if(response.errorMsg === undefined)
-      dispatch(authSliceActions.login(response.data))
+    {
+      dispatch(notificationActions.showNotification({msg:'Logged In Successfuly',type:'success'}));
+      dispatch(authSliceActions.login({token:response.data,exp:token.exp}))
+    }
     history.push('/');
   };
 

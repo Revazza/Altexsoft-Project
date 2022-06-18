@@ -1,11 +1,16 @@
 .item{
   width: 100%;
   min-height: 330px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 4px;
   box-sizing: border-box;
   padding: 9px 15px;
   cursor: pointer;
   position: relative;
+}
+.item:hover{
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border: 1px solid transparent;
 }
 .img_wrapper{
   width: 100%;

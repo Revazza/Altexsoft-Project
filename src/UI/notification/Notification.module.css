@@ -1,0 +1,57 @@
+
+.wrapper{
+  width: 220px;
+  height: 80px;
+  background-color: #5FD068;
+  position: fixed;
+  right: 70px;
+  border-radius: 5px;
+  animation-name: showNotification;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  font-size: 13px;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  color: rgba(255, 255, 255, 0.904);
+  text-align: center;
+  line-height: 60px;
+}
+
+@keyframes showNotification {
+  from{
+    top: -50px;
+    opacity: 0;
+  }
+  to{
+    top: 0;
+    opacity: 1;
+  }
+}
+#hideNotification{
+  animation-name: hideNotification;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes hideNotification {
+  from{
+    top: 0;
+    opacity: 1;
+  }
+  to{
+    top: -200px;
+    opacity: 0;
+  }
+}
+.error{
+  background-color: #F24C4C;
+}
+.success{
+  background-color: #5FD068;
+  color: black;
+}
+.warning{
+  background-color: #FFA500;
+}
+
