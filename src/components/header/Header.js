@@ -14,6 +14,9 @@ function Header() {
   const handleSignOut = () => {
     dispatch(authSliceActions.logout());
   };
+  const mouseLeaveHandler = () =>{
+    setShowDropDown(false);
+  }
 
   return (
     <header className={classes.wrapper}>
@@ -33,7 +36,7 @@ function Header() {
           </h1>
         </div>
         {isLoggedIn && (
-          <nav className={classes.nav_wrapper}>
+          <nav className={classes.nav_wrapper} onMouseLeave={mouseLeaveHandler}>
             <div className={classes.profile} onClick={toggleDropDown}>
               <div className={classes.hamburger_wrapper}>
                 <img src="./assets/hamburger_menu.png" alt="More" />
@@ -48,7 +51,7 @@ function Header() {
                       <Link to="/my-guests">My Guests</Link>
                     </li>
                     <li>
-                      <Link to="/myHotels">My Hotels</Link>
+                      <Link to="/my-bookings">My Bookings</Link>
                     </li>
                     <li onClick={handleSignOut}>
                       <Link to="/auth/login">Sign Out</Link>

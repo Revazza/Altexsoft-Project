@@ -16,6 +16,7 @@ import {
   useDispatch,
   authSliceActions,
   Authentication,
+  MyBookings
 } from "./AppImports";
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/my-guests">
             <Guests />
+          </Route>
+          <Route path='/my-bookings'>
+            <MyBookings />
           </Route>
           <Route path="/">
             <Home />

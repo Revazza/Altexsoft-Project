@@ -7,6 +7,10 @@
   box-sizing: border-box;
   padding: 0 60px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: white;
 }
 
 .content_wrapper,.nav_wrapper,.profile{
@@ -71,7 +75,7 @@ li{
   margin-top: 5px;
 }
 .dropdown_list a{
-  font-size: 14px;
+  font-size: 12px;
   transition: 300ms;
   border-radius: 8px;
   padding: 5px 10px;

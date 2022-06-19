@@ -5,7 +5,7 @@ import styles from './Input.module.css';
 
 const Input = forwardRef((props,ref) => {
 
-  const classes = `${styles.input_class} ${props.className}`
+  const classes = `${props.className} ${styles.input_class}`;
 
   return (
     <input

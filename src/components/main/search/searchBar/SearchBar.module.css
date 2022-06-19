@@ -3,14 +3,14 @@
   width: 34%;
   position: relative;
 }
-.search_input{
-  border:none;
+#search_input{
+  border:none !important;
   padding-left: 40px;
   font-size: 12px;
   position: relative;
   top: 5px;
 }
-.search_input:focus{
+#search_input:focus{
   border: none;
 }
 .suggestions{

@@ -36,7 +36,8 @@ input::placeholder {
 .Auth_wrapper,
 .Home_wrapper,
 .Profile_wrapper,
-.MyGuests_wrapper {
+.MyGuests_wrapper,
+.MyBookings_wrapper {
   width: 100%;
   position: relative;
 }

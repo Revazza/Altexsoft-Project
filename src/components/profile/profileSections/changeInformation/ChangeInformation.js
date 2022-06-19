@@ -9,27 +9,21 @@ import Card from "../../../../UI/Card";
 
 function ChangeInformation(props) {
   const resetFormClass = `${classes.reset_form} ${props.className}`;
-  const update = { ...props.updateInfo };
-  const updateBtn = { ...update.button };
+  const { input } = { ...props.updateInfo };
+  const { updateBtn } = { ...props.updateInfo };
+  const {name:inputName} = {...props.updateInfo.input};
   const [newInformation, setNewInformation] = useState({});
   const [hideForm, setHideForm] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const validateRePass = (rePass) => {
-    if (newInformation.password !== rePass)
-      return { isValid: false, errorMsg: "Passwords don't match" };
-    return { isValid: true, errorMsg: "" };
-  };
-
   useEffect(() => {
-    for (let key in newInformation) {
-      if (newInformation[key].length === 0) {
-        setFormIsValid(false);
-        return;
-      }
+    if(newInformation[inputName]?.length !== 0)
+    {
+      setFormIsValid(true);
+      return;
     }
-    setFormIsValid(true);
+    setFormIsValid(false);
   }, [newInformation]);
 
   const handleUpdateInfo = (event) => {
@@ -39,17 +33,13 @@ function ChangeInformation(props) {
 
   const handleInformationChange = (obj) => {
     let keyword = Object.keys(obj)[0];
-    for (let input of update.inputs) {
-      if (keyword === input.name && obj[keyword] !== newInformation[keyword]) {
-        let newValue = {
-          [input.name]: obj[keyword],
-        };
-        setNewInformation({
-          ...newInformation,
-          ...newValue,
-        });
-        break;
-      }
+
+    let newValue = {
+      [keyword]: obj[keyword],
+    };
+    if(newValue[keyword]!==newInformation?.[keyword])
+    {
+      setNewInformation({...newValue});
     }
   };
   const handleShowForm = () => {
@@ -79,23 +69,16 @@ function ChangeInformation(props) {
         >
           <form className={classes.form_wrapper}>
             <div className={classes.wrapper}>
-              {update.inputs.map((input, index) => {
-                return (
-                  <ValidationInput
-                    key={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    validationFunc={
-                      index === 1 ? validateRePass : input.validationFuncion
-                    }
-                    inputName={input.name}
-                    onChangeValue={handleInformationChange}
-                    isRequired={true}
-                    className={classes.input_class}
-                  />
-                );
-              })}
-
+              <ValidationInput
+                key={input.id}
+                type={input.inputType}
+                placeholder={input.placeholder}
+                validationFunc={input.validationFuncion}
+                inputName={input.name}
+                onChangeValue={handleInformationChange}
+                isRequired={true}
+                className={classes.input_class}
+              />
               <Button
                 type={updateBtn.type}
                 title={updateBtn.title}

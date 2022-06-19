@@ -8,3 +8,4 @@ export { getCookie } from "./helperFunctions/HelperFunctions";
 export { default as Guests } from "./pages/Guests";
 export { default as Notification } from "./UI/notification/Notification";
 export {default as Authentication}  from "./pages/Authentication";
+export {default as MyBookings} from './pages/MyBookings';

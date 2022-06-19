@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import classes from "./SearchBar.module.css";
 import { Input } from "../imports";
+import classes from "./SearchBar.module.css";
+// import Input from '../../../../UI/input/Input';
 import { Link } from "react-router-dom";
 
 const dummy_hotels = [
@@ -29,7 +30,7 @@ function SearchBar(props) {
 
   useEffect(() => {
     let suggestedHotelsArr = dummy_hotels.filter((hotel) =>
-      hotel.title.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      hotel.title.toLowerCase().includes(searchInput.toLowerCase())
     );
     setSuggestedHotels(suggestedHotelsArr);
   }, [searchInput]);
@@ -47,7 +48,7 @@ function SearchBar(props) {
         type="text"
         placeholder="Search hotels"
         value={searchInput}
-        className={classes.search_input}
+        id={classes.search_input}
         onChange={inputChangeHandler}
       />
       <div className={classes.suggestions}>
