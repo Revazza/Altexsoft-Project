@@ -23,6 +23,23 @@
   }
 }
 
+.hideApartment{
+  animation-name: hideApartment;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+@keyframes hideApartment {
+  from{
+    height: 550px;
+    opacity: 1;
+  }
+  to{
+    height: 0;
+    opacity: 0;
+  }
+}
+
 
 .apartment_attributes{
   width: 50%;
@@ -59,7 +76,6 @@
   margin-top: 25px;
   width: 40%;
   height: 70%;
-  border: 1px solid black;
 }
 .photo_wrapper img{
   width: 100%;

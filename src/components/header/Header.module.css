@@ -54,6 +54,7 @@ ul{
 li{
   list-style: none;
 }
+
 .dropdown_list{
   position: absolute;
   top: 40px;
@@ -67,13 +68,18 @@ li{
 }
 
 .dropdown_list li{
-  padding: 5px 10px;
-  border-radius: 8px;
   margin-top: 5px;
-  transition: 300ms;
-  font-size: 14px;
 }
-.dropdown_list li:hover{
+.dropdown_list a{
+  font-size: 14px;
+  transition: 300ms;
+  border-radius: 8px;
+  padding: 5px 10px;
+  display:block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.dropdown_list a:hover{
   transition: 300ms;
   background-color: rgba(128, 128, 128, 0.459);
 }

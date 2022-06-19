@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./AddApartment.module.css";
 
-import Input from "../../../UI/input/Input";
-
-import Button from "../../../UI/Button";
+import { Button, Input } from "../../imports";
 
 function AddApartment(props) {
   const cityRef = useRef();
@@ -12,68 +10,93 @@ function AddApartment(props) {
   const bedRef = useRef();
   const descriptionRef = useRef();
   const [imgSrc, setImgSrc] = useState(undefined);
-  const [ameneties,setAmeneties] = useState();
+  const [ameneties, setAmeneties] = useState();
+
+  const apartmentClasses = props.hideApartment
+    ? `${classes.wrapper} ${classes.hideApartment}`
+    : `${classes.wrapper}`;
 
   const handleFileChange = (event) => {
     const src = URL.createObjectURL(event.target.files[0]);
     setImgSrc(src);
   };
-  const handleAmenetiesChange = (event) =>{
+  const handleAmenetiesChange = (event) => {
     let amenetie = {
-      [event.target.name]:event.target.checked,
-    }
-    setAmeneties((prevState) =>{
-      return {...prevState,...amenetie};
-    })
-  }
-  const handleSubmission = (event) =>{
+      [event.target.name]: event.target.checked,
+    };
+    setAmeneties((prevState) => {
+      return { ...prevState, ...amenetie };
+    });
+  };
+  const handleSubmission = (event) => {
     event.preventDefault();
-    let tempAmeneties = {...ameneties};
-    for(let key in tempAmeneties)
-    {
-      if(tempAmeneties[key] === false)
-        delete tempAmeneties[key];
+    let tempAmeneties = { ...ameneties };
+    for (let key in tempAmeneties) {
+      if (tempAmeneties[key] === false) delete tempAmeneties[key];
     }
     console.log(tempAmeneties);
-    
-  }
+  };
 
   return (
-    <form className={classes.wrapper} onSubmit={handleSubmission}>
+    <form className={apartmentClasses} onSubmit={handleSubmission}>
       <div className={classes.apartment_attributes}>
         <div className={classes.inputs}>
           <Input type="text" placeholder="City" ref={cityRef} />
         </div>
         <div className={classes.inputs}>
-          <Input type="text" placeholder="Address" ref={addressRef}/>
+          <Input type="text" placeholder="Address" ref={addressRef} />
         </div>
         <div className={classes.inputs}>
-          <Input type="text" placeholder="Distance to center" ref={distanceRef}/>
+          <Input
+            type="text"
+            placeholder="Distance to center"
+            ref={distanceRef}
+          />
         </div>
         <div className={classes.inputs}>
-          <Input type="text" placeholder="Number of beds" ref={bedRef}/>
+          <Input type="text" placeholder="Number of beds" ref={bedRef} />
         </div>
         <div className={classes.inputs}>
           <label>Choose Amenities</label>
           <div id={classes.checkbox_container}>
             <div className={classes.checkbox_wrapper}>
-              <input type="checkbox" name="wifi" onChange={handleAmenetiesChange} />
-              <label htmlFor="wifi" >Wi-Fi</label>
+              <input
+                type="checkbox"
+                name="wifi"
+                onChange={handleAmenetiesChange}
+              />
+              <label htmlFor="wifi">Wi-Fi</label>
             </div>
             <div className={classes.checkbox_wrapper}>
-              <input type="checkbox" name="pool" onChange={handleAmenetiesChange}/>
+              <input
+                type="checkbox"
+                name="pool"
+                onChange={handleAmenetiesChange}
+              />
               <label htmlFor="pool">Pool</label>
             </div>
             <div className={classes.checkbox_wrapper}>
-              <input type="checkbox" name="gym" onChange={handleAmenetiesChange}/>
+              <input
+                type="checkbox"
+                name="gym"
+                onChange={handleAmenetiesChange}
+              />
               <label htmlFor="gym">Gym</label>
             </div>
             <div className={classes.checkbox_wrapper}>
-              <input type="checkbox" name="parking" onChange={handleAmenetiesChange}/>
+              <input
+                type="checkbox"
+                name="parking"
+                onChange={handleAmenetiesChange}
+              />
               <label htmlFor="parking">Parking</label>
             </div>
             <div className={classes.checkbox_wrapper}>
-              <input type="checkbox" name="garage" onChange={handleAmenetiesChange}/>
+              <input
+                type="checkbox"
+                name="garage"
+                onChange={handleAmenetiesChange}
+              />
               <label htmlFor="garage">Garage</label>
             </div>
           </div>

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import DropDownList from "../../../UI/dropdownList/DropDownList";
-import DateInput from "./date/DateInput";
+import { DropDownList, Button, DateInput, Card, SearchBar } from "./imports";
+
 import classes from "./Search.module.css";
-import SearchBar from "./searchBar/SearchBar";
-import Button from "../../../UI/Button";
 import { useHistory } from "react-router-dom";
-import Card from '../../../UI/Card';
 
 const dummy_countries = [
   {

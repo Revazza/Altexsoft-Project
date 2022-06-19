@@ -1,32 +1,34 @@
-import React from "react";
-import Apartment from "./apartment/Apartment";
-
+import React, { useState } from "react";
 import classes from "./ProfileLayout.module.css";
-import ChangeProfile from "./profileSections/ChangeProfile";
-import ProfileInformation from "./profileSections/ProfileInformation";
-import GoogleMapReact from "google-map-react";
-import ApartmentLayout from "./apartment/ApartmentLayout";
-import AddApartment from "./apartment/AddApartment";
+import Card from "../../UI/Card";
+
+import {
+  Apartment,
+  ChangeProfile,
+  ProfileInformation,
+  ApartmentLayout,
+  AddApartment,
+} from "./imports";
 
 function ProfileLayout() {
   return (
-    <div className={classes.wrapper}>
+    <Card className={classes.wrapper}>
       <section className={classes.update_info_section}>
         <h2>Profile</h2>
         <ProfileInformation />
         <ChangeProfile />
       </section>
       <section className={classes.add_apartment}>
-        <Apartment>
+        <Apartment label="Add Apartment">
           <AddApartment />
         </Apartment>
       </section>
       <section className={classes.apartment_layout}>
-        <Apartment>
-          <ApartmentLayout/>
+        <Apartment label="Show Apartment">
+          <ApartmentLayout />
         </Apartment>
       </section>
-    </div>
+    </Card>
   );
 }
 

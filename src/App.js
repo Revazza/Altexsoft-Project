@@ -1,15 +1,22 @@
 import "./App.css";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
-import { authSliceActions } from "./store/store";
-import Authentication from "./pages/Authentication";
-import { useSelector, useDispatch } from "react-redux";
-import Home from "./pages/Home";
-import Header from "./components/header/Header";
-import Profile from "./pages/Profile";
 import { useEffect } from "react";
-import { getCookie } from "./helperFunctions/HelperFunctions";
-import Guests from "./pages/Guests";
-import Notification from "./UI/notification/Notification";
+
+import {
+  Home,
+  Header,
+  Profile,
+  Guests,
+  Notification,
+  getCookie,
+  Switch,
+  Route,
+  useHistory,
+  Redirect,
+  useSelector,
+  useDispatch,
+  authSliceActions,
+  Authentication,
+} from "./AppImports";
 
 function App() {
   const dispatch = useDispatch();

@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useState,Children } from "react";
 import classes from "./Apartment.module.css";
 import Card from '../../../UI/Card';
 function Apartment(props) {
   const [showApartment, setShowApartment] = useState(false);
-
+  const [hideApartment,setHideApartment] = useState(true);
   const toggleAppartment = () => {
-    setShowApartment((prevState) => !prevState);
+    if(showApartment)
+    {
+      setHideApartment(true);
+      setTimeout(() => {
+        setShowApartment(false);
+      }, 300);
+    }
+    else{
+      setHideApartment(false);
+      setShowApartment(true);
+    }
   };
+
+  const childrenWithProps = Children.map(props.children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { hideApartment:hideApartment });
+    }
+    return child;
+  });
 
   return (
     <Card className={classes.wrapper}>
       <div className={classes.wrap_section}>
         <div className={classes.show_apartment} onClick={toggleAppartment}>
           <div className={classes.title}>
-            <label>Add Apartment</label>
+            <label>{props.label}</label>
           </div>
           <div className={classes.arrow}>
             <img
@@ -24,7 +41,7 @@ function Apartment(props) {
           </div>
         </div>
         {showApartment && <hr></hr>}
-        {showApartment && props.children}
+        {showApartment && childrenWithProps}
       </div>
     </Card>
   );

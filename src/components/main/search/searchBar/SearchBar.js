@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./SearchBar.module.css";
-import Input from "../../../../UI/input/Input";
+import { Input } from "../imports";
 import { Link } from "react-router-dom";
 
 const dummy_hotels = [
@@ -62,7 +62,7 @@ function SearchBar(props) {
                 <li
                   key={hotel.id}
                   id={hotel.id}
-                  onClick={() => setSearchInput('')}
+                  onClick={() => setSearchInput("")}
                 >
                   <Link to={linkTo}>{hotel.title}</Link>
                 </li>
