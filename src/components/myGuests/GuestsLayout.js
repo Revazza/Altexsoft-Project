@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./GuestsLayout.module.css";
 import Item from "./Item";
 import Pagination from "../../UI/pagination/Pagination";
@@ -21,8 +21,13 @@ const dummy_arr = [
 function GuestsLayout() {
   const hotelsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+  const topPosition = useRef();
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    window.scrollTo({
+      top: topPosition,
+      behavior: "smooth",
+    });
   };
   const indexOfLastGuest = hotelsPerPage * currentPage;
   const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
@@ -30,6 +35,7 @@ function GuestsLayout() {
   return (
     <section className={classes.wrapper}>
       <h2>Guests</h2>
+      <div ref={topPosition}></div>
       <div className={classes.guest_container}>
         {slicedArr.map((item) => item)}
       </div>

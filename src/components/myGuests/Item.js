@@ -1,16 +1,17 @@
 import React from "react";
 import classes from "./Item.module.css";
 import Button from "../../UI/Button";
+import Card from '../../UI/Card';
 function Item() {
   return (
-    <div className={classes.wrapper}>
+    <Card className={classes.wrapper}>
       <div className={classes.img_wrapper}>
         <img src="./assets/Rectangle.png" alt="user profile" />
       </div>
       <section className={classes.user_request}>
         <label>Username</label>
         <div className={classes.request_wrapper}>
-          <article>
+          <article className={classes.description}>
             <p>
               asdlkjspojdposjdpdsjpl;sjd;lsjkdplsjdposjkpodjposdjkposkdposdkposdkposdkpodskpodskposdkpodskpodskpodksslkdlkdsjdskljdslkjdslkdsjlksdjlkdsjlkdjklds
             </p>
@@ -27,7 +28,7 @@ function Item() {
 
         <p className={classes.checkin_out}>2022.12.03-2023.01.05</p>
       </section>
-    </div>
+    </Card>
   );
 }
 export default Item;

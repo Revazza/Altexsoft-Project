@@ -57,3 +57,69 @@
   font-size: 20px;
 }
 
+@media screen and (max-width:1000px) {
+  .wrapper{
+    padding: 30px 0;
+  }
+}
+@media screen and (max-width:800px) {
+  .wrapper{
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    height: 1000px !important;
+    justify-content: initial;
+  }
+  .img_wrapper{
+    margin: 25px 0;
+    width: 70%;
+  }
+  .hotel_information{
+    width: 70%;
+  }
+  .attributes_wrapper p{
+    font-size: 13px !important;
+  }
+
+
+  @keyframes hideApartment {
+    from{
+      height: 1000px;
+      opacity: 1;
+    }
+    to{
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes showApartment {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      height: 1000px;
+    }
+  }
+
+}
+
+@media screen and (max-width:600px) {
+  .img_wrapper,.hotel_information{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .attributes_wrapper p{
+    font-size: 9px !important;
+  }
+  .img_wrapper{
+    height: 200px;
+  }
+  .wrapper{
+    height: 840px !important;
+  }
+}

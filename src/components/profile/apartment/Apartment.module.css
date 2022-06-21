@@ -36,3 +36,9 @@
 }
 
 
+@media screen and (max-width:600px) {
+  .wrap_section{
+    padding: 10px 15px;
+  }
+}
+
