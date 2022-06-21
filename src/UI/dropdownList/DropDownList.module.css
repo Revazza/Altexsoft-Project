@@ -45,3 +45,28 @@
 .list ul li:hover{
   background-color: rgba(128, 128, 128, 0.466);
 }
+
+@media screen and (max-width:480px) {
+
+  .list_btn p{
+    font-size: 10px;
+  }
+  .list li{
+    font-size: 9px;
+  }
+  .list{
+    padding: 5px 10px 15px 10px;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .list_btn p{
+    font-size: 9px;
+  }
+  .list li{
+    font-size: 8px;
+  }
+  .list{
+    padding: 5px 10px 15px 10px;
+  }
+}

@@ -103,3 +103,55 @@
   font-size: 12px;
 }
 
+@media screen and (max-width:750px) {
+  .wrapper{
+    flex-direction: column-reverse;
+    height: 720px !important;
+    align-items: center;
+    justify-content: initial;
+    padding-bottom: 100px;
+  }
+  .photo_wrapper{
+    width: 80%;
+    height: 200px;
+  }
+  .apartment_attributes,.submit_btn{
+    width: 80%;
+  }
+  
+  @keyframes showApartment {
+    from{
+      height: 0;
+      opacity: 0;
+    } 
+    to{
+      opacity: 1;
+      height: 820px;
+    }
+  }
+  @keyframes hideApartment {
+    from{
+      height: 820px;
+      opacity: 1;
+    }
+    to{
+      height: 0;
+      opacity: 0;
+    }
+  }
+  
+}
+@media screen and (max-width:620px) {
+ .checkbox_wrapper{
+  flex-direction: column;
+ }
+ .checkbox_wrapper label{
+  font-size: 10px;
+ }
+}
+
+@media screen and (max-width:550px) {
+  .apartment_attributes,.submit_btn,.photo_wrapper{
+    width: 100%;
+  }
+}

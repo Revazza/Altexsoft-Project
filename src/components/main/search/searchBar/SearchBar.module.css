@@ -46,3 +46,12 @@
 .nothing_found{
   color: gray;
 }
+
+@media screen and (max-width:480px) {
+  .search_bar input::placeholder{
+    font-size: 11px;
+  }
+  .suggestions p{
+    font-size: 10px;
+  }
+}

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import classes from "./ProfileInformation.module.css";
-import Card from "../../../UI/Card";
-function ProfileInformation() {
+import { Card } from "../imports";
+function ProfileInformation(props) {
+  
+
+  const handleSettingsClick = () =>{
+    props.onSettingsClick();
+  }
 
   return (
     <Card className={classes.wrapper}>
       <div className={classes.img_wrapper}>
         <img src="./assets/user2.png" alt="Profile Picture" />
+      </div>
+      <div className={classes.settings} onClick={handleSettingsClick}>
+        <img src="./assets/settings.png" />
       </div>
       <div className={classes.info_wrapper}>
         <div className={classes.info}>

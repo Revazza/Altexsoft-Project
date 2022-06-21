@@ -33,6 +33,12 @@ input::placeholder {
   margin: 0 auto;
 }
 
+@media screen and (max-width:1144px) {
+  .App-content{
+    width: 100%;
+  }
+}
+
 .Auth_wrapper,
 .Home_wrapper,
 .Profile_wrapper,

@@ -4,6 +4,7 @@ const initialState={
   showNotification:false,
   msg:'',
   type:'',
+  sessionExpired:false,
 }
 
 const notificationSlice = createSlice({
@@ -22,6 +23,13 @@ const notificationSlice = createSlice({
       state.showNotification=false;
       state.type='';
       // state = {...initialState};
+    },
+    showSessionExpired(state)
+    {
+      state.sessionExpired=true;
+    },
+    hideSessionExpired(state){
+      state.sessionExpired=false;
     }
   }
 })

@@ -46,15 +46,19 @@ function Header() {
                   <ul className={classes.list_wrapper}>
                     <li>
                       <Link to="/profile">Profile</Link>
+                      <div className={classes.circle}></div>
                     </li>
                     <li>
                       <Link to="/my-guests">My Guests</Link>
+                      <div className={classes.circle}></div>
                     </li>
                     <li>
                       <Link to="/my-bookings">My Bookings</Link>
+                      <div className={classes.circle}></div>
                     </li>
                     <li onClick={handleSignOut}>
                       <Link to="/auth/login">Sign Out</Link>
+                      <div className={classes.circle}></div>
                     </li>
                   </ul>
                 </div>

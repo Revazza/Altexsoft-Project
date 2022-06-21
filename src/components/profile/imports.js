@@ -12,6 +12,9 @@ export { default as AddApartment } from "./apartment/addApartment/AddApartment";
 export { default as GoogleMapReact } from "google-map-react";
 export { default as Button } from "../../UI/Button";
 export { default as Input } from "../../UI/input/Input";
+export {default as ValidationInput} from '../../UI/input/validationInput/ValidationInput'
+export {default as Card} from '../../UI/Card';
+
 
 export const emailInput = {
   input: {

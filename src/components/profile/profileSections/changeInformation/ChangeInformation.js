@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import classes from "./ChangeInformation.module.css";
 
-import Button from "../../../../UI/Button";
-import ValidationInput from "../../../../UI/input/validationInput/ValidationInput";
-import Card from "../../../../UI/Card";
+import {Button,ValidationInput,Card} from '../../imports';
 //that was tough
 
 function ChangeInformation(props) {

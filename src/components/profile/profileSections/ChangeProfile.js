@@ -5,13 +5,18 @@ import ChangeInformation from "./changeInformation/ChangeInformation";
 
 import { emailInput, usernameInput, passwordInput } from "../imports";
 
-function ChangeProfile() {
+function ChangeProfile(props) {
   const handleUpdateInfo = (newInfo) => {
     console.log(newInfo);
   };
 
+  const smallWindow = window.innerWidth <= 920;
+  const showSettings = smallWindow && props.showSettings;
   return (
-    <div className={classes.wrapper}>
+    <div
+      className={classes.wrapper}
+      id={showSettings ? classes.showSettings:''}
+    >
       <div className={classes.form_wrapper}>
         <ChangeInformation
           title="Change Email"

@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect } from "react";
-
+import { useLocation } from "react-router-dom";
 import {
   Home,
   Header,
@@ -16,8 +16,10 @@ import {
   useDispatch,
   authSliceActions,
   Authentication,
-  MyBookings
+  MyBookings,
 } from "./AppImports";
+import { notificationActions } from "./store/store";
+import TokenExpired from "./components/sessionExpired/TokenExpired";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,15 +27,25 @@ function App() {
   const showNotification = useSelector(
     (state) => state.notification.showNotification
   );
-
+  const sessionExpired = useSelector((state) => state.notification.sessionExpired)
+  const location = useLocation();
   useEffect(() => {
     if (getCookie("token")) {
-      dispatch(authSliceActions.login(getCookie("token")));
+      //Request should be added with token
+      dispatch(authSliceActions.login({token:getCookie('token')}));
+      dispatch(authSliceActions.setToken(getCookie("token")));
       history.push("/");
     } else {
       history.push("/auth/login");
     }
   }, []);
+
+  useEffect(() => {
+    let userDate = new Date(getCookie("tokenExp"));
+    let currentTime = new Date();
+    if (currentTime.getTime() > userDate.getTime())
+      dispatch(notificationActions.showSessionExpired());
+  }, [location]);
 
   return (
     <div className="App">
@@ -49,7 +61,7 @@ function App() {
           <Route path="/my-guests">
             <Guests />
           </Route>
-          <Route path='/my-bookings'>
+          <Route path="/my-bookings">
             <MyBookings />
           </Route>
           <Route path="/">
@@ -61,6 +73,7 @@ function App() {
         </Switch>
       </div>
       {showNotification && <Notification />}
+      {sessionExpired && <TokenExpired/>}
     </div>
   );
 }

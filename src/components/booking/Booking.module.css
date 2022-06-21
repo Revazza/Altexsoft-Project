@@ -1,1 +1,35 @@
 
+
+.wrapper{
+  margin-top: 80px;
+  width: 100%;
+  height: 750px;
+  border: 1px solid black;
+}
+.wrapper h2{
+  font-size:25px;
+  font-weight: bolder;
+}
+
+.request_wrapper{
+  margin-top: 40px;
+  width: 100%;
+  height: 680px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.requests{
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  height: inherit;
+  border: inherit;
+  overflow-y: auto;
+}
+.map{
+  width: 50%;
+  height: inherit;
+}
+
+

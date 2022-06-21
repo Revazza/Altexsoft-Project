@@ -1,31 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn:false,
-  token:'',
-  lat:undefined,
-  lng:undefined,
-}
+  isLoggedIn: false,
+  token: "",
+};
 
 const authSlice = createSlice({
-  name:'auth',
+  name: "auth",
   initialState,
-  reducers:{
-    logout(state){
+  reducers: {
+    logout(state) {
       state.isLoggedIn = false;
-      state.token = '';
+      state.token = "";
       document.cookie = `token='';expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+      document.cookie = `tokenExp='';expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
     },
-    login(state,action)
-    {
+    login(state, action) {
       state.isLoggedIn = true;
-      state.token = action.payload.token;
-      let date = new Date();
-      // date.setTime(date.getTime()+(action.payload.exp*1000));
-      date.setTime(date.getTime()+(20*1000));
-      document.cookie = `token=${state.token};expires=${date}; path=/`;
-    }
-  }
-})
+      if (action.payload.token) {
+        state.token = action.payload.token;
+        let date = new Date();
+        //should change 30 with action.payload.exp
+        date.setTime(date.getTime() + 60 * 1000);
+        document.cookie = `token=${state.token};expires=${date}; path=/`;
+        document.cookie = `tokenExp=${date};expires=${date}; path=/`;
+      }
+      console.log("isLoggedIn: ", state.isLoggedIn);
+    },
+    setToken(state, action) {
+      state.token = action.payload;
+    },
+  },
+});
 
 export default authSlice;

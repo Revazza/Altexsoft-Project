@@ -23,5 +23,26 @@
   height: inherit;
 }
 
+@media screen and (max-width:750px) {
+  .attributes{
+    width: 80%;
+  }
+  .search_btn button{
+    font-size: 12px;
+  }
+}
+@media screen and (max-width:550px) {
+  .attributes{
+    width: 95%;
+  }
+  .search_btn button{
+    font-size: 10px;
+  }
+}
+@media screen and (max-width:480px) {
+  .wrapper{
+    height: 30px;
+  }
+}
 
 

@@ -5,11 +5,10 @@
   overflow: auto;
   box-sizing: border-box;
   padding: 23px 27px;
-  
 }
 
 .form_wrapper {
-  width: 90%;
+  width: 100%;
   min-height: 312px;
 }
 
@@ -18,5 +17,33 @@
 }
 .reset_form input{
   margin-top: 20px;
+}
+#showSettings{
+  display: block;
+}
+@media screen and (max-width:920px) {
+  .wrapper{
+    display: none;
+  }
+}
+@media screen and (max-width:720px) {
+  .wrapper{
+    width: 70%;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .wrapper{
+    width: 90%;
+    padding: 0;
+  }
+}
+@media screen and (max-width:420px) {
+  .wrapper{
+    width: 100%;
+  }
+  .wrapper p{
+    font-size: 13px;
+  }
 }
 
