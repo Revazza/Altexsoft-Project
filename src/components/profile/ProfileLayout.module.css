@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 400px;
 }
 .update_info_section h2{
   font-size: 30px;

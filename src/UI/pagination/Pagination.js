@@ -27,6 +27,7 @@ function Pagination({
             title={page}
             id={page}
             onClick={onButtonClick}
+            key={page}
           />
         );
       })}

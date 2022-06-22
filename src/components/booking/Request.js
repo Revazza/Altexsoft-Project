@@ -2,6 +2,9 @@ import React from "react";
 import classes from "./Request.module.css";
 
 const Request = () => {
+
+  
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.img_wrapper}>
@@ -22,8 +25,11 @@ const Request = () => {
         </div>
         <div className={classes.checkin_out}>
           <p>2022/12/14 - 2022/12/30</p>
+          <div className={classes.request_situation}>
+            <img src="./assets/pending.png" />
+            <p>Pending...</p>
+          </div>
         </div>  
-
       </div>
     </div>
   );

@@ -4,7 +4,6 @@
   margin-top: 80px;
   width: 100%;
   height: 750px;
-  border: 1px solid black;
 }
 .wrapper h2{
   font-size:25px;
@@ -21,15 +20,84 @@
 
 .requests{
   width: 50%;
+  height: inherit;
+}
+.carousel{
+  width: 100%;
   box-sizing: border-box;
   padding: 0 20px;
   height: inherit;
-  border: inherit;
-  overflow-y: auto;
 }
 .map{
   width: 50%;
   height: inherit;
 }
 
+.carousel_btn{
+  display: none;
+}
 
+@media screen and (max-width:900px) {
+  .wrapper h2{
+    margin-left: 40px;
+  }
+  .request_wrapper{
+    flex-direction: column;
+  }
+  .map{
+    height: 100%;
+    width: 100%;
+  }
+  .requests{
+    width: 100%;
+    height: 540px;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .carousel{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 240px;
+    transition: transform 0.4s ease-in-out;
+    padding:0;
+  }
+  .carousel_btn{
+    display: initial;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+  }
+  .carousel_btn img{
+    margin-bottom: 40px;
+  }
+  
+  .carousel_btn:hover{
+    background-color: rgba(0, 0, 0, 0.315);
+  }
+  #prevBtn{
+    left: 0;
+  }
+  #prevBtn img{
+    transform: rotate(180deg);
+  }
+}
+
+@media screen and (max-width:700px)
+{
+  
+}
+
+@media screen and (max-width:550px)
+{
+  .requests{
+    height: 600px;
+  }
+  .carousel{
+    height: 300px;
+  }
+}
