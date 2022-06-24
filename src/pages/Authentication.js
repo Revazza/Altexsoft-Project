@@ -44,6 +44,7 @@ function Authentication() {
       }
     );
     const token = jwt(response.data);
+    console.log(token);
     if (response.errorMsg === undefined) {
       dispatch(
         notificationActions.showNotification({
@@ -54,8 +55,8 @@ function Authentication() {
       dispatch(
         authSliceActions.login({ token: response.data, exp: token.exp})
       );
+      history.push("/");
     }
-    history.push("/");
   };
 
   return (

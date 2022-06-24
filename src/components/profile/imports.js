@@ -14,7 +14,8 @@ export { default as Button } from "../../UI/Button";
 export { default as Input } from "../../UI/input/Input";
 export {default as ValidationInput} from '../../UI/input/validationInput/ValidationInput'
 export {default as Card} from '../../UI/Card';
-
+export {default as useHttp} from '../../hooks/useHttp';
+export {useSelector} from 'react-redux';
 
 export const emailInput = {
   input: {
@@ -36,7 +37,7 @@ export const usernameInput = {
     inputType: "text",
     placeholder: "Change Username",
     validationFuncion: validateUsername,
-    name: "username",
+    name: "userName",
   },
   updateBtn: {
     type: "submit",

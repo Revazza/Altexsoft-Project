@@ -1,9 +1,15 @@
 import React, { useRef, useState } from "react";
 import classes from "./AddApartment.module.css";
 
-import { Button, Input } from "../../imports";
+import { Button, Input,useSelector,useHttp } from "../../imports";
+import jwt from 'jwt-decode';
 
 function AddApartment(props) {
+  const token = useSelector((state) => state.auth.token);
+  console.log(jwt(token));
+  const {sendRequest} = useHttp();
+
+
   const cityRef = useRef();
   const addressRef = useRef();
   const distanceRef = useRef();
@@ -17,8 +23,12 @@ function AddApartment(props) {
     : `${classes.wrapper}`;
 
   const handleFileChange = (event) => {
-    const src = URL.createObjectURL(event.target.files[0]);
-    setImgSrc(src);
+    let files = event.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = (e) =>{
+      setImgSrc(e.target.result);
+    }
   };
   const handleAmenetiesChange = (event) => {
     let amenetie = {
@@ -32,9 +42,27 @@ function AddApartment(props) {
     event.preventDefault();
     let tempAmeneties = { ...ameneties };
     for (let key in tempAmeneties) {
-      if (tempAmeneties[key] === false) delete tempAmeneties[key];
+      if (tempAmeneties[key] === false)
+       delete tempAmeneties[key];
     }
-    console.log(tempAmeneties);
+
+    let image64 = imgSrc.replace('data:image/jpeg;base64,','');
+    const request = {
+      userID:jwt(token).UserId,
+      city:cityRef.current.value,
+      address:addressRef.current.value,
+      distanceToCenter:+distanceRef.current.value,
+      apartmentDescription:descriptionRef.current.value,
+      bedsNumber:+bedRef.current.value,
+      apartmentPicture:image64,
+    }
+
+    sendRequest('https://localhost:7043/api/Apartment/AddApartment',{
+      method:'POST',
+      body:JSON.stringify(request),
+
+    })
+    
   };
 
   return (
