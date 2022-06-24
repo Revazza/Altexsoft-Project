@@ -40,5 +40,8 @@
   .wrap_section{
     padding: 10px 15px;
   }
+  .title label{
+    font-size: 15px;
+  }
 }
 
