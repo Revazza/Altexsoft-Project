@@ -3,12 +3,12 @@ import classes from "./ChangeProfile.module.css";
 
 import ChangeInformation from "./changeInformation/ChangeInformation";
 
-import { emailInput, usernameInput, passwordInput, useHttp } from "../imports";
-
+import { emailInput, usernameInput, passwordInput, useHttp,getCookie } from "../imports";
+import jwt from 'jwt-decode';
 function ChangeProfile(props) {
   const { sendRequest } = useHttp();
 
-  const handleUpdateInfo = (newInfo) => {
+  const handleUpdateInfo = async (newInfo) => {
     console.log(newInfo);
     
     let key = Object.keys(newInfo)[0];
@@ -16,11 +16,14 @@ function ChangeProfile(props) {
     if(key !== 'password')
       value = value.toLowerCase();
     console.log(value);
-    sendRequest('https://localhost:7043/api/User/+id',{method:'PATCH',body:JSON.stringify({
+    const requestBody = {
       path:`/${key}`,
       op:'replace',
-      value,
-    })})
+      value
+    }
+    console.log(requestBody);
+    const response = await sendRequest(`https://localhost:7043/api/User/${jwt(getCookie('token'))}`,{method:'PATCH',body:JSON.stringify(requestBody)});
+    console.log(response);
 
   };
 

@@ -4,6 +4,7 @@ import HotelAttributes from "./HotelAttributes";
 
 const ApartmentLayout = (props) => {
 
+  // console.log(props.apartmentID);
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`
     : `${classes.wrapper}`;
@@ -23,10 +24,6 @@ const ApartmentLayout = (props) => {
           />
           <HotelAttributes attribute="Center In" atrInfo="300m" />
           <HotelAttributes attribute="Beds" atrInfo="4-5" />
-          <HotelAttributes
-            attribute="Ameneties"
-            atrInfo="Wifi,Gym,Pool,Something and more"
-          />
           <HotelAttributes
             attribute="Description"
             atrInfo="Some long string and bla bla bla this hotel is great more string more greatness lorem lorem lorem lorem lorem"

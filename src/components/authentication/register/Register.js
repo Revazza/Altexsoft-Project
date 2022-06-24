@@ -6,7 +6,7 @@ import {
   validatePassword,
   validateUsername,
   validateEmail,
-  getBase64
+  getBase64,
 } from "../../../helperFunctions/HelperFunctions";
 import Button from "../../../UI/Button";
 import { Link } from "react-router-dom";
@@ -33,13 +33,15 @@ function Register(props) {
 
   const handleSubmission = (event) => {
     event.preventDefault();
+    let image64 = image.replace("data:image/jpeg;base64,", "");
+    console.log(image64);
     let newUser = {
       firstName,
       lastName,
       userName,
       email,
       password,
-      image,
+      image: image64,
     };
     props.onSubmit(newUser);
   };
@@ -51,20 +53,23 @@ function Register(props) {
   };
 
   const fileChangeHandler = (event) => {
-    console.log(event.target.files[0]);
-    let img = event.target.files[0];
-    setImage(URL.createObjectURL(img));
-    console.log(getBase64(img))
+    let files = event.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = (e) => {
+      console.log(e.target.result);
+      setImage(e.target.result);
+    };
   };
 
   const formIsValid =
-  userName.length !== 0 &&
+    userName.length !== 0 &&
     lastName.length !== 0 &&
     password.length !== 0 &&
     firstName.length !== 0 &&
     rePassword.length !== 0 &&
-    email.length !== 0;
-    // image !== null;
+    email.length !== 0 &&
+    image !== null;
 
   return (
     <form className={classes.form_wrapper} onSubmit={handleSubmission}>
@@ -142,9 +147,11 @@ function Register(props) {
             type="submit"
             disabled={!formIsValid}
             className={classes.submit_btn}
-            title='Register'
+            title="Register"
           />
-          <Link to='/auth/login' className={classes.link_to} >Already have account?</Link>
+          <Link to="/auth/login" className={classes.link_to}>
+            Already have account?
+          </Link>
         </div>
       </div>
     </form>

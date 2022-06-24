@@ -25,7 +25,6 @@ const authSlice = createSlice({
         document.cookie = `token=${state.token};expires=${date}; path=/`;
         document.cookie = `tokenExp=${date};expires=${date}; path=/`;
       }
-      console.log("isLoggedIn: ", state.isLoggedIn);
     },
     setToken(state, action) {
       state.token = action.payload;

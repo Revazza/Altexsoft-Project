@@ -15,6 +15,8 @@ export { default as Input } from "../../UI/input/Input";
 export {default as ValidationInput} from '../../UI/input/validationInput/ValidationInput'
 export {default as Card} from '../../UI/Card';
 export {default as useHttp} from '../../hooks/useHttp';
+export {default as useFetch} from '../../hooks/useFetch';
+export {getCookie} from '../../helperFunctions/HelperFunctions';
 export {useSelector} from 'react-redux';
 
 export const emailInput = {
