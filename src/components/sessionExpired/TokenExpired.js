@@ -10,6 +10,7 @@ import {
   useHistory
 } from "../../AppImports";
 
+
 function TokenExpired() {
   return (
     <React.Fragment>
@@ -34,7 +35,9 @@ const TokenExpiredOverlay = () => {
     history.push('/auth/login');
   };
   const handleExtendSession = () => {
-    dispatch(authSliceActions.login({ token: getCookie("token"), exp: 20000 }));
+    const currentDate = new Date();
+    const newSessionDate = currentDate.getTime()/1000 + 100;
+    dispatch(authSliceActions.login({ token: getCookie("token"), exp: newSessionDate}));
     dispatch(notificationActions.hideSessionExpired());
   };
 

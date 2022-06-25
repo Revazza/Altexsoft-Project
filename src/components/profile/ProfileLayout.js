@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./ProfileLayout.module.css";
 import Card from "../../UI/Card";
 
@@ -10,6 +10,7 @@ import {
   AddApartment,
   useFetch,
   getCookie,
+  Loading,
 } from "./imports";
 import jwt from "jwt-decode";
 
@@ -18,8 +19,8 @@ function ProfileLayout() {
   const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/User/GetUserProfile/${jwt(token).UserId}`
   );
+  // console.log(data);
 
-  console.log(data);
   //this will be handy after window width will be less than 920px
   const [showSettings, setShowSettings] = useState(false);
 
@@ -31,38 +32,42 @@ function ProfileLayout() {
 
   return (
     <React.Fragment>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && (
+        <div className={classes.loading_wrapper}>
+          <Loading />
+        </div>
+      )}
       {!hasErrors && (
         <Card className={classes.wrapper}>
           <section className={classes.update_info_section}>
             <h2>Profile</h2>
-            <ProfileInformation onSettingsClick={handleSettingsClick} />
+            <ProfileInformation
+              data={data}
+              onSettingsClick={handleSettingsClick}
+            />
             <ChangeProfile showSettings={showSettings} />
           </section>
-          {/* {data?.apartmentId === null && (
-            
-          )} */}
-          {/* <section className={classes.add_apartment}>
+          {data?.apartmentId === null && (
+            <section className={classes.add_apartment}>
               <Apartment label="Add Apartment">
                 <AddApartment />
               </Apartment>
-            </section> */}
-          {/* {data?.apartmentId !== null && (
-            
-          )} */}
-          <section className={classes.apartment_layout}>
+            </section>
+          )}
+
+          {data?.apartmentId !== null && (
+            <section className={classes.apartment_layout}>
               <Apartment label="Show Apartment">
-                <ApartmentLayout apartmentID={data?.apartmentId} />
+                <ApartmentLayout
+                  apartmentID={data?.apartmentId}
+                />
               </Apartment>
-          </section>
+            </section>
+          )}
         </Card>
       )}
     </React.Fragment>
   );
 }
-
-const MapPin = () => {
-  return <img src="./assets/pin.png" alt="pin" />;
-};
 
 export default ProfileLayout;

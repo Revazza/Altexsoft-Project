@@ -17,14 +17,11 @@ const authSlice = createSlice({
     },
     login(state, action) {
       state.isLoggedIn = true;
-      if (action.payload.token) {
-        state.token = action.payload.token;
-        let date = new Date();
-        //should change 30 with action.payload.exp
-        date.setTime(date.getTime() + 60 * 1000);
-        document.cookie = `token=${state.token};expires=${date}; path=/`;
+      state.token = action.payload.token;
+      let date = new Date(action.payload.exp * 1000);
+      document.cookie = `token=${state.token};expires=${date}; path=/`;
+      if(action.payload.exp)
         document.cookie = `tokenExp=${date};expires=${date}; path=/`;
-      }
     },
     setToken(state, action) {
       state.token = action.payload;

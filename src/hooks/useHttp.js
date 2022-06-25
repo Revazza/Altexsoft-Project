@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 
 function useHttp() {
+  const [isLoading,setIsLoading] = useState();
+
   const sendRequest = async (url, configure) => {
-    const response = await fetch(url, {
-      method: configure?.method ?? "GET",
-      headers: configure?.headers ?? { "Content-Type": "application/json" },
-      body: configure?.body ?? undefined,
-      token: configure?.token,
-    });
-    const responseData = await response.json();
-    let error = '';
-    if (!response.ok)
-      error = responseData;
-    return response.ok ? {data:responseData} :{errorMsg:error};
+    try {
+      setIsLoading(true);
+      const response = await fetch(url, {
+        method: configure?.method ?? "GET",
+        headers: configure?.headers ?? {
+          "Content-Type": "application/json",
+        },
+        body: configure?.body ?? undefined,
+      });
+      const responseData = await response.json();
+      if (!response.ok)
+       throw new Error(responseData);
+
+      setIsLoading(false);
+      return {data:responseData};
+    } catch (error) {
+      setIsLoading(false);
+      return { errorMsg: error.message };
+    }
   };
 
   return {
     sendRequest,
+    isLoading
   };
 }
 

@@ -13,6 +13,9 @@
   display: flex;
   justify-content: space-between;
 }
+.delete_btn button{
+  background-color: #F24C4C;
+}
 
 @keyframes showApartment {
   from {

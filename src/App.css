@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Baumans&family=Kdam+Thmor+Pro&family=Koulen&family=Montserrat:wght@300;400&family=PT+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Baumans&family=Kdam+Thmor+Pro&family=Koulen&family=Montserrat:wght@300;400&family=PT+Sans&display=swap');
 
 html,
 body {
@@ -46,4 +46,12 @@ input::placeholder {
 .MyBookings_wrapper {
   width: 100%;
   position: relative;
+}
+
+.Auth_Loader{
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

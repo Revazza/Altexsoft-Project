@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ApartmentLayout.module.css";
 import HotelAttributes from "./HotelAttributes";
-import { GoogleMapReact,Button } from "../../imports";
+import {
+  GoogleMapReact,
+  Button,
+  useFetch,
+  useHttp,
+  getCookie,
+  useHistory
+} from "../../imports";
+import jwt from "jwt-decode";
 const ApartmentLayout = (props) => {
-  // console.log(props.apartmentID);
+  const history = useHistory();
+  const token = getCookie("token");
+  const { sendRequest } = useHttp();
+  const { data } = useFetch(
+    `https://localhost:7043/api/Apartment/${props.apartmentID}`
+  );
+  console.log(props.apartmentID);
+  let lat = 0;
+  let lng = 0;
+  if (data) {
+    let coordinates = data.apartmentCoordinates.split(" ");
+    lat = +coordinates[0];
+    lng = +coordinates[1];
+  }
+
+  const handleDeleteHotel = () => {
+    const response = sendRequest(
+      `https://localhost:7043/api/Apartment/${jwt(token).UserId}`,
+      {
+        method: "DELETE",
+      }
+    );
+  };
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`
     : `${classes.wrapper}`;
@@ -18,32 +48,33 @@ const ApartmentLayout = (props) => {
           <div className={classes.attributes_wrapper}>
             <HotelAttributes
               attribute="City"
-              atrInfo="Tbilisi"
+              atrInfo={data?.city}
               id={classes.firstAttribute}
             />
+            <HotelAttributes attribute="Address" atrInfo={data?.address} />
             <HotelAttributes
-              attribute="Address"
-              atrInfo="Some Address like this"
+              attribute="Center In"
+              atrInfo={`${data?.distanceToCenter}m`}
             />
-            <HotelAttributes attribute="Center In" atrInfo="300m" />
-            <HotelAttributes attribute="Beds" atrInfo="4-5" />
+            <HotelAttributes attribute="Beds" atrInfo={data?.bedsNumber} />
             <HotelAttributes
               attribute="Description"
-              atrInfo="Some long string and bla bla bla this hotel is great more string more greatness lorem lorem lorem lorem lorem"
+              atrInfo={data?.apartmentDescription}
             />
           </div>
         </section>
       </div>
       <div className={classes.map_wrapper}>
-        <GoogleMapReact
-          defaultCenter={{ lat: 59.95, lng: 30.33 }}
-          defaultZoom={16}
-        >
-          <MapPin lat={59.95} lng={30.33} />
+        <GoogleMapReact center={{ lat, lng }} defaultZoom={16}>
+          <MapPin lat={lat} lng={lng} />
         </GoogleMapReact>
       </div>
       <div className={classes.delete_btn}>
-        <Button type='button' title='Delete Apartment' />
+        <Button
+          type="button"
+          title="Delete Apartment"
+          onClick={handleDeleteHotel}
+        />
       </div>
     </div>
   );

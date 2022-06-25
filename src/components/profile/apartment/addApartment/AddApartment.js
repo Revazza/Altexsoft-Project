@@ -6,16 +6,16 @@ import {
   Input,
   useSelector,
   useHttp,
+  useHistory
 } from "../../imports";
 
 import Map from "./map/Map";
-
 import jwt from "jwt-decode";
 
 function AddApartment(props) {
+  const history = useHistory();
   const token = useSelector((state) => state.auth.token);
   const { sendRequest } = useHttp();
-
   const cityRef = useRef();
   const addressRef = useRef();
   const distanceRef = useRef();
@@ -41,12 +41,11 @@ function AddApartment(props) {
   const handlePositionChange = (event) =>{
     setLat(event.lat);
     setLng(event.lng);
-    console.log(event);
   }
 
-  const handleSubmission = (event) => {
+  const handleSubmission =(event) => {
     event.preventDefault();
-    let image64 = img.replace("data:image/jpeg;base64,", "");
+    let image64 = img.substring(img.indexOf(",")+1);
     const request = {
       userID: jwt(token).UserId,
       city: cityRef.current.value,
@@ -55,22 +54,18 @@ function AddApartment(props) {
       apartmentDescription: descriptionRef.current.value,
       bedsNumber: +bedRef.current.value,
       apartmentPicture: image64,
-      location: {
-        lng,
-        lat,
-      },
+      ApartmentCoordinates: `${lat} ${lng}`,
     };
+    console.log(request);
+    sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
+      method: "POST",
+      body: JSON.stringify(request),
+    });
 
-    console.log(request)
-
-    // sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
-    //   method: "POST",
-    //   body: JSON.stringify(request),
-    // });
   };
 
   return (
-    <form className={apartmentClasses} onSubmit={handleSubmission}>
+    <form className={apartmentClasses} onSubmit={handleSubmission} >
       <div className={classes.apartment_attributes}>
         <div className={classes.inputs}>
           <Input type="text" placeholder="City" ref={cityRef} required={true}/>

@@ -32,6 +32,7 @@ function App() {
   useEffect(() => {
     if (getCookie("token")) {
       //Request should be added with token
+      const cookieExpDate = getCookie('tokenExp');
       dispatch(authSliceActions.login({token:getCookie('token')}));
       dispatch(authSliceActions.setToken(getCookie("token")));
       history.push("/");
@@ -41,9 +42,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let userDate = new Date(getCookie("tokenExp"));
-    let currentTime = new Date();
-    if (currentTime.getTime() > userDate.getTime())
+    const sessionExp = new Date(getCookie("tokenExp"));
+    const currentTime = new Date();
+    if(currentTime.getTime() > sessionExp.getTime())
       dispatch(notificationActions.showSessionExpired());
   }, [location]);
 

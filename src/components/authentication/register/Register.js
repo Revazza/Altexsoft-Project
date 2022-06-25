@@ -6,7 +6,6 @@ import {
   validatePassword,
   validateUsername,
   validateEmail,
-  getBase64,
 } from "../../../helperFunctions/HelperFunctions";
 import Button from "../../../UI/Button";
 import { Link } from "react-router-dom";
@@ -33,15 +32,15 @@ function Register(props) {
 
   const handleSubmission = (event) => {
     event.preventDefault();
-    let image64 = image.replace("data:image/jpeg;base64,", "");
-    console.log(image64);
+    const imageType = image.substring(0,image.indexOf(',')+1);
+    const image64 = image.substring(image.indexOf(",")+1);
     let newUser = {
       firstName,
       lastName,
       userName,
       email,
       password,
-      image: image64,
+      userPicture: image64,
     };
     props.onSubmit(newUser);
   };
@@ -57,7 +56,6 @@ function Register(props) {
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = (e) => {
-      console.log(e.target.result);
       setImage(e.target.result);
     };
   };
@@ -142,7 +140,6 @@ function Register(props) {
           <input type="file" onChange={fileChangeHandler} required={true} />
         </div>
         <div className={classes.register_btn}>
-          {props.isRegistered && <p>Account is already registered</p>}
           <Button
             type="submit"
             disabled={!formIsValid}

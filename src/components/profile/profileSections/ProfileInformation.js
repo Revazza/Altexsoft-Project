@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import classes from "./ProfileInformation.module.css";
 import { Card } from "../imports";
 function ProfileInformation(props) {
-  
 
   const handleSettingsClick = () =>{
     props.onSettingsClick();
@@ -22,7 +21,7 @@ function ProfileInformation(props) {
             <p>Username:</p>
           </div>
           <div>
-            <p>My Username</p>
+            <p>{props.data?.userName}</p>
           </div>
         </div>
         <div className={classes.info}>
@@ -30,7 +29,7 @@ function ProfileInformation(props) {
             <p>Email</p>
           </div>
           <div>
-            <p>My Email</p>
+            <p>{props.data?.email}</p>
           </div>
         </div>
       </div>

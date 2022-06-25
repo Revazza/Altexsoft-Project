@@ -30,9 +30,6 @@ function Login(props) {
           ref={passwordRef}
           id={id.password_inp}
         />
-        {!props.isUser === false && (
-          <p id={id.errorMsg}>Incorrect Information</p>
-        )}
         <Button
           type="submit"
           className={registerClasses.submit_btn}

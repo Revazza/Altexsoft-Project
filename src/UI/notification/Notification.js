@@ -8,7 +8,6 @@ const Notification = (props) => {
   const dispatch = useDispatch();
   const {type,msg} = useSelector((state) =>state.notification);
 
-
   useEffect( () =>{
     setTimeout(() => {
       setNotificationID(`${styles.hideNotification}`);
@@ -20,9 +19,9 @@ const Notification = (props) => {
 
   let classes = `${styles.wrapper} ${props.className}`;
   if (type === 'error')
-   classes += `${styles.error}`;
+   classes += `${styles.wrapper} ${props.className} ${styles.error}`;
   else if (type === 'success')
-   classes += `${styles.success}`;
+   classes += `${styles.wrapper} ${props.className} ${styles.success}`;
   else {
     //Warning
     classes += `${styles.warning}`;

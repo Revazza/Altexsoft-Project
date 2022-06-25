@@ -1,26 +1,27 @@
-import React, { useState,Children } from "react";
+import React, { useState, Children, useEffect } from "react";
 import classes from "./Apartment.module.css";
-import Card from '../../../UI/Card';
+import Card from "../../../UI/Card";
 function Apartment(props) {
   const [showApartment, setShowApartment] = useState(false);
-  const [hideApartment,setHideApartment] = useState(true);
+  const [hideApartment, setHideApartment] = useState(true);
+
   const toggleAppartment = () => {
-    if(showApartment)
-    {
+    if (showApartment) {
       setHideApartment(true);
       setTimeout(() => {
         setShowApartment(false);
       }, 300);
-    }
-    else{
+    } else {
       setHideApartment(false);
       setShowApartment(true);
     }
   };
 
-  const childrenWithProps = Children.map(props.children, child => {
+  const childrenWithProps = Children.map(props.children, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { hideApartment:hideApartment });
+      return React.cloneElement(child, {
+        hideApartment,
+      });
     }
     return child;
   });

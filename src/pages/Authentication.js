@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { authSliceActions, notificationActions } from "../store/store";
 import jwt from "jwt-decode";
 
@@ -9,27 +9,41 @@ import {
   useDispatch,
   useHistory,
   Route,
+  Loading,
 } from "./imports";
 
 function Authentication() {
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [isUser, setIsUser] = useState(null);
   const dispatch = useDispatch();
-  const { sendRequest } = useHttp();
+  const { isLoading, sendRequest } = useHttp();
   const history = useHistory();
   const handleNewUser = async (newUser) => {
-    delete newUser.image;
     const response = await sendRequest(
       "https://localhost:7043/api/User/Register",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({ ...newUser }),
+        body: JSON.stringify(newUser),
       }
     );
-    console.log(response);
+    if (response.errorMsg)
+      dispatch(
+        notificationActions.showNotification({
+          msg: response.errorMsg,
+          type: "error",
+        })
+      );
+    else {
+      dispatch(
+        notificationActions.showNotification({
+          msg: response.data,
+          type: "success",
+        })
+      );
+      history.push("/auth/login");
+    }
   };
   const handleLogin = async (user) => {
     const response = await sendRequest(
@@ -43,17 +57,17 @@ function Authentication() {
         body: JSON.stringify({ ...user }),
       }
     );
-    const token = jwt(response.data);
-    console.log(token);
-    if (response.errorMsg === undefined) {
+    if (response.errorMsg) {
       dispatch(
         notificationActions.showNotification({
-          msg: "Logged In Successfuly",
-          type: "success",
+          msg: response.errorMsg,
+          type: "error",
         })
       );
+    } else {
+      const token = jwt(response.data);
       dispatch(
-        authSliceActions.login({ token: response.data, exp: token.exp})
+        authSliceActions.login({ token: response.data, exp: token.exp })
       );
       history.push("/");
     }
@@ -61,12 +75,21 @@ function Authentication() {
 
   return (
     <div className="Auth_wrapper">
-      <Route path="/auth/register">
-        <Register onSubmit={handleNewUser} />
-      </Route>
-      <Route path="/auth/login">
-        <Login onSubmit={handleLogin} />
-      </Route>
+      {isLoading && (
+        <div className="Auth_Loader">
+          <Loading />
+        </div>
+      )}
+      {!isLoading && (
+        <React.Fragment>
+          <Route path="/auth/register">
+            <Register onSubmit={handleNewUser} />
+          </Route>
+          <Route path="/auth/login">
+            <Login onSubmit={handleLogin} />
+          </Route>
+        </React.Fragment>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 
 
 .wrapper{
-  width: 35%;
+  width: 40%;
   box-sizing: border-box;
   height: 320px;
   padding: 15px 20px;
@@ -26,10 +26,9 @@
   margin-top: 20px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
 }
 .info div{
-  width: 50%;
+  width: 37%;
 }
 .template{
   font-style: italic;
