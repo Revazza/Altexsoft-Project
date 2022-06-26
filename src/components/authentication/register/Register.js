@@ -40,7 +40,8 @@ function Register(props) {
       userName,
       email,
       password,
-      userPicture: image64,
+      userPictureBase64:image64,
+      userPictureHeader:imageType,
     };
     props.onSubmit(newUser);
   };

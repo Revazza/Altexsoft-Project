@@ -6,6 +6,13 @@ function useHttp() {
   const sendRequest = async (url, configure) => {
     try {
       setIsLoading(true);
+      console.log({
+        method: configure?.method ?? "GET",
+        headers: configure?.headers ?? {
+          "Content-Type": "application/json",
+        },
+        body: configure?.body ?? undefined,
+      });
       const response = await fetch(url, {
         method: configure?.method ?? "GET",
         headers: configure?.headers ?? {

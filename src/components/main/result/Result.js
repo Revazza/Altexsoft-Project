@@ -23,7 +23,6 @@ const arr = [
   <Item key={7} hotel={hotel} />,
   <Item key={8} hotel={hotel} />,
   <Item key={9} hotel={hotel} />,
-
 ];
 
 function Result() {

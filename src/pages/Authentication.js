@@ -9,7 +9,6 @@ import {
   useDispatch,
   useHistory,
   Route,
-  Loading,
 } from "./imports";
 
 function Authentication() {
@@ -17,6 +16,7 @@ function Authentication() {
   const { isLoading, sendRequest } = useHttp();
   const history = useHistory();
   const handleNewUser = async (newUser) => {
+    console.log(newUser);
     const response = await sendRequest(
       "https://localhost:7043/api/User/Register",
       {
@@ -28,14 +28,15 @@ function Authentication() {
         body: JSON.stringify(newUser),
       }
     );
-    if (response.errorMsg)
+    if (response.errorMsg) {
       dispatch(
         notificationActions.showNotification({
           msg: response.errorMsg,
           type: "error",
         })
       );
-    else {
+    } else {
+      console.log("i am success");
       dispatch(
         notificationActions.showNotification({
           msg: response.data,
@@ -75,21 +76,14 @@ function Authentication() {
 
   return (
     <div className="Auth_wrapper">
-      {isLoading && (
-        <div className="Auth_Loader">
-          <Loading />
-        </div>
-      )}
-      {!isLoading && (
-        <React.Fragment>
-          <Route path="/auth/register">
-            <Register onSubmit={handleNewUser} />
-          </Route>
-          <Route path="/auth/login">
-            <Login onSubmit={handleLogin} />
-          </Route>
-        </React.Fragment>
-      )}
+      <React.Fragment>
+        <Route path="/auth/register">
+          <Register onSubmit={handleNewUser} />
+        </Route>
+        <Route path="/auth/login">
+          <Login onSubmit={handleLogin} />
+        </Route>
+      </React.Fragment>
     </div>
   );
 }

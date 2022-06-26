@@ -26,7 +26,7 @@ function AddApartment(props) {
   const descriptionRef = useRef();
   const [lat,setLat] = useState(41.7151);
   const [lng,setLng] = useState(44.8268);
-  const [img, setImg] = useState(undefined);
+  const [image, setImage] = useState(undefined);
 
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`
@@ -37,7 +37,7 @@ function AddApartment(props) {
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = (e) => {
-      setImg(e.target.result);
+      setImage(e.target.result);
     };
   };
 
@@ -48,7 +48,8 @@ function AddApartment(props) {
 
   const handleSubmission = (event) => {
     event.preventDefault();
-    let image64 = img.substring(img.indexOf(",")+1);
+    const imageType = image.substring(0,image.indexOf(',')+1);
+    const image64 = image.substring(image.indexOf(",")+1);
     const request = {
       userID: jwt(token).UserId,
       city: cityRef.current.value,
@@ -56,7 +57,8 @@ function AddApartment(props) {
       distanceToCenter: +distanceRef.current.value,
       apartmentDescription: descriptionRef.current.value,
       bedsNumber: +bedRef.current.value,
-      apartmentPicture: image64,
+      apartmentPictureBase64: image64,
+      apartmentHeader:imageType,
       ApartmentCoordinates: `${lat} ${lng}`,
     };
     sendRequest("https://localhost:7043/api/Apartment/AddApartment", {

@@ -19,19 +19,20 @@ function ChangeProfile(props) {
 
     let key = Object.keys(newInfo)[0];
     let value = newInfo[key];
-    if (key !== "password") value = value.toLowerCase();
+    if (key !== "password")
+     value = value.toLowerCase();
+
+    key = key.charAt(0).toUpperCase() + key.slice(1);
+    const userID = jwt(getCookie('token')).UserId;
     const requestBody = {
-      path: `/${key}`,
-      op: "replace",
-      value,
+      userId:userID,
+      [`new${key}`]:value,
     };
-    console.log("Request Body: ",requestBody);
-    console.log("Api: ",`https://localhost:7043/api/User/${jwt(getCookie('token')).UserId}`)
     const response = await sendRequest(
-      `https://localhost:7043/api/User/${jwt(getCookie('token')).UserId}`,
-      { method: "PATCH", body: JSON.stringify(requestBody) }
+      `https://localhost:7043/api/User/Change${key}`,
+      { method: "POST", body: JSON.stringify(requestBody) }
     );
-    console.log("Back-end Response: ",response);
+    console.log(response);
   };
 
   const smallWindow = window.innerWidth <= 920;

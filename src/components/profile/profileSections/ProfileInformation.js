@@ -3,14 +3,17 @@ import classes from "./ProfileInformation.module.css";
 import { Card } from "../imports";
 function ProfileInformation(props) {
 
-  const handleSettingsClick = () =>{
+  const imgSrc =
+    props.data?.userPicture.userHeader + props.data?.userPicture.userPicture;
+    console.log(imgSrc);
+  const handleSettingsClick = () => {
     props.onSettingsClick();
-  }
+  };
 
   return (
     <Card className={classes.wrapper}>
       <div className={classes.img_wrapper}>
-        <img src="./assets/user2.png" alt="Profile Picture" />
+        <img src={imgSrc ? imgSrc: './assets/Rectangle.png' } alt="Profile Picture" />
       </div>
       <div className={classes.settings} onClick={handleSettingsClick}>
         <img src="./assets/settings.png" />
