@@ -20,7 +20,6 @@ const ApartmentLayout = (props) => {
   const { data } = useFetch(
     `https://localhost:7043/api/Apartment/${props.apartmentID}`
   );
-  console.log(props.apartmentID);
   let lat = 0;
   let lng = 0;
   if (data) {

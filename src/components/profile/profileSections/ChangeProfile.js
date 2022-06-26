@@ -3,28 +3,35 @@ import classes from "./ChangeProfile.module.css";
 
 import ChangeInformation from "./changeInformation/ChangeInformation";
 
-import { emailInput, usernameInput, passwordInput, useHttp,getCookie } from "../imports";
-import jwt from 'jwt-decode';
+import {
+  emailInput,
+  usernameInput,
+  passwordInput,
+  useHttp,
+  getCookie,
+} from "../imports";
+import jwt from "jwt-decode";
 function ChangeProfile(props) {
   const { sendRequest } = useHttp();
 
   const handleUpdateInfo = async (newInfo) => {
     console.log(newInfo);
-    
+
     let key = Object.keys(newInfo)[0];
     let value = newInfo[key];
-    if(key !== 'password')
-      value = value.toLowerCase();
-    console.log(value);
+    if (key !== "password") value = value.toLowerCase();
     const requestBody = {
-      path:`/${key}`,
-      op:'replace',
-      value
-    }
-    console.log(requestBody);
-    const response = await sendRequest(`https://localhost:7043/api/User/${jwt(getCookie('token'))}`,{method:'PATCH',body:JSON.stringify(requestBody)});
-    console.log(response);
-
+      path: `/${key}`,
+      op: "replace",
+      value,
+    };
+    console.log("Request Body: ",requestBody);
+    console.log("Api: ",`https://localhost:7043/api/User/${jwt(getCookie('token')).UserId}`)
+    const response = await sendRequest(
+      `https://localhost:7043/api/User/${jwt(getCookie('token')).UserId}`,
+      { method: "PATCH", body: JSON.stringify(requestBody) }
+    );
+    console.log("Back-end Response: ",response);
   };
 
   const smallWindow = window.innerWidth <= 920;
