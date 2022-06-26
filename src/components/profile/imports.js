@@ -19,7 +19,8 @@ export { default as Card } from "../../UI/Card";
 export { default as useHttp } from "../../hooks/useHttp";
 export { default as useFetch } from "../../hooks/useFetch";
 export { getCookie } from "../../helperFunctions/HelperFunctions";
-export { useSelector } from "react-redux";
+export { useSelector,useDispatch } from "react-redux";
+export { notificationActions} from '../../store/store';
 
 export const emailInput = {
   input: {

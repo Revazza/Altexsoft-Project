@@ -20,22 +20,42 @@
   box-sizing: border-box;
   padding: 15px 20px;
 }
-.wrapper h2{
+.wrapper h2 {
   text-align: center;
   font-size: 27px;
   letter-spacing: 1px;
-  font-family: 'Anton', sans-serif !important;
+  font-family: "Anton", sans-serif !important;
 }
 
-.btn_wrapper{
+.btn_wrapper {
   width: 100%;
   height: 40px;
 }
-.btn_wrapper button{
+.btn_wrapper button {
   width: 70%;
   display: block;
   margin: 20px auto 0 auto;
 }
-.logut_btn{
+.logut_btn {
   background-color: brown;
+}
+
+@media screen and (max-width: 950px) {
+  .wrapper {
+    left: 55%;
+
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wrapper {
+    left: 65%;
+    width: 370px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper {
+    left: 67%;
+  }
 }

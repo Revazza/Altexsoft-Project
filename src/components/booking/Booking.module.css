@@ -27,6 +27,7 @@
   box-sizing: border-box;
   padding: 0 20px;
   height: inherit;
+  overflow: auto;
 }
 .map{
   width: 50%;

@@ -6,6 +6,8 @@ import {
   Input,
   useSelector,
   useHttp,
+  useDispatch,
+  notificationActions,
   useHistory
 } from "../../imports";
 
@@ -13,6 +15,7 @@ import Map from "./map/Map";
 import jwt from "jwt-decode";
 
 function AddApartment(props) {
+  const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector((state) => state.auth.token);
   const { sendRequest } = useHttp();
@@ -43,7 +46,7 @@ function AddApartment(props) {
     setLng(event.lng);
   }
 
-  const handleSubmission =(event) => {
+  const handleSubmission = (event) => {
     event.preventDefault();
     let image64 = img.substring(img.indexOf(",")+1);
     const request = {
@@ -56,12 +59,13 @@ function AddApartment(props) {
       apartmentPicture: image64,
       ApartmentCoordinates: `${lat} ${lng}`,
     };
-    console.log(request);
     sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
       method: "POST",
       body: JSON.stringify(request),
     });
 
+    dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
+    history.push('/');
   };
 
   return (

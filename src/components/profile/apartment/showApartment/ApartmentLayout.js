@@ -7,11 +7,14 @@ import {
   useFetch,
   useHttp,
   getCookie,
-  useHistory
+  useHistory,
+  useDispatch,
+  notificationActions
 } from "../../imports";
 import jwt from "jwt-decode";
 const ApartmentLayout = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const token = getCookie("token");
   const { sendRequest } = useHttp();
   const { data } = useFetch(
@@ -26,13 +29,15 @@ const ApartmentLayout = (props) => {
     lng = +coordinates[1];
   }
 
-  const handleDeleteHotel = () => {
-    const response = sendRequest(
+  const handleDeleteHotel = async () => {
+    sendRequest(
       `https://localhost:7043/api/Apartment/${jwt(token).UserId}`,
       {
         method: "DELETE",
       }
     );
+    dispatch(notificationActions.showNotification({type:'success',msg:'Hotel Removed'}));
+    history.push('/');
   };
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`

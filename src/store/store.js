@@ -10,6 +10,7 @@ const store = configureStore({
   }
 });
 
+
 export const notificationActions = notificationSlice.actions;
 export const authSliceActions = authSlice.actions;
 export default store;

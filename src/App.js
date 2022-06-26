@@ -27,13 +27,13 @@ function App() {
   const showNotification = useSelector(
     (state) => state.notification.showNotification
   );
-  const sessionExpired = useSelector((state) => state.notification.sessionExpired)
+  const sessionExpired = useSelector(
+    (state) => state.notification.sessionExpired
+  );
   const location = useLocation();
   useEffect(() => {
     if (getCookie("token")) {
-      //Request should be added with token
-      const cookieExpDate = getCookie('tokenExp');
-      dispatch(authSliceActions.login({token:getCookie('token')}));
+      dispatch(authSliceActions.login({ token: getCookie("token") }));
       dispatch(authSliceActions.setToken(getCookie("token")));
       history.push("/");
     } else {
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     const sessionExp = new Date(getCookie("tokenExp"));
     const currentTime = new Date();
-    if(currentTime.getTime() > sessionExp.getTime())
+    if (currentTime.getTime() > sessionExp.getTime())
       dispatch(notificationActions.showSessionExpired());
   }, [location]);
 
@@ -74,7 +74,7 @@ function App() {
         </Switch>
       </div>
       {showNotification && <Notification />}
-      {sessionExpired && <TokenExpired/>}
+      {sessionExpired && <TokenExpired />}
     </div>
   );
 }

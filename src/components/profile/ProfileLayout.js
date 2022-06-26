@@ -14,12 +14,12 @@ import {
 } from "./imports";
 import jwt from "jwt-decode";
 
-function ProfileLayout() {
+function ProfileLayout(props) {
   const token = getCookie("token");
   const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/User/GetUserProfile/${jwt(token).UserId}`
   );
-  // console.log(data);
+  console.log(data);
 
   //this will be handy after window width will be less than 920px
   const [showSettings, setShowSettings] = useState(false);
@@ -58,9 +58,7 @@ function ProfileLayout() {
           {data?.apartmentId !== null && (
             <section className={classes.apartment_layout}>
               <Apartment label="Show Apartment">
-                <ApartmentLayout
-                  apartmentID={data?.apartmentId}
-                />
+                <ApartmentLayout apartmentID={data?.apartmentId} />
               </Apartment>
             </section>
           )}
