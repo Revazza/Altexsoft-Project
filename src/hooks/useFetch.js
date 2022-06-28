@@ -8,16 +8,21 @@ function useFetch(url) {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const response = await fetch(url);
-
-      if (!response.ok)
-       setError("some error message");
-      else {
-        const responseData = await response.json();
-        setData(responseData);
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("My Error");
+        } else {
+          const responseData = await response.json();
+          setData(responseData);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setError(true);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
+
     fetchData();
   }, []);
 

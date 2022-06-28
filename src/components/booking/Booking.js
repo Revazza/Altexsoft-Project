@@ -7,7 +7,7 @@ import { getCookie } from "../../helperFunctions/HelperFunctions";
 import useFetch from "../../hooks/useFetch";
 function Booking() {
   const userID = jwt(getCookie("token")).UserId;
-  const { data } = useFetch(
+  const { isLoading,error,data } = useFetch(
     `https://localhost:7043/api/Booking/BookingProfile/${userID}`
   );
   const [currentRequest, setCurrentRequest] = useState();
@@ -44,6 +44,7 @@ function Booking() {
     setCurrentRequest(newInfo);
   };
 
+  const hasError = !isLoading && error;
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>

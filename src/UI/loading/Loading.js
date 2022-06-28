@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./Loading.module.css";
 
-const Loading = () => {
+const Loading = (props) => {
+  const classes = `${styles.wrapper} ${props.className}`;
   return (
-    <div className={styles.loader}>
+    <div className={classes}>
+      <div className={styles.loader}></div>
     </div>
   );
 };

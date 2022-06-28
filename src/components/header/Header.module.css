@@ -111,6 +111,16 @@ a {
 .profile_img {
   width: 26px;
   height: 26px;
+  position: relative;
+}
+.profile_img p{
+  position: absolute;
+  font-size: 17px;
+  color: #F24C4C;
+  top: -8px;
+  right:-19px;
+  font-family: 'Koulen', cursive !important;
+  letter-spacing: 1px;
 }
 .profile_img img {
   width: 100%;

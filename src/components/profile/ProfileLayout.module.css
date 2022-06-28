@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: center;
 }
+.error_wrapper{
+  margin-top: 150px;
+}
 
 .wrapper{
   position: relative;

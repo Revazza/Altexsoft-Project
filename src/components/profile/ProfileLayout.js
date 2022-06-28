@@ -11,6 +11,7 @@ import {
   useFetch,
   getCookie,
   Loading,
+  Error
 } from "./imports";
 import jwt from "jwt-decode";
 
@@ -31,6 +32,7 @@ function ProfileLayout(props) {
 
   return (
     <React.Fragment>
+      {hasErrors && <Error className={classes.error_wrapper} />}
       {isLoading && (
         <div className={classes.loading_wrapper}>
           <Loading />

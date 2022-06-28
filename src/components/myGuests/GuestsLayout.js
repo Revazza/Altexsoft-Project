@@ -6,6 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import { getCookie } from "../../helperFunctions/HelperFunctions";
 import jwt from "jwt-decode";
 import Loading from "../../UI/loading/Loading";
+import Error from "../../UI/error/Error";
 
 function GuestsLayout() {
   const token = jwt(getCookie("token"));
@@ -23,13 +24,16 @@ function GuestsLayout() {
       behavior: "smooth",
     });
   };
-  console.log(data);
   const indexOfLastGuest = hotelsPerPage * currentPage;
   const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
   const slicedArr = data?.slice(indexOfFirstGuest, indexOfLastGuest);
+
+  const hasError = !isLoading && error;
   return (
     <section className={classes.wrapper}>
       <h2>Guests</h2>
+      {hasError && <Error className={classes.error} />}
+      {isLoading && <Loading />}
       {data?.length === 0 && (
         <div className={classes.no_request}>
           <div className={classes.user_msg}>
@@ -39,12 +43,7 @@ function GuestsLayout() {
         </div>
       )}
       <div ref={topPosition}></div>
-      {isLoading && (
-        <div className={classes.loading_animation}>
-          <Loading />
-        </div>
-      )}
-      {!isLoading && (
+      {!hasError && (
         <React.Fragment>
           <div className={classes.guest_container}>
             {slicedArr?.map((guest) => (

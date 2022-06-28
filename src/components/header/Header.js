@@ -41,6 +41,10 @@ function Header() {
               <div className={classes.hamburger_wrapper}>
                 <img src="./assets/hamburger_menu.png" alt="More" />
               </div>
+              <div className={classes.profile_img}>
+                <img src="./assets/user.png" alt="Profile" />
+                <p>+99</p>
+              </div>
               {showDropDown && (
                 <div className={classes.dropdown_list}>
                   <ul className={classes.list_wrapper}>
@@ -63,9 +67,7 @@ function Header() {
                   </ul>
                 </div>
               )}
-              <div className={classes.profile_img}>
-                <img src="./assets/user.png" alt="Profile" />
-              </div>
+              
             </div>
           </nav>
         )}

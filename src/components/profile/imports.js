@@ -21,6 +21,7 @@ export { default as useFetch } from "../../hooks/useFetch";
 export { getCookie } from "../../helperFunctions/HelperFunctions";
 export { useSelector,useDispatch } from "react-redux";
 export { notificationActions} from '../../store/store';
+export { default as Error} from '../../UI/error/Error';
 
 export const emailInput = {
   input: {
