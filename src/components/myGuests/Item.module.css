@@ -2,13 +2,12 @@
 .wrapper{
   margin-top: 20px;
   width: 100%;
-  height: 230px;
-  display: flex;
+  height: 360px;
 }
 
 .img_wrapper{
-  width: 30%;
-  height: inherit;
+  width: 100%;
+  height: 180px;
 }
 .img_wrapper img {
   width: 100%;
@@ -17,39 +16,34 @@
 }
 
 .user_request{
-  width: 70%;
-  height: inherit;
+  width: 100%;
   box-sizing: border-box;
-  padding: 30px 40px;
-  position: relative;
+  padding: 10px;
 }
 .request_wrapper{
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
-  height: 130px;
-  display: flex;
 }
-.request_wrapper article{
-  width: 60%;
-  height: inherit;
-  word-wrap: break-word;
-  box-sizing: border-box;
-  padding-right: 20px;
-}
+
 .request_wrapper p{
   letter-spacing: 1px;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.8);
 }
 .checkin_out{
-  position: absolute;
-  top: 30px;
-  right: 40px;
   font-size: 13px;
   color: rgba(0, 0, 0, 0.8);
 }
+.checkin_out span{
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
+}
+#secondP{
+  margin-top: 10px;
+}
 
 .btn_wrapper{
+  margin-top: 40px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -70,70 +64,5 @@
   border: 1px solid rgb(12, 138, 223);
   color: rgb(12, 138, 223) !important;
   transition: 300ms;
-}
-
-@media screen and (max-width:750px) {
-  .user_request p{
-    font-size: 13px;
-  }
-  .user_request{
-    margin-top: 35px;
-    padding: 20px;
-  }
-}
-
-@media screen and (max-width:650px) {
-  .user_request{
-    padding: 0;
-  }
-  .wrapper{
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-    height: 500px;
-    margin-bottom: 50px;
-  }
-  .img_wrapper{
-    margin-top: 25px;
-    width: 70%;
-    height: 200px;
-  }
-  .request_wrapper{
-    flex-direction: column;
-    height: 300px;
-    align-items: center;
-  }
-  .description{
-    width: 100% !important;
-    padding-right: 0 !important;
-    height: auto !important;
-  }
-  .checkin_out{
-    top: 4px;
-    right: 0;
-  }
-  .btn_wrapper{
-    height: auto;
-    top: 40px;
-    position: relative;
-  }
- 
-}
-
-@media screen and (max-width:500px) {
-  .wrapper{
-    width: 100%;
-  }
-  .wrapper p{
-    font-size: 12px;
-  }
-  .checkin_out{
-    font-size: 10px !important;
-  }
-  .user_request label{
-    font-size: 13px;
-    font-weight: bolder;
-  }
 }
 

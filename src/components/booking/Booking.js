@@ -20,16 +20,15 @@ function Booking() {
   const carouselRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [carouselClass, setCarouselClass] = useState(``);
-  
+
   const handleCarouselNextBtn = () => {
-    if (currentIndex + 1 !== data.length)
-    {
+    if (currentIndex + 1 !== data.length) {
       setCarouselClass(
         `translateX(${-carouselRef.current.clientWidth * (currentIndex + 1)}px)`
       );
       setCurrentIndex((prevState) => ++prevState);
+      setCurrentRequest(data[currentIndex + 1]);
     }
-
   };
   const handleCarouselPrevBtn = () => {
     if (currentIndex !== 0) {
@@ -37,6 +36,7 @@ function Booking() {
         `translateX(${-carouselRef.current.clientWidth * (currentIndex - 1)}px)`
       );
       setCurrentIndex((prevState) => --prevState);
+      setCurrentRequest(data[currentIndex - 1]);
     }
   };
 
@@ -47,38 +47,53 @@ function Booking() {
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>
-      <div className={classes.request_wrapper}>
-        <div className={classes.requests}>
-          <div
-            className={classes.carousel}
-            ref={carouselRef}
-            style={{ transform: carouselClass }}
-          >
-            {data?.map((request) => {
-              return (
-                <Request
-                  key={request.bookingId}
-                  request={request}
-                  onRequestClick={handleChangeRequest}
-                />
-              );
-            })}
-          </div>
-          <div
-            className={classes.carousel_btn}
-            id={classes.prevBtn}
-            onClick={handleCarouselPrevBtn}
-          >
-            <img src="/assets/arrow.png" alt="Previous" />
-          </div>
-          <div className={classes.carousel_btn} onClick={handleCarouselNextBtn}>
-            <img src="/assets/arrow.png" alt="Next" />
+      {data?.length === 0 && (
+        <div className={classes.no_bookings_found}>
+          <div className={classes.user_msg}>
+            <label>No Bookings Found</label>
+            <img src="./assets/sad.png" />
           </div>
         </div>
-        <div className={classes.map}>
-          <HotelMap apartment={currentRequest} />
+      )}
+      {data?.length !== 0 && (
+        <div className={classes.request_wrapper}>
+          <div className={classes.requests}>
+            <div className={classes.carousel}>
+              <div
+                className={classes.carousel_items}
+                ref={carouselRef}
+                style={{ transform: carouselClass }}
+              >
+                {data?.map((request) => {
+                  return (
+                    <Request
+                      key={request.bookingId}
+                      request={request}
+                      onRequestClick={handleChangeRequest}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+            <div
+              className={classes.carousel_btn}
+              id={classes.prevBtn}
+              onClick={handleCarouselPrevBtn}
+            >
+              <img src="/assets/arrow.png" alt="Previous" />
+            </div>
+            <div
+              className={classes.carousel_btn}
+              onClick={handleCarouselNextBtn}
+            >
+              <img src="/assets/arrow.png" alt="Next" />
+            </div>
+          </div>
+          <div className={classes.map}>
+            <HotelMap apartment={currentRequest} />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

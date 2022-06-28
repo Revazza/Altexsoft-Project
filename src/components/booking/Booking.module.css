@@ -9,6 +9,26 @@
   font-size:25px;
   font-weight: bolder;
 }
+.no_bookings_found{
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user_msg{
+  width: 350px;
+  height: 250px;
+}
+.user_msg label{
+  font-size: 25px;
+}
+.user_msg img{
+  margin-top: 20px;
+  width: 256px;
+  height: 256px;
+}
+
 
 .request_wrapper{
   margin-top: 40px;
@@ -56,18 +76,20 @@
   .requests{
     width: 100%;
     height: 540px;
-    overflow: hidden;
     position: relative;
-    border: 1px solid black;
   }
+  
   .carousel{
     width: 100%;
+    height: 240px;
+    padding:0;
+    overflow: hidden;
+  }
+  .carousel_items{
     display: flex;
     align-items: center;
-    height: 240px;
     transition: transform 0.4s ease-in-out;
-    padding:0;
-    /* overflow-x: hidden; */
+    height: inherit;
   }
   .carousel_btn{
     display: initial;

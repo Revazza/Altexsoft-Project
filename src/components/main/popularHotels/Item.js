@@ -17,18 +17,16 @@ function Item(props) {
     bedsNumber,
     apartmentId,
     address,
-    apartmentPicture,
+    apartmentPicture
   } = props.hotel;
   const { sendRequest } = useHttp();
   const { error,data } = useFetch(
     `https://localhost:7043/api/User/${jwt(getCookie("token")).UserId}`
   );
-  console.log(data);
   let imgSrc = './assets/Rectangle.png';
   if(data)
   {
-    console.log(data.userPicture);
-    imgSrc = data.userPicture.userHeader
+    imgSrc = apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
   }
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -60,12 +58,16 @@ function Item(props) {
   };
 
   const buttonIsAvailable = startDate.length !== 0 && endDate.length !== 0;
-
+  const currentDate = new Date();
+  const minDate = currentDate.toISOString().split('T')[0];
+  console.log(currentDate);
+  const maxAvailabeDate = currentDate.setMonth(currentDate.getMonth() + 1);
+  console.log(maxAvailabeDate);
   return (
     <div className={classes.item}>
       <div className={classes.descr_wrapper}>
         <div className={classes.img_wrapper}>
-          <img src="./assets/Rectangle.png" />
+          <img src={imgSrc} />
         </div>
         <article className={classes.characteristic}>
           <h4>{address}</h4>
@@ -80,11 +82,11 @@ function Item(props) {
         <section className={classes.date_input}>
           <div className={classes.start_date}>
             <p>Start Date</p>
-            <input type="date" onChange={handleStartDateChange} />
+            <input type="date" onChange={handleStartDateChange} min={minDate} max="2022-07-28"/>
           </div>
           <div className={classes.end_date}>
             <p>End Date</p>
-            <input type="date" onChange={handleEndDateChange} />
+            <input type="date" onChange={handleEndDateChange}  min={minDate} max="2022-06-30"/>
           </div>
           <div className={classes.booking_btn}>
             <Button

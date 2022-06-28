@@ -6,7 +6,7 @@ import Loading from "../../../UI/loading/Loading";
 
 function PopularHotels() {
   const { isLoading, error, data } = useFetch(
-    "https://localhost:7043/api/Apartment"
+    "https://localhost:7043/api/Apartment?n=10"
   );
 
   console.log(data);

@@ -1,32 +1,84 @@
 import React from "react";
 import classes from "./Item.module.css";
 import Button from "../../UI/Button";
-import Card from '../../UI/Card';
-function Item() {
+import Card from "../../UI/Card";
+import useHttp from "../../hooks/useHttp";
+import { useDispatch } from "react-redux";
+import { notificationActions } from "../../store/store";
+
+function Item(props) {
+  const dispatch = useDispatch();
+  const { sendRequest } = useHttp();
+  const guest = props.guest;
+  const startDate = new Date(guest?.stayFrom).toISOString().split("T")[0];
+  const endDate = new Date(guest?.stayTo).toISOString().split("T")[0];
+
+  console.log(guest);
+  const handleConfigureGuestStatus = async (choice) => {
+    const response = await sendRequest(
+      `https://localhost:7043/api/Booking/GuestStatus/${guest.bookingId}?i=${choice}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    if (!response.errorMsg) {
+      dispatch(
+        notificationActions.showNotification({
+          type: "success",
+          msg: response.data,
+        })
+      );
+    }
+    else{
+      dispatch(
+        notificationActions.showNotification({
+          type: "error",
+          msg: "Something went wrong...",
+        })
+      );
+    }
+    console.log(response);
+  };
   return (
     <Card className={classes.wrapper}>
       <div className={classes.img_wrapper}>
         <img src="./assets/Rectangle.png" alt="user profile" />
       </div>
       <section className={classes.user_request}>
-        <label>Username</label>
+        <label>
+          {guest?.firstname} {guest.lastname}
+        </label>
         <div className={classes.request_wrapper}>
-          <article className={classes.description}>
+          <div className={classes.checkin_out}>
             <p>
-              asdlkjspojdposjdpdsjpl;sjd;lsjkdplsjdposjkpodjposdjkposkdposdkposdkposdkpodskpodskposdkpodskpodskpodksslkdlkdsjdskljdslkjdslkdsjlksdjlkdsjlkdjklds
+              <span>From:</span> {startDate}
             </p>
-          </article>
+            <p id={classes.secondP}>
+              <span>To:</span> {endDate}
+            </p>
+          </div>
           <div className={classes.btn_wrapper}>
             <div className={classes.btns}>
-              <Button type="button" title="Accept" />
+              <Button
+                type="button"
+                title="Accept"
+                onClick={() => handleConfigureGuestStatus(2)}
+              />
             </div>
             <div className={classes.btns}>
-              <Button type="button" title="Decline" className={classes.decline_btn} />
+              <Button
+                type="button"
+                title="Decline"
+                className={classes.decline_btn}
+                onClick={() => handleConfigureGuestStatus(1)}
+              />
             </div>
           </div>
         </div>
-
-        <p className={classes.checkin_out}>2022.12.03-2023.01.05</p>
       </section>
     </Card>
   );
