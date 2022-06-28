@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import classes from "./ApartmentLayout.module.css";
 import HotelAttributes from "./HotelAttributes";
 import {
@@ -9,7 +9,7 @@ import {
   getCookie,
   useHistory,
   useDispatch,
-  notificationActions
+  notificationActions,
 } from "../../imports";
 import jwt from "jwt-decode";
 const ApartmentLayout = (props) => {
@@ -27,16 +27,20 @@ const ApartmentLayout = (props) => {
     lat = +coordinates[0];
     lng = +coordinates[1];
   }
-
+  const imgSrc =
+    data?.apartmentPicture.apartmentHeader +
+    data?.apartmentPicture.apartmentPicture;
   const handleDeleteHotel = async () => {
-    sendRequest(
-      `https://localhost:7043/api/Apartment/${jwt(token).UserId}`,
-      {
-        method: "DELETE",
-      }
+    sendRequest(`https://localhost:7043/api/Apartment/${jwt(token).UserId}`, {
+      method: "DELETE",
+    });
+    dispatch(
+      notificationActions.showNotification({
+        type: "success",
+        msg: "Hotel Removed",
+      })
     );
-    dispatch(notificationActions.showNotification({type:'success',msg:'Hotel Removed'}));
-    history.push('/');
+    history.push("/");
   };
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`
@@ -46,7 +50,7 @@ const ApartmentLayout = (props) => {
     <div className={apartmentClasses}>
       <div className={classes.info_wrapper}>
         <div className={classes.img_wrapper}>
-          <img src="./assets/Rectangle.png" alt="Your Hotel" />
+          <img src={imgSrc ? imgSrc :"./assets/Rectangle.png"} alt="Your Hotel" />
         </div>
         <section className={classes.hotel_information}>
           <div className={classes.attributes_wrapper}>

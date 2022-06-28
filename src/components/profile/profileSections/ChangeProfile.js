@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./ChangeProfile.module.css";
 
 import ChangeInformation from "./changeInformation/ChangeInformation";
@@ -9,30 +9,41 @@ import {
   passwordInput,
   useHttp,
   getCookie,
+  notificationActions,
+  useDispatch
 } from "../imports";
 import jwt from "jwt-decode";
 function ChangeProfile(props) {
+  const dispatch = useDispatch();
   const { sendRequest } = useHttp();
 
   const handleUpdateInfo = async (newInfo) => {
-    console.log(newInfo);
-
     let key = Object.keys(newInfo)[0];
     let value = newInfo[key];
-    if (key !== "password")
-     value = value.toLowerCase();
+    if (key !== "password") value = value.toLowerCase();
 
     key = key.charAt(0).toUpperCase() + key.slice(1);
-    const userID = jwt(getCookie('token')).UserId;
+    const userID = jwt(getCookie("token")).UserId;
     const requestBody = {
-      userId:userID,
-      [`new${key}`]:value,
+      userId: userID,
+      [`new${key}`]: value,
     };
     const response = await sendRequest(
       `https://localhost:7043/api/User/Change${key}`,
-      { method: "POST", body: JSON.stringify(requestBody) }
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
     );
-    console.log(response);
+    if(response.errorMsg)
+      dispatch(notificationActions.showNotification({type:'error',msg:response.errorMsg}));
+    else{
+      dispatch(notificationActions.showNotification({type:'success',msg:response.data}))
+    }
   };
 
   const smallWindow = window.innerWidth <= 920;

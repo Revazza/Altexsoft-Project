@@ -5,7 +5,6 @@ function ProfileInformation(props) {
 
   const imgSrc =
     props.data?.userPicture.userHeader + props.data?.userPicture.userPicture;
-    console.log(imgSrc);
   const handleSettingsClick = () => {
     props.onSettingsClick();
   };

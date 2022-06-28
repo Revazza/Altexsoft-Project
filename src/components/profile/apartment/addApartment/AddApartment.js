@@ -58,8 +58,8 @@ function AddApartment(props) {
       apartmentDescription: descriptionRef.current.value,
       bedsNumber: +bedRef.current.value,
       apartmentPictureBase64: image64,
-      apartmentHeader:imageType,
-      ApartmentCoordinates: `${lat} ${lng}`,
+      apartmentPictureHeader:imageType,
+      apartmentCoordinates: `${lat} ${lng}`,
     };
     sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
       method: "POST",
@@ -67,7 +67,9 @@ function AddApartment(props) {
     });
 
     dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
-    history.push('/');
+    setTimeout(() => {
+      history.push('/');
+    }, 1000);
   };
 
   return (

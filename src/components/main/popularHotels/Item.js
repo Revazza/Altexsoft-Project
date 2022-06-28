@@ -23,7 +23,13 @@ function Item(props) {
   const { error,data } = useFetch(
     `https://localhost:7043/api/User/${jwt(getCookie("token")).UserId}`
   );
-
+  console.log(data);
+  let imgSrc = './assets/Rectangle.png';
+  if(data)
+  {
+    console.log(data.userPicture);
+    imgSrc = data.userPicture.userHeader
+  }
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const handleSubmission = async () => {    
@@ -33,19 +39,17 @@ function Item(props) {
       lastName: data.lastName,
       city,
       apartmentId,
-      hostFrom: `${startDate}T21:17:17.375Z`,
-      hostTo: `${endDate}T21:17:17.375Z`,
+      hostFrom: `${startDate}`,
+      hostTo: `${endDate}`,
     };
-    console.log(requestBody);
-    const response = await sendRequest('https://localhost:7043/api/Guest/AddGuest',{
+    const response = await sendRequest('https://localhost:7043/api/Booking/Booking',{
       method:'POST',
       headers:{
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        Accept: 'application/json'
       },
       body:JSON.stringify(requestBody)
     });
-    
     console.log(response)
   };
   const handleStartDateChange = (event) => {
