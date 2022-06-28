@@ -9,8 +9,6 @@ function PopularHotels() {
     "https://localhost:7043/api/Apartment?n=10"
   );
 
-  console.log(data);
-
   useEffect(() => {}, []);
 
   return (

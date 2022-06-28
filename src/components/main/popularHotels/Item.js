@@ -6,8 +6,9 @@ import { useState } from "react";
 import useHttp from "../../../hooks/useHttp";
 import useFetch from "../../../hooks/useFetch";
 import { getCookie } from "../../../helperFunctions/HelperFunctions";
-import {notificationSliceActions} from '../../../store/notificationSlice';
-import jwt from "jwt-decode";
+import { notificationActions } from "../../../store/store";
+import jwt, { InvalidTokenError } from "jwt-decode";
+import { useDispatch } from "react-redux";
 
 function Item(props) {
   const {
@@ -17,20 +18,21 @@ function Item(props) {
     bedsNumber,
     apartmentId,
     address,
-    apartmentPicture
+    apartmentPicture,
   } = props.hotel;
+  const dispatch = useDispatch();
   const { sendRequest } = useHttp();
-  const { error,data } = useFetch(
+  const { error, data } = useFetch(
     `https://localhost:7043/api/User/${jwt(getCookie("token")).UserId}`
   );
-  let imgSrc = './assets/Rectangle.png';
-  if(data)
-  {
-    imgSrc = apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
+  let imgSrc = "./assets/Rectangle.png";
+  if (data) {
+    imgSrc =
+      apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
   }
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const handleSubmission = async () => {    
+  const handleSubmission = async () => {
     let requestBody = {
       guestId: data.userId,
       firstName: data.firstName,
@@ -40,15 +42,23 @@ function Item(props) {
       hostFrom: `${startDate}`,
       hostTo: `${endDate}`,
     };
-    const response = await sendRequest('https://localhost:7043/api/Booking/Booking',{
-      method:'POST',
-      headers:{
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body:JSON.stringify(requestBody)
-    });
-    console.log(response)
+    const response = await sendRequest(
+      "https://localhost:7043/api/Booking/Booking",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    dispatch(
+      notificationActions.showNotification({
+        type: !response.errorMsg ? "success" : "error",
+        msg: !response.errorMsg ? response.data : response.errorMsg,
+      })
+    );
   };
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -58,11 +68,15 @@ function Item(props) {
   };
 
   const buttonIsAvailable = startDate.length !== 0 && endDate.length !== 0;
+  //getting current date in yyyy-mm-d format
+  const minDate = new Date().toISOString().split("T")[0];
   const currentDate = new Date();
-  const minDate = currentDate.toISOString().split('T')[0];
-  console.log(currentDate);
-  const maxAvailabeDate = currentDate.setMonth(currentDate.getMonth() + 1);
-  console.log(maxAvailabeDate);
+  //getting current date + 1 month in yyyy-mm-d format
+  const maxAvailabeDate = new Date(
+    currentDate.setMonth(currentDate.getMonth() + 1)
+  )
+    .toISOString()
+    .split("T")[0];
   return (
     <div className={classes.item}>
       <div className={classes.descr_wrapper}>
@@ -82,11 +96,21 @@ function Item(props) {
         <section className={classes.date_input}>
           <div className={classes.start_date}>
             <p>Start Date</p>
-            <input type="date" onChange={handleStartDateChange} min={minDate} max="2022-07-28"/>
+            <input
+              type="date"
+              onChange={handleStartDateChange}
+              min={minDate}
+              max={maxAvailabeDate}
+            />
           </div>
           <div className={classes.end_date}>
             <p>End Date</p>
-            <input type="date" onChange={handleEndDateChange}  min={minDate} max="2022-06-30"/>
+            <input
+              type="date"
+              onChange={handleEndDateChange}
+              min={minDate}
+              max={maxAvailabeDate}
+            />
           </div>
           <div className={classes.booking_btn}>
             <Button

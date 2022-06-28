@@ -6,6 +6,26 @@
   padding: 15px 40px;
 }
 
+.no_request{
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user_msg{
+  width: 350px;
+  height: 250px;
+}
+.user_msg label{
+  font-size: 25px;
+}
+.user_msg img{
+  margin-top: 20px;
+  width: 256px;
+  height: 256px;
+}
+
 .wrapper h2 {
   font-size: 25px;
 }

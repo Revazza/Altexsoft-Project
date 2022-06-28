@@ -12,7 +12,7 @@ function GuestsLayout() {
   const { error, isLoading, data } = useFetch(
     `https://localhost:7043/api/Booking/GuestProfile/${token.UserId}`
   );
-  
+
   const hotelsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const topPosition = useRef();
@@ -23,12 +23,21 @@ function GuestsLayout() {
       behavior: "smooth",
     });
   };
+  console.log(data);
   const indexOfLastGuest = hotelsPerPage * currentPage;
   const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
   const slicedArr = data?.slice(indexOfFirstGuest, indexOfLastGuest);
   return (
     <section className={classes.wrapper}>
       <h2>Guests</h2>
+      {data?.length === 0 && (
+        <div className={classes.no_request}>
+          <div className={classes.user_msg}>
+            <label>Inbox is empty</label>
+            <img src="./assets/empty-box.png" />
+          </div>
+        </div>
+      )}
       <div ref={topPosition}></div>
       {isLoading && (
         <div className={classes.loading_animation}>
