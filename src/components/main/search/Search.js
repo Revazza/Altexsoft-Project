@@ -46,6 +46,7 @@ function Search() {
   const history = useHistory();
   const handleSubmission = (event) => {
     event.preventDefault();
+    // console.log(searchAttributes);
     if (searchAttributes !== null) {
       history.push(`/result/${searchAttributes.search}`, {
         state: searchAttributes,

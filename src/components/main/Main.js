@@ -15,7 +15,6 @@ function Main() {
       <Route path="/result/:hotel">
         <Result />
       </Route>
-      <Route path="/choosenHotel/:hotel"></Route>
     </main>
   );
 }

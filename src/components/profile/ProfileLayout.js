@@ -20,7 +20,8 @@ function ProfileLayout(props) {
   const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/User/GetUserProfile/${jwt(token).UserId}`
   );
-
+  console.log(data);
+  
   //this will be handy after window width will be less than 920px
   const [showSettings, setShowSettings] = useState(false);
 
