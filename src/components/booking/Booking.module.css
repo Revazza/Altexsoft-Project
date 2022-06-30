@@ -116,12 +116,10 @@
   }
 }
 
-@media screen and (max-width:550px)
+@media screen and (max-width:500px)
 {
   .requests{
-    height: 600px;
+    height: 240px;
   }
-  .carousel{
-    height: 300px;
-  }
+
 }

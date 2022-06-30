@@ -46,7 +46,7 @@ function AddApartment(props) {
     setLng(event.lng);
   }
 
-  const handleSubmission = (event) => {
+  const handleSubmission = async(event) => {
     event.preventDefault();
     const imageType = image.substring(0,image.indexOf(',')+1);
     const image64 = image.substring(image.indexOf(",")+1);
@@ -61,15 +61,16 @@ function AddApartment(props) {
       apartmentPictureHeader:imageType,
       apartmentCoordinates: `${lat} ${lng}`,
     };
-    sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
+    const response = await sendRequest("https://localhost:7043/api/Apartment/AddApartment", {
       method: "POST",
       body: JSON.stringify(request),
     });
 
-    dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
-    setTimeout(() => {
-      history.push('/');
-    }, 1000);
+    if(!response.errorMsg)
+    {
+      dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
+      props.onUpdate();
+    }
   };
 
   return (

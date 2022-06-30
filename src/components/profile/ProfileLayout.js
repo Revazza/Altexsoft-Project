@@ -11,7 +11,8 @@ import {
   useFetch,
   getCookie,
   Loading,
-  Error
+  Error,
+  useHttp
 } from "./imports";
 import jwt from "jwt-decode";
 
@@ -20,10 +21,30 @@ function ProfileLayout(props) {
   const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/User/GetUserProfile/${jwt(token).UserId}`
   );
-  console.log(data);
+  const {sendRequest} = useHttp();
   
+  const [userData,setUserData] = useState();
+  const [updateTriggered,setUpdateTriggered] = useState(0);
   //this will be handy after window width will be less than 920px
   const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(()=>{
+    if(data)
+      setUserData(data);
+  },[data]);
+  
+  useEffect(() =>{
+    const updateUserData = async () =>{
+      const response = await sendRequest(`https://localhost:7043/api/User/GetUserProfile/${jwt(token).UserId}`);
+      if(!response.errorMsg)
+        setUserData(response.data);
+    }
+    updateUserData();
+  },[updateTriggered]);
+
+  const handleForceUpdate = () =>{
+    setUpdateTriggered((prevState) => ++prevState);
+  }
 
   const handleSettingsClick = () => {
     setShowSettings((prevState) => !prevState);
@@ -44,23 +65,23 @@ function ProfileLayout(props) {
           <section className={classes.update_info_section}>
             <h2>Profile</h2>
             <ProfileInformation
-              data={data}
+              data={userData}
               onSettingsClick={handleSettingsClick}
             />
-            <ChangeProfile showSettings={showSettings} />
+            <ChangeProfile showSettings={showSettings} onUpdate = {handleForceUpdate}/>
           </section>
-          {data?.apartmentId === null && (
+          {userData?.apartmentId === null && (
             <section className={classes.add_apartment}>
               <Apartment label="Add Apartment">
-                <AddApartment />
+                <AddApartment onUpdate={handleForceUpdate}/>
               </Apartment>
             </section>
           )}
 
-          {data?.apartmentId !== null && (
+          {userData?.apartmentId !== null && (
             <section className={classes.apartment_layout}>
               <Apartment label="Show Apartment">
-                <ApartmentLayout apartmentID={data?.apartmentId} />
+                <ApartmentLayout apartmentID={userData?.apartmentId} onUpdate = {handleForceUpdate}/>
               </Apartment>
             </section>
           )}

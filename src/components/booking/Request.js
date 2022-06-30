@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import classes from "./Request.module.css";
 import useFetch from "../../hooks/useFetch";
+import useHttp from "../../hooks/useHttp";
 const Request = (props) => {
+
+  const {sendRequest} = useHttp();
+
   const { apartmentId, currentStatus, stayFrom, stayTo } = props?.request;
   const startDate = new Date(stayFrom).toISOString().split("T")[0];
   const endDate = new Date(stayTo).toISOString().split("T")[0];
@@ -20,6 +24,18 @@ const Request = (props) => {
   const handleRequestClick = () => {
     props.onRequestClick(props.request);
   };
+
+  const handleRequestDelete = async () =>{
+    const response = await sendRequest(`https://localhost:7043/api/Booking/${props.request.bookingId}`,{
+      method:'DELETE',
+      headers:{
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    });
+    props.onDeleteRequest();
+    
+  }
 
   return (
     <div className={classes.wrapper} onClick={handleRequestClick}>
@@ -49,6 +65,9 @@ const Request = (props) => {
             {currentStatus === 2 && <p id={classes.accepted}>Accepted</p>}
           </div>
         </div>
+      </div>
+      <div className={classes.remove_booking} onClick={handleRequestDelete}>
+        <img src="./assets/close.png" />
       </div>
     </div>
   );

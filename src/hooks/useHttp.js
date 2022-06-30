@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import jwt from 'jwt-decode';
 import {getCookie} from '../helperFunctions/HelperFunctions';
 function useHttp() {
   const [isLoading,setIsLoading] = useState();
@@ -16,7 +15,6 @@ function useHttp() {
       }
       if(getCookie('token'))
         requestBody.headers['Authorization'] = `Bearer ${getCookie('token')}`;
-      console.log(requestBody);
       const response = await fetch(url, requestBody);
       const responseData = await response.json();
       if (!response.ok)

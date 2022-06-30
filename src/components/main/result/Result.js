@@ -15,8 +15,8 @@ function Result() {
       const requestBody = {
         address: state.search,
         bedNumber: state.bed,
-        startDate: state.date.startDate,
-        endDate: state.date.endDate,
+        startDate: state.date?.startDate,
+        endDate: state.date?.endDate,
         city: state.city,
       };
       const response = await sendRequest(`https://localhost:7043/api/search`, {
@@ -27,8 +27,8 @@ function Result() {
       {
         setApartments(response.data)
       }  
-      // console.log("Response: ", response);
-      // console.log(state);
+      console.log("Response: ", response);
+      console.log(state);
     };
 
     fetchData(location.state.state);

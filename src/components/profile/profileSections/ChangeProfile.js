@@ -43,6 +43,7 @@ function ChangeProfile(props) {
       dispatch(notificationActions.showNotification({type:'error',msg:response.errorMsg}));
     else{
       dispatch(notificationActions.showNotification({type:'success',msg:response.data}))
+      props.onUpdate();
     }
   };
 

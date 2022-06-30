@@ -31,16 +31,23 @@ const ApartmentLayout = (props) => {
     data?.apartmentPicture.apartmentHeader +
     data?.apartmentPicture.apartmentPicture;
   const handleDeleteHotel = async () => {
-    sendRequest(`https://localhost:7043/api/Apartment/${jwt(token).UserId}`, {
+    const response = await sendRequest(`https://localhost:7043/api/Apartment/${jwt(token).UserId}`, {
       method: "DELETE",
+      headers:{
+        Accept: "application/json",
+      }
     });
-    dispatch(
-      notificationActions.showNotification({
-        type: "success",
-        msg: "Hotel Removed",
-      })
-    );
-    history.push("/");
+    console.log(response);
+    if(!response.errorMsg)
+    {
+      dispatch(
+        notificationActions.showNotification({
+          type: "success",
+          msg: response.data,
+        })
+      );
+      props.onUpdate();
+    }
   };
   const apartmentClasses = props.hideApartment
     ? `${classes.wrapper} ${classes.hideApartment}`

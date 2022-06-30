@@ -11,23 +11,31 @@ function Booking() {
     `https://localhost:7043/api/Booking/BookingProfile/${userID}`
   );
   const [currentRequest, setCurrentRequest] = useState();
+  const [userBookings,setUserBookings] = useState();
   useEffect(() => {
     if (data) {
       setCurrentRequest(data[0]);
+      setUserBookings(data);
     }
   }, [data]);
+
+  const handleRequestDelete = () =>{
+    const filteredBookings = userBookings.filter((booking) => booking.bookingId !== currentRequest.bookingId);
+    setUserBookings(filteredBookings);
+
+  }
 
   const carouselRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [carouselClass, setCarouselClass] = useState(``);
 
   const handleCarouselNextBtn = () => {
-    if (currentIndex + 1 !== data.length) {
+    if (currentIndex + 1 !== userBookings.length) {
       setCarouselClass(
         `translateX(${-carouselRef.current.clientWidth * (currentIndex + 1)}px)`
       );
       setCurrentIndex((prevState) => ++prevState);
-      setCurrentRequest(data[currentIndex + 1]);
+      setCurrentRequest(userBookings[currentIndex + 1]);
     }
   };
   const handleCarouselPrevBtn = () => {
@@ -36,7 +44,7 @@ function Booking() {
         `translateX(${-carouselRef.current.clientWidth * (currentIndex - 1)}px)`
       );
       setCurrentIndex((prevState) => --prevState);
-      setCurrentRequest(data[currentIndex - 1]);
+      setCurrentRequest(userBookings[currentIndex - 1]);
     }
   };
 
@@ -48,7 +56,7 @@ function Booking() {
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>
-      {data?.length === 0 && (
+      {userBookings?.length === 0 && (
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
             <label>No Bookings Found</label>
@@ -56,7 +64,7 @@ function Booking() {
           </div>
         </div>
       )}
-      {data?.length !== 0 && (
+      {userBookings?.length !== 0 && (
         <div className={classes.request_wrapper}>
           <div className={classes.requests}>
             <div className={classes.carousel}>
@@ -65,12 +73,13 @@ function Booking() {
                 ref={carouselRef}
                 style={{ transform: carouselClass }}
               >
-                {data?.map((request) => {
+                {userBookings?.map((request) => {
                   return (
                     <Request
                       key={request.bookingId}
                       request={request}
                       onRequestClick={handleChangeRequest}
+                      onDeleteRequest = {handleRequestDelete}
                     />
                   );
                 })}

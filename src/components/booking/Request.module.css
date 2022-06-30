@@ -10,7 +10,23 @@
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   transition: 300ms;
+  position: relative;
 }
+
+.remove_booking{
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 12px;
+}
+
+.remove_booking img{
+  width: 100%;
+  height: 100%;
+}
+
+
+
 
 .wrapper:hover{
   transition: 300ms;
@@ -117,6 +133,10 @@
   }
   .description{
     width: 80%;
+  }
+  
+  .remove_booking{
+    right: 30px;
   }
 
   
