@@ -3,6 +3,7 @@
   width: 100%;
   min-height: 50px;
   cursor: pointer;
+  border-bottom: 1px solid grey;
 }
 .change_wrapper {
   width: 100%;

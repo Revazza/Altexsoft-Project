@@ -52,8 +52,8 @@ function AddApartment(props) {
     const image64 = image.substring(image.indexOf(",")+1);
     const request = {
       userID: jwt(token).UserId,
-      city: cityRef.current.value,
-      address: addressRef.current.value,
+      city: cityRef.current.value.toLowerCase(),
+      address: addressRef.current.value.toLowerCase(),
       distanceToCenter: +distanceRef.current.value,
       apartmentDescription: descriptionRef.current.value,
       bedsNumber: +bedRef.current.value,

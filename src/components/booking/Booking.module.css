@@ -16,6 +16,9 @@
   align-items: center;
   justify-content: center;
 }
+.no_bookings_found label{
+  font-family: Rowdies !important;
+}
 .user_msg{
   width: 350px;
   height: 250px;
@@ -49,6 +52,10 @@
   height: inherit;
   overflow: auto;
 }
+
+#firstChild{
+  margin-top: 0;
+}
 .map{
   width: 50%;
   height: inherit;
@@ -59,7 +66,10 @@
 }
 
 .active{
-  border: 2px solid red;
+  border: 2px solid #293462 !important;
+}
+.error{
+  margin-top: 120px;
 }
 
 @media screen and (max-width:900px) {

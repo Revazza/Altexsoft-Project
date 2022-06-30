@@ -1,5 +1,4 @@
 
-
 .wrapper{
   margin-top: 20px;
   width: 100%;
@@ -8,16 +7,19 @@
   overflow: hidden;
   display: flex;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  transition: 300ms;
+  transition: transform 0.4s ease-in-out;
   position: relative;
+  border-top-right-radius: 0px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
 }
 
 .remove_booking{
   width: 25px;
   height: 25px;
   position: absolute;
-  right: 12px;
+  top: 7px;
+  right: 8px;
 }
 
 .remove_booking img{
@@ -26,11 +28,9 @@
 }
 
 
-
-
 .wrapper:hover{
-  transition: 300ms;
-  box-shadow: rgba(0, 0, 0, 0.39) 0px 1px 4px;
+  transition: transform 0.4s ease-in-out;
+  border: 1px solid #29346298;
 }
 .img_wrapper{
   width: 40%;
@@ -92,7 +92,6 @@
 ::-webkit-scrollbar-track {
   background: #dfddddf5;
   border-radius: 5px;
-
 }
 
 /* Handle */

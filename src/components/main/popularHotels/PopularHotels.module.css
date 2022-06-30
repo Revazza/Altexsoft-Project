@@ -9,6 +9,9 @@
 }
 .section_wrapper h2{
   margin-left: 15px;
+  font-family: Rowdies !important;
+  font-weight: bolder;
+  letter-spacing: 1px;
 }
 .error{
   margin-top: 80px;

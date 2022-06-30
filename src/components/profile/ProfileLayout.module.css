@@ -12,9 +12,9 @@
 .wrapper{
   position: relative;
   width: 100%;
-  top: 100px;
+  top: 50px;
   box-sizing: border-box;
-  padding: 25px 60px 30px 60px;
+  padding: 60px 60px 30px 60px;
 }
 .update_info_section{
   width: 100%;
@@ -26,7 +26,7 @@
 .update_info_section h2{
   font-size: 30px;
   position: absolute;
-  top: 10px;
+  top: 30px;
 }
 .add_apartment{
   width: 100%;
@@ -34,7 +34,7 @@
 
 .apartment_layout{
   width: 100%;
-  min-height: 400px;
+  min-height: 40px;
 }
 
 @media screen and (max-width:920px) {

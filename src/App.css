@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Baumans&family=Kdam+Thmor+Pro&family=Koulen&family=Montserrat:wght@300;400&family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Baumans&family=Kdam+Thmor+Pro&family=Koulen&family=Montserrat:wght@300;400&family=PT+Sans&family=Rowdies&display=swap');
 
 html,
 body {
   margin: 0;
   padding: 0;
+  background-color: rgba(229, 229, 229, 0.185);
 }
 
 p,
@@ -31,6 +32,7 @@ input::placeholder {
 .App-content {
   width: 1080px;
   margin: 0 auto;
+  
 }
 
 @media screen and (max-width:1144px) {
@@ -47,6 +49,7 @@ input::placeholder {
   width: 100%;
   position: relative;
 }
+
 
 .Auth_Loader{
   width: 100%;

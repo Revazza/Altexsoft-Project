@@ -61,7 +61,7 @@ function ProfileLayout(props) {
         </div>
       )}
       {!hasErrors && (
-        <Card className={classes.wrapper}>
+        <div className={classes.wrapper}>
           <section className={classes.update_info_section}>
             <h2>Profile</h2>
             <ProfileInformation
@@ -85,7 +85,7 @@ function ProfileLayout(props) {
               </Apartment>
             </section>
           )}
-        </Card>
+        </div>
       )}
     </React.Fragment>
   );

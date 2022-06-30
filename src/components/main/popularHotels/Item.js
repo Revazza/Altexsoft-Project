@@ -7,7 +7,7 @@ import useHttp from "../../../hooks/useHttp";
 import useFetch from "../../../hooks/useFetch";
 import { getCookie } from "../../../helperFunctions/HelperFunctions";
 import { notificationActions } from "../../../store/store";
-import jwt, { InvalidTokenError } from "jwt-decode";
+import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
 
 function Item(props) {
@@ -19,6 +19,7 @@ function Item(props) {
     apartmentId,
     address,
     apartmentPicture,
+    apartmentStatus
   } = props.hotel;
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
@@ -49,6 +50,7 @@ function Item(props) {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization:`Bearer ${getCookie("token")}`,
         },
         body: JSON.stringify(requestBody),
       }
@@ -67,7 +69,7 @@ function Item(props) {
     setEndDate(event.target.value);
   };
 
-  const buttonIsAvailable = startDate.length !== 0 && endDate.length !== 0;
+  const buttonIsAvailable = startDate.length !== 0 && endDate.length !== 0 && apartmentStatus===null;
   //getting current date in yyyy-mm-d format
   const minDate = new Date().toISOString().split("T")[0];
   const currentDate = new Date();
@@ -115,7 +117,7 @@ function Item(props) {
           <div className={classes.booking_btn}>
             <Button
               type="button"
-              title="Book Now"
+              title={apartmentStatus === null ? "Book Now":"Not Available"}
               disabled={!buttonIsAvailable}
               onClick={handleSubmission}
             />

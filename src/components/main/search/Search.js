@@ -4,7 +4,7 @@ import { DropDownList, Button, DateInput, Card, SearchBar } from "./imports";
 import classes from "./Search.module.css";
 import { useHistory } from "react-router-dom";
 
-const dummy_countries = [
+const dummy_cities = [
   {
     id: 0,
     value: "Tbilisi",
@@ -39,6 +39,18 @@ const dummy_bed = [
     id: 3,
     value: 3,
   },
+  {
+    id: 4,
+    value: 4,
+  },
+  {
+    id: 5,
+    value: 5,
+  },
+  {
+    id: 6,
+    value: 6,
+  },
 ];
 
 function Search() {
@@ -46,11 +58,11 @@ function Search() {
   const history = useHistory();
   const handleSubmission = (event) => {
     event.preventDefault();
-    // console.log(searchAttributes);
     if (searchAttributes !== null) {
-      history.push(`/result/${searchAttributes.search}`, {
+      history.push(`/result/${searchAttributes.address}`, {
         state: searchAttributes,
       });
+
     }
   };
 
@@ -76,7 +88,7 @@ function Search() {
         <div className={classes.city_filter}>
           <DropDownList
             name="City"
-            items={dummy_countries}
+            items={dummy_cities}
             onChangeValue={handleSearchValuesChange}
           />
         </div>

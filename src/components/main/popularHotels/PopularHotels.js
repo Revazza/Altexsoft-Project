@@ -14,7 +14,7 @@ function PopularHotels() {
   const hasErrors = !isLoading && error;
   return (
     <section className={classes.section_wrapper}>
-      <h2>Popular Hotels</h2>
+      <h2>Newly Added Hotels</h2>
       {hasErrors && <Error className={classes.error}/>}
       {isLoading && <Loading />}
       {!hasErrors && (

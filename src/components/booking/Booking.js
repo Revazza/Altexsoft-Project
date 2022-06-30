@@ -5,13 +5,14 @@ import Request from "./Request";
 import jwt from "jwt-decode";
 import { getCookie } from "../../helperFunctions/HelperFunctions";
 import useFetch from "../../hooks/useFetch";
+import Error from "../../UI/error/Error";
 function Booking() {
   const userID = jwt(getCookie("token")).UserId;
-  const { isLoading,error,data } = useFetch(
+  const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/Booking/BookingProfile/${userID}`
   );
   const [currentRequest, setCurrentRequest] = useState();
-  const [userBookings,setUserBookings] = useState();
+  const [userBookings, setUserBookings] = useState();
   useEffect(() => {
     if (data) {
       setCurrentRequest(data[0]);
@@ -19,11 +20,12 @@ function Booking() {
     }
   }, [data]);
 
-  const handleRequestDelete = () =>{
-    const filteredBookings = userBookings.filter((booking) => booking.bookingId !== currentRequest.bookingId);
+  const handleRequestDelete = () => {
+    const filteredBookings = userBookings.filter(
+      (booking) => booking.bookingId !== currentRequest.bookingId
+    );
     setUserBookings(filteredBookings);
-
-  }
+  };
 
   const carouselRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,9 +55,11 @@ function Booking() {
   };
 
   const hasError = !isLoading && error;
+  const canDisplayBookings = !error && userBookings?.length !== 0;
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>
+      {hasError && <Error className={classes.error}/>}
       {userBookings?.length === 0 && (
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
@@ -64,7 +68,7 @@ function Booking() {
           </div>
         </div>
       )}
-      {userBookings?.length !== 0 && (
+      {canDisplayBookings && (
         <div className={classes.request_wrapper}>
           <div className={classes.requests}>
             <div className={classes.carousel}>
@@ -73,13 +77,18 @@ function Booking() {
                 ref={carouselRef}
                 style={{ transform: carouselClass }}
               >
-                {userBookings?.map((request) => {
+                {userBookings?.map((request, index) => {
                   return (
                     <Request
                       key={request.bookingId}
                       request={request}
                       onRequestClick={handleChangeRequest}
-                      onDeleteRequest = {handleRequestDelete}
+                      onDeleteRequest={handleRequestDelete}
+                      className={
+                        request.bookingId === currentRequest.bookingId &&
+                        classes.active
+                      }
+                      id={index === 0 ? classes.firstChild : ""}
                     />
                   );
                 })}
@@ -99,7 +108,7 @@ function Booking() {
               <img src="/assets/arrow.png" alt="Next" />
             </div>
           </div>
-          <div className={classes.map}>
+          <div className={classes.map} >
             <HotelMap apartment={currentRequest} />
           </div>
         </div>

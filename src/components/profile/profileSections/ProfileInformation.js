@@ -10,7 +10,7 @@ function ProfileInformation(props) {
   };
 
   return (
-    <Card className={classes.wrapper}>
+    <div className={classes.wrapper}>
       <div className={classes.img_wrapper}>
         <img src={imgSrc ? imgSrc: './assets/Rectangle.png' } alt="Profile Picture" />
       </div>
@@ -35,7 +35,7 @@ function ProfileInformation(props) {
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
 

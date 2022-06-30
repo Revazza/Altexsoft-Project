@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import classes from "./Request.module.css";
-import useFetch from "../../hooks/useFetch";
-import useHttp from "../../hooks/useHttp";
+import {useHttp,useFetch} from './imports';
 const Request = (props) => {
 
   const {sendRequest} = useHttp();
+
+  const activeClasses = `${classes.wrapper} ${props.className}`;
 
   const { apartmentId, currentStatus, stayFrom, stayTo } = props?.request;
   const startDate = new Date(stayFrom).toISOString().split("T")[0];
@@ -38,7 +39,7 @@ const Request = (props) => {
   }
 
   return (
-    <div className={classes.wrapper} onClick={handleRequestClick}>
+    <div className={activeClasses} onClick={handleRequestClick} id={props.id}>
       <div className={classes.img_wrapper}>
         <img src={imgSrc ? imgSrc : "./assets/hotel.png"} alt="Hotel" />
       </div>

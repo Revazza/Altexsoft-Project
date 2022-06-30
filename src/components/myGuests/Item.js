@@ -1,10 +1,6 @@
 import React from "react";
 import classes from "./Item.module.css";
-import Button from "../../UI/Button";
-import Card from "../../UI/Card";
-import useHttp from "../../hooks/useHttp";
-import { useDispatch } from "react-redux";
-import { notificationActions } from "../../store/store";
+import {useDispatch,useHttp,Card,Button,notificationActions} from './imports';
 
 function Item(props) {
   const dispatch = useDispatch();

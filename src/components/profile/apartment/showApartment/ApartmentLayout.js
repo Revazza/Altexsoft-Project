@@ -7,13 +7,11 @@ import {
   useFetch,
   useHttp,
   getCookie,
-  useHistory,
   useDispatch,
   notificationActions,
 } from "../../imports";
 import jwt from "jwt-decode";
 const ApartmentLayout = (props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const token = getCookie("token");
   const { sendRequest } = useHttp();

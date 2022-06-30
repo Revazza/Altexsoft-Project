@@ -1,12 +1,8 @@
 import React, { useRef, useState } from "react";
 import classes from "./GuestsLayout.module.css";
-import Item from "./Item";
-import Pagination from "../../UI/pagination/Pagination";
-import useFetch from "../../hooks/useFetch";
-import { getCookie } from "../../helperFunctions/HelperFunctions";
 import jwt from "jwt-decode";
-import Loading from "../../UI/loading/Loading";
-import Error from "../../UI/error/Error";
+import {getCookie,useFetch,Error,Loading,Item,Pagination} from './imports';
+
 
 function GuestsLayout() {
   const token = jwt(getCookie("token"));

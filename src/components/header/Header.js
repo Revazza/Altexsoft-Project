@@ -43,7 +43,6 @@ function Header() {
               </div>
               <div className={classes.profile_img}>
                 <img src="./assets/user.png" alt="Profile" />
-                <p>99</p>
               </div>
               {showDropDown && (
                 <div className={classes.dropdown_list}>

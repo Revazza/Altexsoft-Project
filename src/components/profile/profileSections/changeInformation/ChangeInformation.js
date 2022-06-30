@@ -53,7 +53,7 @@ function ChangeInformation(props) {
   };
 
   return (
-    <Card className={classes.change_info}>
+    <div className={classes.change_info}>
       <div className={classes.change_wrapper} onClick={handleShowForm}>
         <p>{props.title}</p>
         <img
@@ -88,7 +88,7 @@ function ChangeInformation(props) {
           </form>
         </div>
       )}
-    </Card>
+    </div>
   );
 }
 
