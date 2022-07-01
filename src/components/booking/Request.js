@@ -79,9 +79,11 @@ const Request = (props) => {
           </div>
         </div>
       </div>
-      <div className={classes.remove_booking} onClick={handleRequestDelete}>
-        <img src="./assets/close.png" />
-      </div>
+      {currentStatus !== 2 && (
+        <div className={classes.remove_booking} onClick={handleRequestDelete}>
+          <img src="./assets/close.png" />
+        </div>
+      )}
     </div>
   );
 };
