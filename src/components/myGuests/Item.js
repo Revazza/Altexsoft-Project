@@ -15,7 +15,9 @@ function Item(props) {
   const startDate = new Date(guest?.stayFrom).toISOString().split("T")[0];
   const endDate = new Date(guest?.stayTo).toISOString().split("T")[0];
 
-  console.log(guest.guestStatusEnum);
+  console.log(guest.guestPicture64);
+  const imgSrc = guest.guestPicture64.userHeader + guest.guestPicture64.userPicture;
+  
   const handleConfigureGuestStatus = async (choice) => {
     const response = await sendRequest(
       `https://localhost:7043/api/Booking/GuestStatus/${guest.bookingId}?i=${choice}`,
@@ -34,6 +36,7 @@ function Item(props) {
           msg: response.data,
         })
       );
+      props.onChangeStatus();
     } else {
       dispatch(
         notificationActions.showNotification({
@@ -46,7 +49,7 @@ function Item(props) {
   return (
     <Card className={classes.wrapper}>
       <div className={classes.img_wrapper}>
-        <img src="./assets/Rectangle.png" alt="user profile" />
+        <img src={imgSrc ? imgSrc:'./assets/Rectangle.png'} alt="user profile" />
       </div>
       <section className={classes.user_request}>
         <label>

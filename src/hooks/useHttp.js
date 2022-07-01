@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {getCookie} from '../helperFunctions/HelperFunctions';
 function useHttp() {
-  const [isLoading,setIsLoading] = useState();
+  const [isLoading,setIsLoading] = useState(false);
+  const [error,setError] = useState();
 
   const sendRequest = async (url, configure) => {
     try {
@@ -13,7 +14,6 @@ function useHttp() {
         },
         body: configure?.body ?? undefined,
       }
-      console.log(requestBody);
       if(getCookie('token'))
         requestBody.headers.Authorization = `Bearer ${getCookie('token')}`;
       const response = await fetch(url, requestBody);
@@ -25,13 +25,15 @@ function useHttp() {
       return {data:responseData};
     } catch (error) {
       setIsLoading(false);
+      setError(error.message);
       return { errorMsg: error.message };
     }
   };
 
   return {
     sendRequest,
-    isLoading
+    isLoading,
+    error
   };
 }
 

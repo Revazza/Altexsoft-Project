@@ -1,18 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useTransition } from "react";
 import classes from "./Booking.module.css";
-import HotelMap from "./hotelMap/HotelMap";
-import Request from "./Request";
 import jwt from "jwt-decode";
-import { getCookie } from "../../helperFunctions/HelperFunctions";
-import useFetch from "../../hooks/useFetch";
-import Error from "../../UI/error/Error";
+import Request from "./Request";
+import { HotelMap, getCookie, useFetch, Error, useHttp } from "./imports";
 function Booking() {
   const userID = jwt(getCookie("token")).UserId;
+
+  const { sendRequest } = useHttp();
+
   const { isLoading, error, data } = useFetch(
     `https://localhost:7043/api/Booking/BookingProfile/${userID}`
   );
   const [currentRequest, setCurrentRequest] = useState();
   const [userBookings, setUserBookings] = useState();
+  const [someChanges,setSomeChanges] = useState();
+
+  useEffect(()=>{
+    
+     
+  
+  },[someChanges]);
+
   useEffect(() => {
     if (data) {
       setCurrentRequest(data[0]);
@@ -59,7 +67,7 @@ function Booking() {
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>
-      {hasError && <Error className={classes.error}/>}
+      {hasError && <Error className={classes.error} />}
       {userBookings?.length === 0 && (
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
@@ -108,7 +116,7 @@ function Booking() {
               <img src="/assets/arrow.png" alt="Next" />
             </div>
           </div>
-          <div className={classes.map} >
+          <div className={classes.map}>
             <HotelMap apartment={currentRequest} />
           </div>
         </div>

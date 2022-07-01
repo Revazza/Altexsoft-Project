@@ -8,37 +8,36 @@ import {
   Loading,
   Item,
   Pagination,
-  useHttp
+  useHttp,
 } from "./imports";
 
 function GuestsLayout() {
   const token = jwt(getCookie("token"));
-  const { error, isLoading, data } = useFetch(
-    `https://localhost:7043/api/Booking/GuestProfile/${token.UserId}`
-  );
-  const {sendRequest} = useHttp();
-  const [someChanges,setSomeChanges] = useState(0);
-  console.log(data);
+  const [guestData, setGuestData] = useState();
+  const { isLoading, error, sendRequest } = useHttp();
+  const [someChanges, setSomeChanges] = useState(0);
 
-  useEffect(()=>{
-    // const fetchNewData = async () =>{
-    //   console.log(token.UserId)
-    //   const response = await sendRequest(`https://localhost:7043/api/Booking/GuestProfile/${token.UserId})`,{
-    //     method:'GET',
-    //     headers:{
-    //       Accept:'application/json',
-    //       "Content-type":'application/json'
-    //     }
-    //   });
+  useEffect(() => {
+    const fetchNewData = async () => {
+      const response = await sendRequest(
+        `https://localhost:7043/api/Booking/GuestProfile/${token.UserId}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      setGuestData(response.data);
+    };
+    fetchNewData();
+  }, [someChanges]);
 
-    //   console.log(response);
-    // }
-    // fetchNewData();
-  },[someChanges]);
-
-  const handleSomeChange = () =>{
+  const handleSomeChange = () => {
     setSomeChanges((prevState) => ++prevState);
-  }
+  };
 
   const hotelsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,7 +51,7 @@ function GuestsLayout() {
   };
   const indexOfLastGuest = hotelsPerPage * currentPage;
   const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
-  const slicedArr = data?.slice(indexOfFirstGuest, indexOfLastGuest);
+  const slicedArr = guestData?.slice(indexOfFirstGuest, indexOfLastGuest);
 
   const hasError = !isLoading && error;
   return (
@@ -60,7 +59,7 @@ function GuestsLayout() {
       <h2>Guests</h2>
       {hasError && <Error className={classes.error} />}
       {isLoading && <Loading />}
-      {data?.length === 0 && (
+      {guestData?.length === 0 && (
         <div className={classes.no_request}>
           <div className={classes.user_msg}>
             <label>Inbox is empty</label>
@@ -73,13 +72,17 @@ function GuestsLayout() {
         <React.Fragment>
           <div className={classes.guest_container}>
             {slicedArr?.map((guest) => (
-              <Item key={guest.bookingId} guest={guest} />
+              <Item
+                key={guest.bookingId}
+                guest={guest}
+                onChangeStatus={handleSomeChange}
+              />
             ))}
           </div>
           <Pagination
             onPageClick={handlePageChange}
             currentPage={currentPage}
-            totalPageNumber={data?.length}
+            totalPageNumber={guestData?.length}
             hotelsPerPage={hotelsPerPage}
           />
         </React.Fragment>
