@@ -13,6 +13,7 @@ function useHttp() {
         },
         body: configure?.body ?? undefined,
       }
+      console.log(requestBody);
       if(getCookie('token'))
         requestBody.headers.Authorization = `Bearer ${getCookie('token')}`;
       const response = await fetch(url, requestBody);

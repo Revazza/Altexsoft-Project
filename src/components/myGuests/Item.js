@@ -1,6 +1,12 @@
 import React from "react";
 import classes from "./Item.module.css";
-import {useDispatch,useHttp,Card,Button,notificationActions} from './imports';
+import {
+  useDispatch,
+  useHttp,
+  Card,
+  Button,
+  notificationActions,
+} from "./imports";
 
 function Item(props) {
   const dispatch = useDispatch();
@@ -9,6 +15,7 @@ function Item(props) {
   const startDate = new Date(guest?.stayFrom).toISOString().split("T")[0];
   const endDate = new Date(guest?.stayTo).toISOString().split("T")[0];
 
+  console.log(guest.guestStatusEnum);
   const handleConfigureGuestStatus = async (choice) => {
     const response = await sendRequest(
       `https://localhost:7043/api/Booking/GuestStatus/${guest.bookingId}?i=${choice}`,
@@ -27,12 +34,11 @@ function Item(props) {
           msg: response.data,
         })
       );
-    }
-    else{
+    } else {
       dispatch(
         notificationActions.showNotification({
           type: "error",
-          msg: "Something went wrong...",
+          msg: response.errorMsg,
         })
       );
     }
@@ -55,26 +61,55 @@ function Item(props) {
               <span>To:</span> {endDate}
             </p>
           </div>
-          <div className={classes.btn_wrapper}>
-            <div className={classes.btns}>
-              <Button
-                type="button"
-                title="Accept"
-                onClick={() => handleConfigureGuestStatus(2)}
-              />
+          {guest?.guestStatusEnum === 1 && (
+            <div className={classes.declined}>
+              <StatusButton title="Declined" />
             </div>
-            <div className={classes.btns}>
-              <Button
-                type="button"
-                title="Decline"
-                className={classes.decline_btn}
-                onClick={() => handleConfigureGuestStatus(1)}
-              />
+          )}
+          {guest?.guestStatusEnum === 2 && (
+            <div className={classes.accepted}>
+              <StatusButton title="Accepted" />
             </div>
-          </div>
+          )}
+          {guest?.guestStatusEnum === 3 && (
+            <div className={classes.not_possible}>
+              <StatusButton title="Not Possible"/>
+            </div>
+          )}
+          {guest?.guestStatusEnum === 0 && (
+            <div className={classes.btn_wrapper}>
+              <div className={classes.btns}>
+                <Button
+                  type="button"
+                  title="Accept"
+                  onClick={() => handleConfigureGuestStatus(2)}
+                />
+              </div>
+              <div className={classes.btns}>
+                <Button
+                  type="button"
+                  title="Decline"
+                  className={classes.decline_btn}
+                  onClick={() => handleConfigureGuestStatus(1)}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </Card>
   );
 }
 export default Item;
+
+const StatusButton = (props) => {
+  return (
+    <React.Fragment>
+      <Button
+        type="button"
+        title={props.title}
+        className={props.className}
+      ></Button>
+    </React.Fragment>
+  );
+};

@@ -66,3 +66,18 @@
   transition: 300ms;
 }
 
+.declined,.accepted,.not_possible{
+  margin-top: 40px;
+  width: 100%;
+  height: 30px;
+}
+.declined button{
+  background-color: #F24C4C;
+}
+.accepted button{
+  background-color: #36AE7C;
+}
+.not_possible{
+  background-color: #333C83;
+}
+
