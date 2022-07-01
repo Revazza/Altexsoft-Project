@@ -116,6 +116,9 @@
 #accepted{
   color: #5FD068;
 }
+#not_possible{
+  color: #FFB562;
+}
 
 @media screen and (max-width:900px) {
   .wrapper{

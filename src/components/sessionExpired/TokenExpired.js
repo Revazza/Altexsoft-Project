@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom";
 import classes from "./TokenExpired.module.css";
 import { useDispatch } from "react-redux";
+import jwt from "jwt-decode";
 import {
   authSliceActions,
   notificationActions,
   Button,
   getCookie,
-  useHistory
+  useHistory,
+  Input,
+  useHttp,
 } from "../../AppImports";
-
 
 function TokenExpired() {
   return (
@@ -27,30 +29,55 @@ function TokenExpired() {
 }
 
 const TokenExpiredOverlay = () => {
+  const { sendRequest, error } = useHttp();
   const history = useHistory();
+  const passwordRef = useRef();
   const dispatch = useDispatch();
   const handleSignOut = () => {
     dispatch(authSliceActions.logout());
     dispatch(notificationActions.hideSessionExpired());
-    history.push('/auth/login');
+    history.push("/auth/login");
   };
-  const handleExtendSession = () => {
-    const currentDate = new Date();
-    const newSessionDate = currentDate.getTime()/1000 + 100;
-    dispatch(authSliceActions.login({ token: getCookie("token"), exp: newSessionDate}));
-    dispatch(notificationActions.hideSessionExpired());
+  const handleExtendSession = async () => {
+    const password = passwordRef.current.value;
+    if (password.length !== 0) {
+      const username = jwt(getCookie('token')).Username;
+      // const username = "sandro";
+      const response = await sendRequest(
+        `https://localhost:7043/api/User/Login`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userName: username, password }),
+        }
+      );
+      if (!response.errorMsg) {
+        const token = jwt(response.data);
+        dispatch(
+          authSliceActions.login({ token: response.data, exp: token.exp })
+        );
+        dispatch(notificationActions.hideSessionExpired());
+      }
+    }
   };
 
   return (
     <section className={classes.wrapper}>
       <h2>Session Expired</h2>
+      <div className={classes.password}>
+        <Input type="password" placeholder="Password" ref={passwordRef} />
+      </div>
+      {error && <p className={classes.error}>{error}</p>}
       <div className={classes.btn_wrapper}>
-        <Button title="Extend Session" onClick={handleExtendSession} />
         <Button
           title="Sign Out"
           className={classes.logut_btn}
           onClick={handleSignOut}
         />
+        <Button title="Extend Session" onClick={handleExtendSession} />
       </div>
     </section>
   );

@@ -10,3 +10,5 @@ export { default as Notification } from "./UI/notification/Notification";
 export {default as Authentication}  from "./pages/Authentication";
 export {default as MyBookings} from './pages/MyBookings';
 export {default as Button} from './UI/Button';
+export {default as Input} from './UI/input/Input';
+export {default as useHttp} from './hooks/useHttp';

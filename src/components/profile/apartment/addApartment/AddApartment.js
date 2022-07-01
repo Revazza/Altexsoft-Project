@@ -8,7 +8,6 @@ import {
   useHttp,
   useDispatch,
   notificationActions,
-  useHistory
 } from "../../imports";
 
 import Map from "./map/Map";
@@ -16,7 +15,6 @@ import jwt from "jwt-decode";
 
 function AddApartment(props) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const token = useSelector((state) => state.auth.token);
   const { sendRequest } = useHttp();
   const cityRef = useRef();

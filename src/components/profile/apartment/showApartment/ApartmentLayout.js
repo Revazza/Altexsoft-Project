@@ -35,7 +35,6 @@ const ApartmentLayout = (props) => {
         Accept: "application/json",
       }
     });
-    console.log(response);
     if(!response.errorMsg)
     {
       dispatch(

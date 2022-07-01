@@ -19,7 +19,6 @@ function useInput(validateFunction) {
     setIsTouched(true);
   }
 
-
   return {
     value,
     errorMsg,

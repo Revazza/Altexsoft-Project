@@ -15,8 +15,7 @@ function Item(props) {
   const startDate = new Date(guest?.stayFrom).toISOString().split("T")[0];
   const endDate = new Date(guest?.stayTo).toISOString().split("T")[0];
 
-  console.log(guest.guestPicture64);
-  const imgSrc = guest.guestPicture64.userHeader + guest.guestPicture64.userPicture;
+  const imgSrc = guest.guestPicture64?.userHeader + guest.guestPicture64?.userPicture;
   
   const handleConfigureGuestStatus = async (choice) => {
     const response = await sendRequest(
@@ -36,7 +35,6 @@ function Item(props) {
           msg: response.data,
         })
       );
-      props.onChangeStatus();
     } else {
       dispatch(
         notificationActions.showNotification({
@@ -45,6 +43,7 @@ function Item(props) {
         })
       );
     }
+    props.onChangeStatus();
   };
   return (
     <Card className={classes.wrapper}>

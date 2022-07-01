@@ -4,12 +4,12 @@ import Item from "../newlyAddedHotels/Item";
 import Pagination from "../../../UI/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import useHttp from "../../../hooks/useHttp";
+import { Loading } from "../newlyAddedHotels/imports";
 
 function Result() {
   const location = useLocation();
-  const { sendRequest } = useHttp();
+  const { sendRequest,isLoading} = useHttp();
   const [apartments, setApartments] = useState();
-  console.log("Apartments: ", apartments);
   useEffect(() => {
     const fetchData = async (state) => {
       // const currentDate = new Date().toISOString().split('T')[0];
@@ -30,8 +30,6 @@ function Result() {
       } else {
         setApartments([]);
       }
-      console.log("Response: ", response);
-      console.log(state);
     };
     fetchData(location.state.state);
   }, [location.state.state]);
@@ -49,6 +47,7 @@ function Result() {
   return (
     <section className={classes.result_section}>
       <h2>Result</h2>
+      {isLoading && <Loading />}
       {slicedArr?.length === 0 && (
         <div className={classes.nothing_found}>
           <label>Nothing Found</label>

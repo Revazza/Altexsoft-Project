@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./NewlyAddedHotels.module.css";
-import {Item,useFetch,Loading,Error} from './imports';
+import { Item, useFetch, Loading, Error } from "./imports";
 function PopularHotels() {
   const { isLoading, error, data } = useFetch(
     "https://localhost:7043/api/Apartment?n=10"
@@ -10,7 +10,7 @@ function PopularHotels() {
   return (
     <section className={classes.section_wrapper}>
       <h2>Newly Added Hotels</h2>
-      {hasErrors && <Error className={classes.error}/>}
+      {hasErrors && <Error className={classes.error} />}
       {isLoading && <Loading />}
       {!hasErrors && (
         <div className={classes.wrapper}>

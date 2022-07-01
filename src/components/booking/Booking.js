@@ -1,51 +1,52 @@
-import React, { useState, useRef, useEffect, useTransition } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import classes from "./Booking.module.css";
 import jwt from "jwt-decode";
 import Request from "./Request";
-import { HotelMap, getCookie, useFetch, Error, useHttp } from "./imports";
+import { HotelMap, getCookie, Error, useHttp } from "./imports";
 function Booking() {
   const userID = jwt(getCookie("token")).UserId;
-
-  const { sendRequest } = useHttp();
-
-  const { isLoading, error, data } = useFetch(
-    `https://localhost:7043/api/Booking/BookingProfile/${userID}`
-  );
+  const { isLoading, error, sendRequest } = useHttp();
   const [currentRequest, setCurrentRequest] = useState();
-  const [userBookings, setUserBookings] = useState();
-  const [someChanges,setSomeChanges] = useState();
-
-  useEffect(()=>{
-    
-     
-  
-  },[someChanges]);
-
-  useEffect(() => {
-    if (data) {
-      setCurrentRequest(data[0]);
-      setUserBookings(data);
-    }
-  }, [data]);
-
-  const handleRequestDelete = () => {
-    const filteredBookings = userBookings.filter(
-      (booking) => booking.bookingId !== currentRequest.bookingId
-    );
-    setUserBookings(filteredBookings);
-  };
-
+  const [bookings, setBookings] = useState();
   const carouselRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [carouselClass, setCarouselClass] = useState(``);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await sendRequest(
+        `https://localhost:7043/api/Booking/BookingProfile/${userID}`
+      );
+      setBookings(response.data);
+      setCurrentRequest(response.data[0]);
+    };
+    fetchData();
+  }, []);
+
+
+  const handleRequestDelete = (bookingId) => {
+    const filteredBookings = bookings.filter((booking, index) => {
+      if (booking.bookingId === bookingId) {
+        if(bookings.length === 1)
+          setCurrentRequest(bookings[0])
+        else
+          setCurrentRequest(bookings[index - 1]);
+      }
+      return booking.bookingId !== bookingId;
+    });
+    setBookings(filteredBookings);
+  };
+
+  const handleChangeRequest = (newInfo) => {
+    setCurrentRequest(newInfo);
+  };
 
   const handleCarouselNextBtn = () => {
-    if (currentIndex + 1 !== userBookings.length) {
+    if (currentIndex + 1 !== bookings.length) {
       setCarouselClass(
         `translateX(${-carouselRef.current.clientWidth * (currentIndex + 1)}px)`
       );
       setCurrentIndex((prevState) => ++prevState);
-      setCurrentRequest(userBookings[currentIndex + 1]);
+      setCurrentRequest(bookings[currentIndex + 1]);
     }
   };
   const handleCarouselPrevBtn = () => {
@@ -54,21 +55,17 @@ function Booking() {
         `translateX(${-carouselRef.current.clientWidth * (currentIndex - 1)}px)`
       );
       setCurrentIndex((prevState) => --prevState);
-      setCurrentRequest(userBookings[currentIndex - 1]);
+      setCurrentRequest(bookings[currentIndex - 1]);
     }
   };
 
-  const handleChangeRequest = (newInfo) => {
-    setCurrentRequest(newInfo);
-  };
-
   const hasError = !isLoading && error;
-  const canDisplayBookings = !error && userBookings?.length !== 0;
+  const canDisplayBookings = !error && bookings?.length !== 0;
   return (
     <section className={classes.wrapper}>
       <h2>My Bookings</h2>
       {hasError && <Error className={classes.error} />}
-      {userBookings?.length === 0 && (
+      {bookings?.length === 0 && (
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
             <label>No Bookings Found</label>
@@ -85,7 +82,7 @@ function Booking() {
                 ref={carouselRef}
                 style={{ transform: carouselClass }}
               >
-                {userBookings?.map((request, index) => {
+                {bookings?.map((request, index) => {
                   return (
                     <Request
                       key={request.bookingId}
@@ -93,7 +90,7 @@ function Booking() {
                       onRequestClick={handleChangeRequest}
                       onDeleteRequest={handleRequestDelete}
                       className={
-                        request.bookingId === currentRequest.bookingId &&
+                        request.bookingId === currentRequest?.bookingId &&
                         classes.active
                       }
                       id={index === 0 ? classes.firstChild : ""}

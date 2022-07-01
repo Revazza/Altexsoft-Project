@@ -22,7 +22,6 @@ const notificationSlice = createSlice({
       state.msg='';
       state.showNotification=false;
       state.type='';
-      // state = {...initialState};
     },
     showSessionExpired(state)
     {

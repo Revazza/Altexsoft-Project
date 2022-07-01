@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Request.module.css";
-import { useHttp, useFetch,notificationActions } from "./imports";
+import { useHttp, useFetch, notificationActions } from "./imports";
 import { useDispatch } from "react-redux";
 const Request = (props) => {
   const { sendRequest } = useHttp();
@@ -17,10 +17,9 @@ const Request = (props) => {
   const imgSrc =
     data?.apartmentPicture.apartmentHeader +
     data?.apartmentPicture.apartmentPicture;
-  let requestStatusImgSrc;
-  if (currentStatus === 0) requestStatusImgSrc = "./assets/pending.png";
-  else if (currentStatus === 1) requestStatusImgSrc = "./assets/declined.png";
-  else requestStatusImgSrc = "./assets/accepted.png";
+  let requestStatusImgSrc = "./assets/pending.png";
+  if (currentStatus === 1) requestStatusImgSrc = "./assets/declined.png";
+  else if (currentStatus === 2) requestStatusImgSrc = "./assets/accepted.png";
 
   const handleRequestClick = () => {
     props.onRequestClick(props.request);
@@ -37,11 +36,15 @@ const Request = (props) => {
         },
       }
     );
-    if(!response.errorMsg)
-    {
-      dispatch(notificationActions.showNotification({type:'success',msg:response.data}))
+    if (!response.errorMsg) {
+      dispatch(
+        notificationActions.showNotification({
+          type: "success",
+          msg: response.data,
+        })
+      );
+      props.onDeleteRequest(props.request.bookingId);
     }
-    props.onDeleteRequest();
   };
 
   return (
@@ -70,6 +73,9 @@ const Request = (props) => {
             {currentStatus === 0 && <p>Pending...</p>}
             {currentStatus === 1 && <p id={classes.declined}>Declined</p>}
             {currentStatus === 2 && <p id={classes.accepted}>Accepted</p>}
+            {currentStatus === 3 && (
+              <p id={classes.not_possible}>Not Possible</p>
+            )}
           </div>
         </div>
       </div>

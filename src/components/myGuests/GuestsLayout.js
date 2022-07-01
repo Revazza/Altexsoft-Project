@@ -3,7 +3,6 @@ import classes from "./GuestsLayout.module.css";
 import jwt from "jwt-decode";
 import {
   getCookie,
-  useFetch,
   Error,
   Loading,
   Item,
@@ -13,7 +12,7 @@ import {
 
 function GuestsLayout() {
   const token = jwt(getCookie("token"));
-  const [guestData, setGuestData] = useState();
+  const [guests, setGuests] = useState();
   const { isLoading, error, sendRequest } = useHttp();
   const [someChanges, setSomeChanges] = useState(0);
 
@@ -29,8 +28,7 @@ function GuestsLayout() {
           },
         }
       );
-      console.log(response.data);
-      setGuestData(response.data);
+      setGuests(response.data);
     };
     fetchNewData();
   }, [someChanges]);
@@ -51,7 +49,7 @@ function GuestsLayout() {
   };
   const indexOfLastGuest = hotelsPerPage * currentPage;
   const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
-  const slicedArr = guestData?.slice(indexOfFirstGuest, indexOfLastGuest);
+  const slicedArr = guests?.slice(indexOfFirstGuest, indexOfLastGuest);
 
   const hasError = !isLoading && error;
   return (
@@ -59,7 +57,7 @@ function GuestsLayout() {
       <h2>Guests</h2>
       {hasError && <Error className={classes.error} />}
       {isLoading && <Loading />}
-      {guestData?.length === 0 && (
+      {guests?.length === 0 && (
         <div className={classes.no_request}>
           <div className={classes.user_msg}>
             <label>Inbox is empty</label>
@@ -82,7 +80,7 @@ function GuestsLayout() {
           <Pagination
             onPageClick={handlePageChange}
             currentPage={currentPage}
-            totalPageNumber={guestData?.length}
+            totalPageNumber={guests?.length}
             hotelsPerPage={hotelsPerPage}
           />
         </React.Fragment>
