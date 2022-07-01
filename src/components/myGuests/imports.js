@@ -3,7 +3,7 @@ export {default as Card}  from "../../UI/Card";
 export {default as useHttp}  from "../../hooks/useHttp";
 export {default as useFetch}  from "../../hooks/useFetch";
 export {useDispatch}  from "react-redux";
-export {default as notificationActions} from "../../store/store";
+export {notificationActions} from "../../store/store";
 export {default as Item}  from "./Item";
 export {default as Pagination}  from "../../UI/pagination/Pagination";
 export {getCookie} from "../../helperFunctions/HelperFunctions";

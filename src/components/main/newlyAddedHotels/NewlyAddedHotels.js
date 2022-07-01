@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Item from "./Item";
-import classes from "./PopularHotels.module.css";
-import useFetch from "../../../hooks/useFetch";
-import Loading from "../../../UI/loading/Loading";
-import Error from "../../../UI/error/Error";
+import React from "react";
+import classes from "./NewlyAddedHotels.module.css";
+import {Item,useFetch,Loading,Error} from './imports';
 function PopularHotels() {
   const { isLoading, error, data } = useFetch(
     "https://localhost:7043/api/Apartment?n=10"
   );
-
-
 
   const hasErrors = !isLoading && error;
   return (

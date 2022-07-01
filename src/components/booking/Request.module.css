@@ -140,13 +140,16 @@
 
   
 }
-@media screen and (max-width:700px)
-{
-  
-}
 
 @media screen and (max-width:500px)
 {
+  .wrapper{
+    display: initial;
+    height: 420px;
+  }
+  .info{
+    height: 50%;
+  }
   .info p{
     font-size: 11px;
   }
@@ -157,7 +160,7 @@
  .img_wrapper{
   height: 50%;
  }
- .ameneties{
-  word-wrap: break-word;
+ .remove_booking{
+    top: 377px;
  }
 }

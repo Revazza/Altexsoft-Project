@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 
 import classes from "./ChangeInformation.module.css";
 
-import {Button,ValidationInput,Card} from '../../imports';
+import { Button, ValidationInput } from "../../imports";
 //that was tough
 
 function ChangeInformation(props) {
   const resetFormClass = `${classes.reset_form} ${props.className}`;
   const { input } = { ...props.updateInfo };
   const { updateBtn } = { ...props.updateInfo };
-  const {name:inputName} = {...props.updateInfo.input};
+  const { name: inputName } = { ...props.updateInfo.input };
   const [newInformation, setNewInformation] = useState({});
   const [hideForm, setHideForm] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    if(newInformation[inputName]?.length !== 0)
-    {
+    if (newInformation[inputName]?.length !== 0) {
       setFormIsValid(true);
       return;
     }
@@ -35,9 +34,8 @@ function ChangeInformation(props) {
     let newValue = {
       [keyword]: obj[keyword],
     };
-    if(newValue[keyword]!==newInformation?.[keyword])
-    {
-      setNewInformation({...newValue});
+    if (newValue[keyword] !== newInformation?.[keyword]) {
+      setNewInformation({ ...newValue });
     }
   };
   const handleShowForm = () => {

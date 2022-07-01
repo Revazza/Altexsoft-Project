@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./ProfileInformation.module.css";
-import { Card } from "../imports";
 function ProfileInformation(props) {
 
   const imgSrc =

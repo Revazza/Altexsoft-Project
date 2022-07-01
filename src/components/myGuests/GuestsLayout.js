@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
 import classes from "./GuestsLayout.module.css";
 import jwt from "jwt-decode";
-import {getCookie,useFetch,Error,Loading,Item,Pagination} from './imports';
-
+import {
+  getCookie,
+  useFetch,
+  Error,
+  Loading,
+  Item,
+  Pagination,
+} from "./imports";
 
 function GuestsLayout() {
   const token = jwt(getCookie("token"));

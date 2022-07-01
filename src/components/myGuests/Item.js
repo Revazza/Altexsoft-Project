@@ -9,7 +9,6 @@ function Item(props) {
   const startDate = new Date(guest?.stayFrom).toISOString().split("T")[0];
   const endDate = new Date(guest?.stayTo).toISOString().split("T")[0];
 
-  console.log(guest);
   const handleConfigureGuestStatus = async (choice) => {
     const response = await sendRequest(
       `https://localhost:7043/api/Booking/GuestStatus/${guest.bookingId}?i=${choice}`,
@@ -37,7 +36,6 @@ function Item(props) {
         })
       );
     }
-    console.log(response);
   };
   return (
     <Card className={classes.wrapper}>

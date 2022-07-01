@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classes from "./Request.module.css";
-import {useHttp,useFetch} from './imports';
+import { useHttp, useFetch,notificationActions } from "./imports";
+import { useDispatch } from "react-redux";
 const Request = (props) => {
-
-  const {sendRequest} = useHttp();
-
+  const { sendRequest } = useHttp();
+  const dispatch = useDispatch();
   const activeClasses = `${classes.wrapper} ${props.className}`;
 
   const { apartmentId, currentStatus, stayFrom, stayTo } = props?.request;
@@ -26,17 +26,23 @@ const Request = (props) => {
     props.onRequestClick(props.request);
   };
 
-  const handleRequestDelete = async () =>{
-    const response = await sendRequest(`https://localhost:7043/api/Booking/${props.request.bookingId}`,{
-      method:'DELETE',
-      headers:{
-        "Content-Type": "application/json",
-        Accept: "application/json"
+  const handleRequestDelete = async () => {
+    const response = await sendRequest(
+      `https://localhost:7043/api/Booking/${props.request.bookingId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
       }
-    });
+    );
+    if(!response.errorMsg)
+    {
+      dispatch(notificationActions.showNotification({type:'success',msg:response.data}))
+    }
     props.onDeleteRequest();
-    
-  }
+  };
 
   return (
     <div className={activeClasses} onClick={handleRequestClick} id={props.id}>

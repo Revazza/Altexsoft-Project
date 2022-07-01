@@ -1,14 +1,15 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import Button from "../../../UI/Button";
 import classes from "./Item.module.css";
 import { useState } from "react";
-import useHttp from "../../../hooks/useHttp";
-import useFetch from "../../../hooks/useFetch";
-import { getCookie } from "../../../helperFunctions/HelperFunctions";
-import { notificationActions } from "../../../store/store";
 import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
+import {
+  Button,
+  useHttp,
+  useFetch,
+  getCookie,
+  notificationActions,
+} from "./imports";
 
 function Item(props) {
   const {
@@ -19,7 +20,7 @@ function Item(props) {
     apartmentId,
     address,
     apartmentPicture,
-    apartmentStatus
+    apartmentStatus,
   } = props.hotel;
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
@@ -50,7 +51,7 @@ function Item(props) {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization:`Bearer ${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
         },
         body: JSON.stringify(requestBody),
       }
@@ -69,7 +70,8 @@ function Item(props) {
     setEndDate(event.target.value);
   };
 
-  const buttonIsAvailable = startDate.length !== 0 && endDate.length !== 0 && apartmentStatus===null;
+  const buttonIsAvailable =
+    startDate.length !== 0 && endDate.length !== 0 && apartmentStatus === null;
   //getting current date in yyyy-mm-d format
   const minDate = new Date().toISOString().split("T")[0];
   const currentDate = new Date();
@@ -117,7 +119,7 @@ function Item(props) {
           <div className={classes.booking_btn}>
             <Button
               type="button"
-              title={apartmentStatus === null ? "Book Now":"Not Available"}
+              title={apartmentStatus === null ? "Book Now" : "Not Available"}
               disabled={!buttonIsAvailable}
               onClick={handleSubmission}
             />

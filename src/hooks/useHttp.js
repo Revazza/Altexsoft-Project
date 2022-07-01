@@ -14,7 +14,7 @@ function useHttp() {
         body: configure?.body ?? undefined,
       }
       if(getCookie('token'))
-        requestBody.headers['Authorization'] = `Bearer ${getCookie('token')}`;
+        requestBody.headers.Authorization = `Bearer ${getCookie('token')}`;
       const response = await fetch(url, requestBody);
       const responseData = await response.json();
       if (!response.ok)

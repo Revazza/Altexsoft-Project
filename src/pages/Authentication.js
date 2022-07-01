@@ -16,7 +16,6 @@ function Authentication() {
   const { isLoading, sendRequest } = useHttp();
   const history = useHistory();
   const handleNewUser = async (newUser) => {
-    console.log(newUser);
     const response = await sendRequest(
       "https://localhost:7043/api/User/Register",
       {
@@ -36,7 +35,6 @@ function Authentication() {
         })
       );
     } else {
-      console.log("i am success");
       dispatch(
         notificationActions.showNotification({
           msg: response.data,

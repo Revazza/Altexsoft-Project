@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./HotelMap.module.css";
 import GoogleMapReact from "google-map-react";
-import useHttp from '../../../hooks/useHttp';
+import { useHttp } from "../imports";
 
 const HotelMap = (props) => {
 

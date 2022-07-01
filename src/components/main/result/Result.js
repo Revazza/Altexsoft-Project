@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Result.module.css";
-import Item from "../popularHotels/Item";
+import Item from "../newlyAddedHotels/Item";
 import Pagination from "../../../UI/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import useHttp from "../../../hooks/useHttp";

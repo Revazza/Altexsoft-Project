@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import classes from "./ProfileLayout.module.css";
-import Card from "../../UI/Card";
-
 import {
   Apartment,
   ChangeProfile,

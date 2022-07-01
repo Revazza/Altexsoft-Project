@@ -91,7 +91,7 @@
 }
 @media screen and (max-width:925px){
   .form_wrapper{
-    margin-top: 150px;
+    margin-top: 70px;
     width: 700px;
     height: 900px;
   }
@@ -102,56 +102,45 @@
     height: 40px;
   }
 }
-@media screen and (max-width:650px) {
+
+@media screen and (max-width:750px){
   .form_wrapper{
-    width: 800px;
+    width: 90%;
+    height: 800px;
   }
+  .input_wrapper,.register_btn{
+    width: 80%;
+  }
+  
+}
+@media screen and (max-width:650px) {
   .form_wrapper h1{
-    font-size: 42px;
+    font-size: 30px;
   }
   .register_btn{
-    height: 50px;
+    height: 40px;
     font-size: 20px;
   }
   .register_btn button{
     font-size: 17px;
   }
   .form_section input{
-    font-size: 20px;
+    font-size: 15px;
   }
   .form_section input::placeholder{
-    font-size: 20px;
+    font-size: 15px;
   }
   #fileWrapper input{
-    margin-top: 20px;
+    margin-top: 15px;
   }
 }
 
-@media screen and (max-width:540px) {
+@media screen and (max-width:500px) {
   .form_wrapper{
-    width: 900px;
+    width: 95%;
+    height: 800px;
   }
-  .form_wrapper h1{
-    font-size: 42px;
-  }
-  .register_btn{
-    height: 50px;
-    font-size: 25px;
-  }
-  .register_btn button{
-    font-size: 20px;
-  }
-  .form_section input{
-    font-size: 23px;
-  }
-  .form_section input::placeholder{
-    font-size: 23px;
-  }
-  .input_wrapper{
-    height: 60px;
-  }
-  .register_btn{
-    margin-top: 25px;
-    height: 40px;
+  .input_wrapper,.register_btn{
+    width: 80%;
   }
 }
