@@ -8,8 +8,6 @@ function DropDownList(props) {
     setShowList((prevState) => !prevState);
   };
 
-
-
   const handleListItemClick = (itemValue) =>{
     const key = props.name.toLowerCase();
     props.onChangeValue({

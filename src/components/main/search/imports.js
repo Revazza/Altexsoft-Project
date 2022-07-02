@@ -25,10 +25,6 @@ export const dummy_cities = [
 ];
 export const dummy_bed = [
   {
-    id: 0,
-    value: 0,
-  },
-  {
     id: 1,
     value: 1,
   },

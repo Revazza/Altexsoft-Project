@@ -12,7 +12,6 @@ function Result() {
   const [apartments, setApartments] = useState();
   useEffect(() => {
     const fetchData = async (state) => {
-      // const currentDate = new Date().toISOString().split('T')[0];
       const requestBody = {
         address: state.address?.toLowerCase() ,
         bedNumber: state.bed,
@@ -20,7 +19,6 @@ function Result() {
         endDate: state.date?.endDate,
         city: state.city?.toLowerCase(),
       };
-      console.log(requestBody);
       const response = await sendRequest(`https://localhost:7043/api/search`, {
         method: "POST",
         body: JSON.stringify(requestBody),

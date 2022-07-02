@@ -1,19 +1,33 @@
 import React, { useState } from "react";
-import { DropDownList, Button, DateInput, Card, SearchBar,dummy_bed,dummy_cities } from "./imports";
+import {
+  DropDownList,
+  Button,
+  DateInput,
+  Card,
+  SearchBar,
+  dummy_bed,
+  dummy_cities,
+} from "./imports";
 import classes from "./Search.module.css";
 import { useHistory } from "react-router-dom";
 
-
 function Search() {
-  const [searchAttributes, setSearchAttributes] = useState(null);
+  const [searchAttributes, setSearchAttributes] = useState({});
   const history = useHistory();
+
+  const searchInputKeys = Object.keys(searchAttributes);
+  const isBtnDisabled =
+    !searchInputKeys.includes("address") ||
+    !searchInputKeys.includes("bed") ||
+    !searchInputKeys.includes("city") ||
+    searchAttributes.date?.startDate === undefined ||
+    searchAttributes.date?.endDate === undefined;
+
   const handleSubmission = (event) => {
     event.preventDefault();
-    if (searchAttributes !== null) {
-      history.push(`/result/${searchAttributes.address}`, {
-        state: searchAttributes,
-      });
-    }
+    history.push(`/result/${searchAttributes.address}`, {
+      state: searchAttributes,
+    });
   };
 
   const handleSearchValuesChange = (inputObj) => {
@@ -43,7 +57,12 @@ function Search() {
           />
         </div>
         <div className={classes.search_btn}>
-          <Button type="text" title="Search" onClick={handleSubmission} />
+          <Button
+            type="text"
+            title="Search"
+            onClick={handleSubmission}
+            disabled={isBtnDisabled}
+          />
         </div>
       </Card>
     </form>

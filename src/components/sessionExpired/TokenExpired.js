@@ -33,16 +33,18 @@ const TokenExpiredOverlay = () => {
   const history = useHistory();
   const passwordRef = useRef();
   const dispatch = useDispatch();
-  const handleSignOut = () => {
+  const handleSignOut = (e) => {
+    e.preventDefault();
     dispatch(authSliceActions.logout());
     dispatch(notificationActions.hideSessionExpired());
     history.push("/auth/login");
   };
-  const handleExtendSession = async () => {
+  console.log(error);
+  const handleExtendSession = async (e) => {
+    e.preventDefault();
     const password = passwordRef.current.value;
     if (password.length !== 0) {
       const username = jwt(getCookie('token')).Username;
-      // const username = "sandro";
       const response = await sendRequest(
         `https://localhost:7043/api/User/Login`,
         {
@@ -65,21 +67,22 @@ const TokenExpiredOverlay = () => {
   };
 
   return (
-    <section className={classes.wrapper}>
+    <form className={classes.wrapper} onSubmit={handleExtendSession}>
       <h2>Session Expired</h2>
       <div className={classes.password}>
         <Input type="password" placeholder="Password" ref={passwordRef} />
       </div>
-      {error && <p className={classes.error}>{error}</p>}
+      {error && <p className={classes.error}>Wrong Password</p>}
       <div className={classes.btn_wrapper}>
         <Button
           title="Sign Out"
+          type='button'
           className={classes.logut_btn}
           onClick={handleSignOut}
         />
-        <Button title="Extend Session" onClick={handleExtendSession} />
+        <Button title="Extend Session" type='submit' />
       </div>
-    </section>
+    </form>
   );
 };
 
