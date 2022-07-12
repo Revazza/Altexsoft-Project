@@ -1,7 +1,7 @@
 import React from "react";
 import { authSliceActions, notificationActions } from "../store/store";
 import jwt from "jwt-decode";
-
+import { useCallback } from "react";
 import {
   Register,
   Login,
@@ -9,13 +9,14 @@ import {
   useDispatch,
   useHistory,
   Route,
+  Loading,
 } from "./imports";
 
 function Authentication() {
   const dispatch = useDispatch();
   const { isLoading, sendRequest } = useHttp();
   const history = useHistory();
-  const handleNewUser = async (newUser) => {
+  const handleNewUser = useCallback (async (newUser) => {
     const response = await sendRequest(
       "https://localhost:7043/api/User/Register",
       {
@@ -43,8 +44,8 @@ function Authentication() {
       );
       history.push("/auth/login");
     }
-  };
-  const handleLogin = async (user) => {
+  },[]);
+  const handleLogin = useCallback (async (user) => {
     const response = await sendRequest(
       "https://localhost:7043/api/User/Login",
       {
@@ -70,18 +71,21 @@ function Authentication() {
       );
       history.push("/");
     }
-  };
+  },[]);
 
   return (
     <div className="Auth_wrapper">
-      <React.Fragment>
-        <Route path="/auth/register">
-          <Register onSubmit={handleNewUser} />
-        </Route>
-        <Route path="/auth/login">
-          <Login onSubmit={handleLogin} />
-        </Route>
-      </React.Fragment>
+      {isLoading && <Loading />}
+      {!isLoading && (
+        <React.Fragment>
+          <Route path="/auth/register">
+            <Register onSubmit={handleNewUser} />
+          </Route>
+          <Route path="/auth/login">
+            <Login onSubmit={handleLogin} />
+          </Route>
+        </React.Fragment>
+      )}
     </div>
   );
 }

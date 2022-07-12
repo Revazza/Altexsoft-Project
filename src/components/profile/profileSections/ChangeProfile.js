@@ -10,7 +10,7 @@ import {
   useHttp,
   getCookie,
   notificationActions,
-  useDispatch
+  useDispatch,
 } from "../imports";
 import jwt from "jwt-decode";
 function ChangeProfile(props) {
@@ -20,7 +20,9 @@ function ChangeProfile(props) {
   const handleUpdateInfo = async (newInfo) => {
     let key = Object.keys(newInfo)[0];
     let value = newInfo[key];
-    if (key !== "password") value = value.toLowerCase();
+    if (key !== "password") {
+      value = value.toLowerCase();
+    }
 
     key = key.charAt(0).toUpperCase() + key.slice(1);
     const userID = jwt(getCookie("token")).UserId;
@@ -39,11 +41,21 @@ function ChangeProfile(props) {
         body: JSON.stringify(requestBody),
       }
     );
-    if(response.errorMsg)
-      dispatch(notificationActions.showNotification({type:'error',msg:response.errorMsg}));
-    else{
-      dispatch(notificationActions.showNotification({type:'success',msg:response.data}))
-      props.onUpdate();
+    if (response.errorMsg)
+      dispatch(
+        notificationActions.showNotification({
+          type: "error",
+          msg: response.errorMsg,
+        })
+      );
+    else {
+      dispatch(
+        notificationActions.showNotification({
+          type: "success",
+          msg: response.data,
+        })
+      );
+      props.onUserDataUpdate({changed:key,value});
     }
   };
 

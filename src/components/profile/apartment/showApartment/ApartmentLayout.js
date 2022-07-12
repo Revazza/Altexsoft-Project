@@ -43,7 +43,7 @@ const ApartmentLayout = (props) => {
           msg: response.data,
         })
       );
-      props.onUpdate();
+      props.onHotelDelete({changed:'Apartment',value:null});
     }
   };
   const apartmentClasses = props.hideApartment

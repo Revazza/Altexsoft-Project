@@ -3,7 +3,7 @@ import classes from "./ProfileInformation.module.css";
 function ProfileInformation(props) {
 
   const imgSrc =
-    props.data?.userPicture.userHeader + props.data?.userPicture.userPicture;
+    props.userPicture?.userHeader + props.userPicture?.userPicture;
   const handleSettingsClick = () => {
     props.onSettingsClick();
   };
@@ -11,10 +11,10 @@ function ProfileInformation(props) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.img_wrapper}>
-        <img src={imgSrc ? imgSrc: './assets/Rectangle.png' } alt="Profile Picture" />
+        <img src={imgSrc ? imgSrc: './assets/Rectangle.png' } alt="Profile" />
       </div>
       <div className={classes.settings} onClick={handleSettingsClick}>
-        <img src="./assets/settings.png" />
+        <img src="./assets/settings.png" alt='settings'/>
       </div>
       <div className={classes.info_wrapper}>
         <div className={classes.info}>
@@ -22,7 +22,7 @@ function ProfileInformation(props) {
             <p>Username:</p>
           </div>
           <div>
-            <p>{props.data?.userName}</p>
+            <p>{props.username}</p>
           </div>
         </div>
         <div className={classes.info}>
@@ -30,7 +30,7 @@ function ProfileInformation(props) {
             <p>Email</p>
           </div>
           <div>
-            <p>{props.data?.email}</p>
+            <p>{props.email}</p>
           </div>
         </div>
       </div>

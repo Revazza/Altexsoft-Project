@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {getCookie} from '../helperFunctions/HelperFunctions';
+import { useEffect, useState } from "react";
+import { getCookie } from "../helperFunctions/HelperFunctions";
 function useFetch(url) {
   const [error, setError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
@@ -9,11 +9,11 @@ function useFetch(url) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const token = getCookie('token');
-        const response = await fetch(url,{
-          headers:{
-            Authorization:`Bearer ${token}`,
-          }
+        const token = getCookie("token");
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         if (!response.ok) {
           throw new Error("My Error");

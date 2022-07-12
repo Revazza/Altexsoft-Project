@@ -3,6 +3,7 @@ import classes from "./Request.module.css";
 import { useHttp, useFetch, notificationActions } from "./imports";
 import { useDispatch } from "react-redux";
 const Request = (props) => {
+
   const { sendRequest } = useHttp();
   const dispatch = useDispatch();
   const activeClasses = `${classes.wrapper} ${props.className}`;
@@ -18,8 +19,14 @@ const Request = (props) => {
     data?.apartmentPicture.apartmentHeader +
     data?.apartmentPicture.apartmentPicture;
   let requestStatusImgSrc = "./assets/pending.png";
-  if (currentStatus === 1) requestStatusImgSrc = "./assets/declined.png";
-  else if (currentStatus === 2) requestStatusImgSrc = "./assets/accepted.png";
+  if (currentStatus === 1)
+  {
+    requestStatusImgSrc = "./assets/declined.png";
+  }
+  else if (currentStatus === 2)
+  {
+    requestStatusImgSrc = "./assets/accepted.png";
+  }
 
   const handleRequestClick = () => {
     props.onRequestClick(props.request);
@@ -69,7 +76,7 @@ const Request = (props) => {
             {startDate} - {endDate}
           </p>
           <div className={classes.request_situation}>
-            <img src={requestStatusImgSrc} />
+            <img src={requestStatusImgSrc} alt='Request Status'/>
             {currentStatus === 0 && <p>Pending...</p>}
             {currentStatus === 1 && <p id={classes.declined}>Declined</p>}
             {currentStatus === 2 && <p id={classes.accepted}>Accepted</p>}
@@ -81,7 +88,7 @@ const Request = (props) => {
       </div>
       {currentStatus !== 2 && (
         <div className={classes.remove_booking} onClick={handleRequestDelete}>
-          <img src="./assets/close.png" />
+          <img src="./assets/close.png" alt="close"/>
         </div>
       )}
     </div>

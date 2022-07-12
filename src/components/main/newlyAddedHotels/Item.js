@@ -1,12 +1,10 @@
 import React from "react";
 import classes from "./Item.module.css";
 import { useState } from "react";
-import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
 import {
   Button,
   useHttp,
-  useFetch,
   getCookie,
   notificationActions,
 } from "./imports";
@@ -24,11 +22,9 @@ function Item(props) {
   } = props.hotel;
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
-  const { error, data } = useFetch(
-    `https://localhost:7043/api/User/${jwt(getCookie("token")).UserId}`
-  );
+
   let imgSrc = "./assets/Rectangle.png";
-  if (data) {
+  if (props.userInfo || props.isResultItem) {
     imgSrc =
       apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
   }
@@ -36,9 +32,9 @@ function Item(props) {
   const [endDate, setEndDate] = useState("");
   const handleSubmission = async () => {
     let requestBody = {
-      guestId: data.userId,
-      firstName: data.firstName,
-      lastName: data.lastName,
+      guestId: props.userInfo.userId,
+      firstName: props.userInfo.firstName,
+      lastName: props.userInfo.lastName,
       city,
       apartmentId,
       hostFrom: `${startDate}`,
@@ -85,7 +81,7 @@ function Item(props) {
     <div className={classes.item}>
       <div className={classes.descr_wrapper}>
         <div className={classes.img_wrapper}>
-          <img src={imgSrc} />
+          <img src={imgSrc} alt='Hotel' />
         </div>
         <article className={classes.characteristic}>
           <h4>{address}</h4>

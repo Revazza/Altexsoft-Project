@@ -66,8 +66,8 @@ function AddApartment(props) {
 
     if(!response.errorMsg)
     {
+      props.onHotelAdd({changed:'Apartment',value:response.data.apartmentId});
       dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
-      props.onUpdate();
     }
   };
 

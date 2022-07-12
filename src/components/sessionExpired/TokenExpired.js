@@ -39,7 +39,7 @@ const TokenExpiredOverlay = () => {
     dispatch(notificationActions.hideSessionExpired());
     history.push("/auth/login");
   };
-  console.log(error);
+  
   const handleExtendSession = async (e) => {
     e.preventDefault();
     const password = passwordRef.current.value;

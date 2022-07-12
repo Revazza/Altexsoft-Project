@@ -3,12 +3,12 @@ import Button from "../Button";
 import styles from "./Pagination.module.css";
 
 function Pagination({
-  hotelsPerPage,
+  itemsPerPage,
   totalPageNumber,
   onPageClick,
   currentPage,
 }) {
-  const division = totalPageNumber / hotelsPerPage;
+  const division = totalPageNumber / itemsPerPage;
   let pages = [];
 
   for (let i = 1; i <= Math.ceil(division); i++)  pages.push(i);

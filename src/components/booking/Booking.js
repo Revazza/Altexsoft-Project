@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./Booking.module.css";
 import jwt from "jwt-decode";
 import Request from "./Request";
@@ -20,10 +20,9 @@ function Booking() {
       setCurrentRequest(response.data[0]);
     };
     fetchData();
-  }, []);
+  }, [sendRequest,userID]);
 
-
-  const handleRequestDelete = (bookingId) => {
+  const handleRequestDelete = useCallback((bookingId) => {
     const filteredBookings = bookings.filter((booking, index) => {
       if (booking.bookingId === bookingId) {
         if(bookings.length === 1)
@@ -34,11 +33,18 @@ function Booking() {
       return booking.bookingId !== bookingId;
     });
     setBookings(filteredBookings);
-  };
+    if(window.innerWidth < 900)
+    {
+      setCarouselClass(
+        `translateX(${-carouselRef.current.clientWidth * (currentIndex - 1)}px)`
+      );
+      setCurrentIndex((prevState) => --prevState);
+    }
+  },[]);
 
-  const handleChangeRequest = (newInfo) => {
+  const handleChangeRequest = useCallback((newInfo) => {
     setCurrentRequest(newInfo);
-  };
+  },[]);
 
   const handleCarouselNextBtn = () => {
     if (currentIndex + 1 !== bookings.length) {
@@ -69,7 +75,7 @@ function Booking() {
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
             <label>No Bookings Found</label>
-            <img src="./assets/sad.png" />
+            <img src="./assets/sad.png" alt="No Bookings Found"/>
           </div>
         </div>
       )}

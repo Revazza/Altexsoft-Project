@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 import { getCookie } from "../helperFunctions/HelperFunctions";
 function useHttp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-
-  const sendRequest = async (url, configure) => {
+  const sendRequest = useCallback(async (url, configure) => {
     try {
       setIsLoading(true);
       const requestBody = {
@@ -14,11 +13,15 @@ function useHttp() {
         },
         body: configure?.body ?? undefined,
       };
-      if (getCookie("token"))
-        requestBody.headers.Authorization = `Bearer ${getCookie("token")}`;
+      const token = getCookie("token");
+      if (token) {
+        requestBody.headers.Authorization = `Bearer ${token}`;
+      }
       const response = await fetch(url, requestBody);
       const responseData = await response.json();
-      if (!response.ok) throw new Error(responseData);
+      if (!response.ok) {
+        throw new Error(responseData);
+      }
 
       setIsLoading(false);
       return { data: responseData };
@@ -27,7 +30,7 @@ function useHttp() {
       setError(error.message);
       return { errorMsg: error.message };
     }
-  };
+  }, []);
 
   return {
     sendRequest,
