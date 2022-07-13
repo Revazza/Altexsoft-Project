@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classes from "./Result.module.css";
 import Item from "../newlyAddedHotels/Item";
 import Pagination from "../../../UI/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import useHttp from "../../../hooks/useHttp";
-import { Loading } from "../newlyAddedHotels/imports";
+import { Loading, getCookie } from "../newlyAddedHotels/imports";
+import jwt from "jwt-decode";
 
 function Result() {
   const location = useLocation();
-  const { sendRequest,isLoading} = useHttp();
+  const { sendRequest, isLoading } = useHttp();
   const [apartments, setApartments] = useState();
+
+  const userInfo = jwt(getCookie("token"));
+
   useEffect(() => {
     const fetchData = async (state) => {
       const requestBody = {
-        address: state.address?.toLowerCase() ,
+        address: state.address?.toLowerCase(),
         bedNumber: state.bed,
         startDate: state.date?.startDate,
         endDate: state.date?.endDate,
@@ -30,7 +34,7 @@ function Result() {
       }
     };
     fetchData(location.state.state);
-  }, [location.state.state]);
+  }, [location.state.state, sendRequest]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 8;
@@ -38,9 +42,9 @@ function Result() {
   const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
   const slicedArr = apartments?.slice(indexOfFirstHotel, indexOfLastHotel);
 
-  const setPage = (newPage) => {
+  const setPage = useCallback((newPage) => {
     setCurrentPage(newPage);
-  };
+  }, []);
 
   return (
     <section className={classes.result_section}>
@@ -54,12 +58,18 @@ function Result() {
       {slicedArr?.length > 0 && (
         <div className={classes.container}>
           {slicedArr?.map((apartment) => {
-            return <Item key={apartment.apartmentId} hotel={apartment} />;
+            return (
+              <Item
+                key={apartment.apartmentId}
+                hotel={apartment}
+                userInfo={userInfo}
+              />
+            );
           })}
         </div>
       )}
       <Pagination
-        hotelsPerPage={hotelsPerPage}
+        itemsPerPage={hotelsPerPage}
         totalPageNumber={apartments?.length}
         onPageClick={setPage}
         currentPage={currentPage}

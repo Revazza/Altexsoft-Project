@@ -29,7 +29,7 @@ function Search() {
       state: searchAttributes,
     });
   };
-
+  
   const handleSearchValuesChange = (inputObj) => {
     setSearchAttributes((prevState) => {
       return { ...prevState, ...inputObj };

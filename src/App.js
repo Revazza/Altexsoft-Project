@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import {
   Home,
@@ -32,21 +32,21 @@ function App() {
   );
   const location = useLocation();
   useEffect(() => {
-    if (getCookie("token")) {
-      dispatch(authSliceActions.login({ token: getCookie("token") }));
-      dispatch(authSliceActions.setToken(getCookie("token")));
+    const token = getCookie('token');
+    if (token) {
+      dispatch(authSliceActions.login({ token: token }));
       history.push("/");
     } else {
       history.push("/auth/login");
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const sessionExp = new Date(getCookie("tokenExp"));
     const currentTime = new Date();
     if (currentTime.getTime() > sessionExp.getTime())
       dispatch(notificationActions.showSessionExpired());
-  }, [location]);
+  }, [dispatch,location]);
 
   return (
     <div className="App">

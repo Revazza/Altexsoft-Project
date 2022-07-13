@@ -22,7 +22,11 @@ export const validateEmail = (email) => {
 };
 
 export const validateNameOrLastname = (str, inputName) => {
-  if (str.trim().length <= 1)
+  if(str.includes(' '))
+  {
+    return { isValid: false, errorMsg: `Spaces not allowed` };
+  }
+  else if (str.trim().length <= 1)
     return { isValid: false, errorMsg: `${inputName} is too short` };
   else if (str.trim().length > 30) {
     if (inputName === "firstName") {
@@ -45,9 +49,13 @@ export const validatePassword = (password) => {
 };
 
 export const validateUsername = (username) => {
-  if(username.trim().length < 5)
+  if(username.includes(' '))
+  {
+    return {isValid:false,errorMsg:'Spaces not allowed'};
+  }
+  else if(username.trim().length < 5)
     return {isValid:false,errorMsg:'Username is too short'};
-  if(username.trim().length > 25)
+  else if(username.trim().length > 15)
     return {isValid:false,errorMsg:"Username can't be more than 25 characters"}
   
   return {isValid:true,errorMsg:''};

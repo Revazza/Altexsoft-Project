@@ -3,8 +3,9 @@ import classes from "./NewlyAddedHotels.module.css";
 import { Item, useFetch, Loading, Error } from "./imports";
 function PopularHotels() {
   const { isLoading, error, data } = useFetch(
-    "https://localhost:7043/api/Apartment?n=10"
+    "https://localhost:7043/api/Apartment?n=8"
   );
+  
 
   const hasErrors = !isLoading && error;
   return (
@@ -15,7 +16,9 @@ function PopularHotels() {
       {!hasErrors && (
         <div className={classes.wrapper}>
           {data?.map((hotel) => {
-            return <Item key={hotel.apartmentId} hotel={hotel} />;
+            return (
+              <Item key={hotel.apartmentId} hotel={hotel} />
+            );
           })}
         </div>
       )}

@@ -17,6 +17,7 @@ const HotelMap = (props) => {
       setLat(+splittedCoordinates[0]);
       setLng(+splittedCoordinates[1]);
     }
+    
     if(props.apartment)
     {
       fetchApartmentData(props.apartment.apartmentId);

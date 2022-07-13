@@ -1,12 +1,11 @@
 import React from "react";
 import classes from "./Item.module.css";
 import { useState } from "react";
-import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
+import jwt from 'jwt-decode';
 import {
   Button,
   useHttp,
-  useFetch,
   getCookie,
   notificationActions,
 } from "./imports";
@@ -24,21 +23,21 @@ function Item(props) {
   } = props.hotel;
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
-  const { error, data } = useFetch(
-    `https://localhost:7043/api/User/${jwt(getCookie("token")).UserId}`
-  );
+
+
   let imgSrc = "./assets/Rectangle.png";
-  if (data) {
+  if (apartmentPicture) {
     imgSrc =
       apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
   }
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const handleSubmission = async () => {
+    const userInfo = jwt(getCookie('token'));
     let requestBody = {
-      guestId: data.userId,
-      firstName: data.firstName,
-      lastName: data.lastName,
+      guestId: userInfo.UserId,
+      firstName: userInfo.FirstName,
+      lastName: userInfo.LastName,
       city,
       apartmentId,
       hostFrom: `${startDate}`,
@@ -59,7 +58,7 @@ function Item(props) {
     dispatch(
       notificationActions.showNotification({
         type: !response.errorMsg ? "success" : "error",
-        msg: !response.errorMsg ? response.data : response.errorMsg,
+        msg: !response.errorMsg ? 'Stay Requested' : response.errorMsg,
       })
     );
   };
@@ -85,7 +84,7 @@ function Item(props) {
     <div className={classes.item}>
       <div className={classes.descr_wrapper}>
         <div className={classes.img_wrapper}>
-          <img src={imgSrc} />
+          <img src={imgSrc} alt='Hotel' />
         </div>
         <article className={classes.characteristic}>
           <h4>{address}</h4>

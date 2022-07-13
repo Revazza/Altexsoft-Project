@@ -23,9 +23,6 @@ const authSlice = createSlice({
       if(action.payload.exp)
         document.cookie = `tokenExp=${date};expires=${date}; path=/`;
     },
-    setToken(state, action) {
-      state.token = action.payload;
-    },
   },
 });
 

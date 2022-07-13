@@ -10,11 +10,12 @@ function ValidationInput(props) {
     });
 
   useEffect(() => {
-    if (input.isValid) {
-      props.onChangeValue({ [props.inputName]: value });
-    } else {
-      props.onChangeValue({ [props.inputName]:''});
-    }
+    props.onChangeValue({ [props.inputName]: input.isValid ? value : "" });
+    // if (input.isValid) {
+    //   props.onChangeValue({ [props.inputName]: value });
+    // } else {
+    //   props.onChangeValue({ [props.inputName]:''});
+    // }
   }, [value, input]);
 
   return (

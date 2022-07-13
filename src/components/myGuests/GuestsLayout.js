@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import classes from "./GuestsLayout.module.css";
 import jwt from "jwt-decode";
 import {
@@ -10,16 +10,16 @@ import {
   useHttp,
 } from "./imports";
 
+
 function GuestsLayout() {
-  const token = jwt(getCookie("token"));
+  const userID = jwt(getCookie("token")).UserId;
   const [guests, setGuests] = useState();
   const { isLoading, error, sendRequest } = useHttp();
   const [someChanges, setSomeChanges] = useState(0);
-
   useEffect(() => {
     const fetchNewData = async () => {
       const response = await sendRequest(
-        `https://localhost:7043/api/Booking/GuestProfile/${token.UserId}`,
+        `https://localhost:7043/api/Booking/GuestProfile/${userID}`,
         {
           method: "GET",
           headers: {
@@ -31,24 +31,24 @@ function GuestsLayout() {
       setGuests(response.data);
     };
     fetchNewData();
-  }, [someChanges]);
+  }, [someChanges,sendRequest,userID]);
 
   const handleSomeChange = () => {
     setSomeChanges((prevState) => ++prevState);
   };
 
-  const hotelsPerPage = 5;
+  const guestsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const topPosition = useRef();
-  const handlePageChange = (newPage) => {
+  const handlePageChange = useCallback((newPage) => {
     setCurrentPage(newPage);
     window.scrollTo({
       top: topPosition,
       behavior: "smooth",
     });
-  };
-  const indexOfLastGuest = hotelsPerPage * currentPage;
-  const indexOfFirstGuest = indexOfLastGuest - hotelsPerPage;
+  },[]);
+  const indexOfLastGuest = guestsPerPage * currentPage;
+  const indexOfFirstGuest = indexOfLastGuest - guestsPerPage;
   const slicedArr = guests?.slice(indexOfFirstGuest, indexOfLastGuest);
 
   const hasError = !isLoading && error;
@@ -61,7 +61,7 @@ function GuestsLayout() {
         <div className={classes.no_request}>
           <div className={classes.user_msg}>
             <label>Inbox is empty</label>
-            <img src="./assets/empty-box.png" />
+            <img src="./assets/empty-box.png" alt='Empty Box'/>
           </div>
         </div>
       )}
@@ -81,7 +81,7 @@ function GuestsLayout() {
             onPageClick={handlePageChange}
             currentPage={currentPage}
             totalPageNumber={guests?.length}
-            hotelsPerPage={hotelsPerPage}
+            itemsPerPage={guestsPerPage}
           />
         </React.Fragment>
       )}

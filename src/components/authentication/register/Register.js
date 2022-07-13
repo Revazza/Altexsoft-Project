@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import classes from "./Register.module.css";
 import ValidationInput from "../../../UI/input/validationInput/ValidationInput";
 import {
@@ -19,7 +19,7 @@ function Register(props) {
   const [rePassword, setRePassword] = useState("");
   const [image, setImage] = useState(null);
 
-  const handleInputValueChange = (obj) => {
+  const handleInputValueChange = useCallback((obj) => {
     let keyName = Object.keys(obj)[0];
     let value = obj[keyName];
     if (keyName === "firstName") setFirstName(value);
@@ -28,29 +28,32 @@ function Register(props) {
     else if (keyName === "email") setEmail(value);
     else if (keyName === "password") setPassword(value);
     else setRePassword(value);
-  };
+  }, []);
 
   const handleSubmission = (event) => {
     event.preventDefault();
-    const imageType = image.substring(0,image.indexOf(',')+1);
-    const image64 = image.substring(image.indexOf(",")+1);
+    const imageType = image.substring(0, image.indexOf(",") + 1);
+    const image64 = image.substring(image.indexOf(",") + 1);
     let newUser = {
       firstName,
       lastName,
       userName,
       email,
       password,
-      userPictureBase64:image64,
-      userPictureHeader:imageType,
+      userPictureBase64: image64,
+      userPictureHeader: imageType,
     };
     props.onSubmit(newUser);
   };
 
-  const validateRePass = (rePass) => {
-    if (password !== rePass)
-      return { isValid: false, errorMsg: "Passwords don't match" };
-    return { isValid: true, errorMsg: "" };
-  };
+  const validateRePass = useCallback(
+    (rePass) => {
+      if (password !== rePass)
+        return { isValid: false, errorMsg: "Passwords don't match" };
+      return { isValid: true, errorMsg: "" };
+    },
+    [password]
+  );
 
   const fileChangeHandler = (event) => {
     let files = event.target.files;
