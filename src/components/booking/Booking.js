@@ -2,49 +2,44 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import classes from "./Booking.module.css";
 import jwt from "jwt-decode";
 import Request from "./Request";
-import { HotelMap, getCookie, Error, useHttp } from "./imports";
+import { HotelMap, getCookie, Error, useFetch } from "./imports";
 function Booking() {
   const userID = jwt(getCookie("token")).UserId;
-  const { isLoading, error, sendRequest } = useHttp();
   const [currentRequest, setCurrentRequest] = useState();
   const [bookings, setBookings] = useState();
   const carouselRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [carouselClass, setCarouselClass] = useState(``);
+  const { isLoading, error, data } = useFetch(
+    `https://localhost:7043/api/Booking/BookingProfile/${userID}`
+  );
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await sendRequest(
-        `https://localhost:7043/api/Booking/BookingProfile/${userID}`
-      );
-      setBookings(response.data);
-      setCurrentRequest(response.data[0]);
-    };
-    fetchData();
-  }, [sendRequest,userID]);
+    if (data) {
+      setBookings(data);
+      setCurrentRequest(data[0]);
+    }
+  }, [data]);
 
-  const handleRequestDelete = useCallback((bookingId) => {
+  const handleRequestDelete = (bookingId) => {
     const filteredBookings = bookings.filter((booking, index) => {
       if (booking.bookingId === bookingId) {
-        if(bookings.length === 1)
-          setCurrentRequest(bookings[0])
-        else
-          setCurrentRequest(bookings[index - 1]);
+        if (bookings.length === 1) setCurrentRequest(bookings[0]);
+        else setCurrentRequest(bookings[index - 1]);
       }
       return booking.bookingId !== bookingId;
     });
     setBookings(filteredBookings);
-    if(window.innerWidth < 900)
-    {
+    if (window.innerWidth < 900) {
       setCarouselClass(
         `translateX(${-carouselRef.current.clientWidth * (currentIndex - 1)}px)`
       );
       setCurrentIndex((prevState) => --prevState);
     }
-  },[]);
+  };
 
   const handleChangeRequest = useCallback((newInfo) => {
     setCurrentRequest(newInfo);
-  },[]);
+  }, []);
 
   const handleCarouselNextBtn = () => {
     if (currentIndex + 1 !== bookings.length) {
@@ -75,7 +70,7 @@ function Booking() {
         <div className={classes.no_bookings_found}>
           <div className={classes.user_msg}>
             <label>No Bookings Found</label>
-            <img src="./assets/sad.png" alt="No Bookings Found"/>
+            <img src="./assets/sad.png" alt="No Bookings Found" />
           </div>
         </div>
       )}

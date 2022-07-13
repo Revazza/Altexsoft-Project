@@ -20,12 +20,13 @@ function useHttp() {
       const response = await fetch(url, requestBody);
       const responseData = await response.json();
       if (!response.ok) {
-        throw new Error(responseData);
+        throw new Error(responseData.Message);
       }
 
       setIsLoading(false);
       return { data: responseData };
     } catch (error) {
+      console.log('error: ',error)
       setIsLoading(false);
       setError(error.message);
       return { errorMsg: error.message };

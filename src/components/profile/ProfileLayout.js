@@ -45,6 +45,7 @@ function ProfileLayout(props) {
       setUsername(newData.value);
     }
     else{
+      console.log(newData);
       setApartmentID(newData.value);
     }
   }

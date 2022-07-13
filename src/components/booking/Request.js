@@ -1,10 +1,8 @@
 import React from "react";
 import classes from "./Request.module.css";
-import { useHttp, useFetch, notificationActions } from "./imports";
+import { useFetch, notificationActions, getCookie } from "./imports";
 import { useDispatch } from "react-redux";
 const Request = (props) => {
-
-  const { sendRequest } = useHttp();
   const dispatch = useDispatch();
   const activeClasses = `${classes.wrapper} ${props.className}`;
 
@@ -19,12 +17,9 @@ const Request = (props) => {
     data?.apartmentPicture.apartmentHeader +
     data?.apartmentPicture.apartmentPicture;
   let requestStatusImgSrc = "./assets/pending.png";
-  if (currentStatus === 1)
-  {
+  if (currentStatus === 1) {
     requestStatusImgSrc = "./assets/declined.png";
-  }
-  else if (currentStatus === 2)
-  {
+  } else if (currentStatus === 2) {
     requestStatusImgSrc = "./assets/accepted.png";
   }
 
@@ -33,21 +28,23 @@ const Request = (props) => {
   };
 
   const handleRequestDelete = async () => {
-    const response = await sendRequest(
+    //Status Code 204 - Doesn't return anything
+    //useHttp won't work here
+    const response = await fetch(
       `https://localhost:7043/api/Booking/${props.request.bookingId}`,
       {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       }
     );
-    if (!response.errorMsg) {
+
+    if (response.ok) {
       dispatch(
         notificationActions.showNotification({
           type: "success",
-          msg: response.data,
+          msg: 'Booking Removed',
         })
       );
       props.onDeleteRequest(props.request.bookingId);
@@ -76,7 +73,7 @@ const Request = (props) => {
             {startDate} - {endDate}
           </p>
           <div className={classes.request_situation}>
-            <img src={requestStatusImgSrc} alt='Request Status'/>
+            <img src={requestStatusImgSrc} alt="Request Status" />
             {currentStatus === 0 && <p>Pending...</p>}
             {currentStatus === 1 && <p id={classes.declined}>Declined</p>}
             {currentStatus === 2 && <p id={classes.accepted}>Accepted</p>}
@@ -88,7 +85,7 @@ const Request = (props) => {
       </div>
       {currentStatus !== 2 && (
         <div className={classes.remove_booking} onClick={handleRequestDelete}>
-          <img src="./assets/close.png" alt="close"/>
+          <img src="./assets/close.png" alt="close" />
         </div>
       )}
     </div>

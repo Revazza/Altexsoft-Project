@@ -5,7 +5,6 @@ import {
   GoogleMapReact,
   Button,
   useFetch,
-  useHttp,
   getCookie,
   useDispatch,
   notificationActions,
@@ -14,7 +13,6 @@ import jwt from "jwt-decode";
 const ApartmentLayout = (props) => {
   const dispatch = useDispatch();
   const token = getCookie("token");
-  const { sendRequest } = useHttp();
   const { data } = useFetch(
     `https://localhost:7043/api/Apartment/${props.apartmentID}`
   );
@@ -29,21 +27,25 @@ const ApartmentLayout = (props) => {
     data?.apartmentPicture.apartmentHeader +
     data?.apartmentPicture.apartmentPicture;
   const handleDeleteHotel = async () => {
-    const response = await sendRequest(`https://localhost:7043/api/Apartment/${jwt(token).UserId}`, {
-      method: "DELETE",
-      headers:{
-        Accept: "application/json",
+    const response = await fetch(
+      `https://localhost:7043/api/Apartment/${jwt(token).UserId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          Authorization:`Bearer ${token}`,
+        },
       }
-    });
-    if(!response.errorMsg)
-    {
+    );
+
+    if (response.ok) {
       dispatch(
         notificationActions.showNotification({
           type: "success",
-          msg: response.data,
+          msg: 'Hotel Removed',
         })
       );
-      props.onHotelDelete({changed:'Apartment',value:null});
+      props.onHotelDelete({ changed: "Apartment", value: null });
     }
   };
   const apartmentClasses = props.hideApartment
@@ -54,7 +56,10 @@ const ApartmentLayout = (props) => {
     <div className={apartmentClasses}>
       <div className={classes.info_wrapper}>
         <div className={classes.img_wrapper}>
-          <img src={imgSrc ? imgSrc :"./assets/Rectangle.png"} alt="Your Hotel" />
+          <img
+            src={imgSrc ? imgSrc : "./assets/Rectangle.png"}
+            alt="Your Hotel"
+          />
         </div>
         <section className={classes.hotel_information}>
           <div className={classes.attributes_wrapper}>

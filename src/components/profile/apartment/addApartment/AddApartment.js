@@ -64,9 +64,11 @@ function AddApartment(props) {
       body: JSON.stringify(request),
     });
 
+    console.log(response);
     if(!response.errorMsg)
     {
-      props.onHotelAdd({changed:'Apartment',value:response.data.apartmentId});
+      
+      props.onHotelAdd({changed:'Apartment',value:response.data});
       dispatch(notificationActions.showNotification({type:'sucess',msg:'Hotel Added Successfuly'}))
     }
   };

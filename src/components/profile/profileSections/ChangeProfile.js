@@ -45,14 +45,14 @@ function ChangeProfile(props) {
       dispatch(
         notificationActions.showNotification({
           type: "error",
-          msg: response.errorMsg,
+          msg: "Username Already Registered",
         })
       );
     else {
       dispatch(
         notificationActions.showNotification({
           type: "success",
-          msg: response.data,
+          msg: "Username Changed",
         })
       );
       props.onUserDataUpdate({changed:key,value});

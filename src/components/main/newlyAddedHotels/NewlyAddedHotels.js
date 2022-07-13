@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classes from "./NewlyAddedHotels.module.css";
-import { Item, useFetch, Loading, Error, getCookie } from "./imports";
-import jwt from "jwt-decode";
+import { Item, useFetch, Loading, Error } from "./imports";
 function PopularHotels() {
   const { isLoading, error, data } = useFetch(
-    "https://localhost:7043/api/Apartment?n=10"
+    "https://localhost:7043/api/Apartment?n=8"
   );
-  const token = getCookie("token");
-  const { data: userData } = useFetch(
-    `https://localhost:7043/api/User/${
-      token ? jwt(token).UserId : ""
-    }`
-  );
-  const [userInfo, setUserInfo] = useState();
-
-  useEffect(() => {
-    if (userData) {
-      setUserInfo(userData);
-    }
-  }, [userData]);
+  
 
   const hasErrors = !isLoading && error;
   return (
@@ -30,7 +17,7 @@ function PopularHotels() {
         <div className={classes.wrapper}>
           {data?.map((hotel) => {
             return (
-              <Item key={hotel.apartmentId} hotel={hotel} userInfo={userInfo} />
+              <Item key={hotel.apartmentId} hotel={hotel} />
             );
           })}
         </div>

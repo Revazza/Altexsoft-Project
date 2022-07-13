@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Item.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import jwt from 'jwt-decode';
 import {
   Button,
   useHttp,
@@ -23,18 +24,20 @@ function Item(props) {
   const dispatch = useDispatch();
   const { sendRequest } = useHttp();
 
+
   let imgSrc = "./assets/Rectangle.png";
-  if (props.userInfo || props.isResultItem) {
+  if (apartmentPicture) {
     imgSrc =
       apartmentPicture.apartmentHeader + apartmentPicture.apartmentPicture;
   }
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const handleSubmission = async () => {
+    const userInfo = jwt(getCookie('token'));
     let requestBody = {
-      guestId: props.userInfo.userId,
-      firstName: props.userInfo.firstName,
-      lastName: props.userInfo.lastName,
+      guestId: userInfo.UserId,
+      firstName: userInfo.FirstName,
+      lastName: userInfo.LastName,
       city,
       apartmentId,
       hostFrom: `${startDate}`,
@@ -55,7 +58,7 @@ function Item(props) {
     dispatch(
       notificationActions.showNotification({
         type: !response.errorMsg ? "success" : "error",
-        msg: !response.errorMsg ? response.data : response.errorMsg,
+        msg: !response.errorMsg ? 'Stay Requested' : response.errorMsg,
       })
     );
   };

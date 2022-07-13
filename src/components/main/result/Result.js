@@ -4,12 +4,15 @@ import Item from "../newlyAddedHotels/Item";
 import Pagination from "../../../UI/pagination/Pagination";
 import { useLocation } from "react-router-dom";
 import useHttp from "../../../hooks/useHttp";
-import { Loading } from "../newlyAddedHotels/imports";
+import { Loading, getCookie } from "../newlyAddedHotels/imports";
+import jwt from "jwt-decode";
 
 function Result() {
   const location = useLocation();
   const { sendRequest, isLoading } = useHttp();
   const [apartments, setApartments] = useState();
+
+  const userInfo = jwt(getCookie("token"));
 
   useEffect(() => {
     const fetchData = async (state) => {
@@ -31,7 +34,7 @@ function Result() {
       }
     };
     fetchData(location.state.state);
-  }, [location.state.state,sendRequest]);
+  }, [location.state.state, sendRequest]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 8;
@@ -55,7 +58,13 @@ function Result() {
       {slicedArr?.length > 0 && (
         <div className={classes.container}>
           {slicedArr?.map((apartment) => {
-            return <Item key={apartment.apartmentId} hotel={apartment} isResultItem={true}/>;
+            return (
+              <Item
+                key={apartment.apartmentId}
+                hotel={apartment}
+                userInfo={userInfo}
+              />
+            );
           })}
         </div>
       )}

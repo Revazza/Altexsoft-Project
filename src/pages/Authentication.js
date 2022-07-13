@@ -38,7 +38,7 @@ function Authentication() {
     } else {
       dispatch(
         notificationActions.showNotification({
-          msg: response.data,
+          msg: "User Created",
           type: "success",
         })
       );
